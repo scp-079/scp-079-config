@@ -61,19 +61,21 @@ def answer(client, callback_query):
                                                 warn_default(config_key)
                                             else:
                                                 glovar.configs[config_key]["config"]["default"] = False
-                                        elif action == "limit":
-                                            if action_type:
-                                                glovar.configs[config_key]["config"]["limit"] = data
-                                            else:
-                                                thread(answer_callback, (client, callback_query.id, ""))
-                                                return
-                                        elif action == "mention":
-                                            glovar.configs[config_key]["config"]["mention"] = data
-                                        elif action == "report":
-                                            if action_type == "auto":
-                                                glovar.configs[config_key]["config"]["report"]["auto"] = data
-                                            elif action_type == "manual":
-                                                glovar.configs[config_key]["config"]["report"]["manual"] = data
+                                        else:
+                                            glovar.configs[config_key]["config"]["default"] = False
+                                            if action == "limit":
+                                                if action_type:
+                                                    glovar.configs[config_key]["config"]["limit"] = data
+                                                else:
+                                                    thread(answer_callback, (client, callback_query.id, ""))
+                                                    return
+                                            elif action == "mention":
+                                                glovar.configs[config_key]["config"]["mention"] = data
+                                            elif action == "report":
+                                                if action_type == "auto":
+                                                    glovar.configs[config_key]["config"]["report"]["auto"] = data
+                                                elif action_type == "manual":
+                                                    glovar.configs[config_key]["config"]["report"]["manual"] = data
 
                                         markup = warn_button(glovar.configs[config_key]["config"])
                                         edit_message_reply_markup(client, cid, mid, markup)
