@@ -38,6 +38,7 @@ def answer(client, callback_query):
         uid = callback_query.from_user.id
         mid = callback_query.message.message_id
         callback_data = loads(callback_query.data)
+        logger.warning(callback_data)
         action = callback_data["a"]
         action_type = callback_data["t"]
         data = callback_data["d"]
@@ -73,6 +74,8 @@ def answer(client, callback_query):
                                 markup = warn_button(glovar.configs[config_key]["config"])
                                 thread(edit_message_reply_markup, (client, cid, mid, markup))
                 else:
-                    thread(answer_callback, (client, callback_query.id, "已被其他管理员处理"))
+                    thread(answer_callback, (client, callback_query.id, "已提交或失效"))
+        else:
+            thread(answer_callback, (client, callback_query.id, ""))
     except Exception as e:
         logger.warning(f"Answer callback error: {e}", exc_info=True)

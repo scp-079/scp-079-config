@@ -125,7 +125,7 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '☑️' if x else '✅')(config['default'])}",
+                    f"{(lambda x: '✅' if x else '☑️')(config['default'])}",
                     callback_data=button_data("default", None, ~config['default'])
                 )
             ],
@@ -157,7 +157,7 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '☑️' if x else '✅')(config['mention'])}",
+                    f"{(lambda x: '✅' if x else '☑️')(config['mention'])}",
                     callback_data=button_data("mention", None, ~config['mention'])
                 )
             ],
@@ -167,7 +167,7 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '☑️' if x else '✅')(config['report']['auto'])}",
+                    f"{(lambda x: '✅' if x else '☑️')(config['report']['auto'])}",
                     callback_data=button_data("report", "auto", ~config['report']['manual'])
                 )
             ],
@@ -177,7 +177,7 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '☑️' if x else '✅')(config['report']['manual'])}",
+                    f"{(lambda x: '✅' if x else '☑️')(config['report']['manual'])}",
                     callback_data=button_data("report", "manual", ~config['report']['manual'])
                 )
             ],
