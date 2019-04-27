@@ -91,6 +91,8 @@ try:
 except Exception as e:
     logger.warning(f"Read data from config.ini error: {e}", exc_info=True)
 
+logger.warning(test_group_id)
+
 # Check
 if (bot_token in {"", "[DATA EXPUNGED]"}
         or prefix == []

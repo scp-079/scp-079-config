@@ -34,6 +34,7 @@ logger = logging.getLogger(__name__)
                    & Filters.command(["version"], glovar.prefix))
 def version(client, message):
     try:
+        logger.warning("version")
         cid = message.chat.id
         mid = message.message_id
         text = f"版本：{bold(glovar.version)}"
