@@ -45,34 +45,39 @@ def answer(client, callback_query):
         if action != "none":
             config_key = callback_query.message.text.split("\n")[0].split("：")[1]
             if glovar.configs.get(config_key):
-                aid = glovar.configs[config_key]["user_id"]
-                if uid == aid:
-                    if not glovar.configs[config_key]["commit"]:
-                        if action == "commit":
-                            commit_change(client, config_key)
-                        else:
-                            config_type = glovar.configs[config_key]["type"]
-                            if config_type == "warn":
-                                if action == "default":
-                                    if data:
-                                        warn_default(config_key)
-                                    else:
-                                        glovar.configs[config_key]["config"]["default"] = False
-                                elif action == "limit":
-                                    if action_type:
-                                        glovar.configs[config_key]["config"]["limit"] = data
-                                    else:
-                                        thread(answer_callback, (client, callback_query.id, ""))
-                                elif action == "mention":
-                                    glovar.configs[config_key]["mention"] = data
-                                elif action == "report":
-                                    if action_type == "auto":
-                                        glovar.configs[config_key]["report"]["auto"] = data
-                                    elif action_type == "manual":
-                                        glovar.configs[config_key]["report"]["manual"] = data
+                if not glovar.configs[config_key].get("locked"):
+                    try:
+                        glovar.configs[config_key]["locked"] = True
+                        aid = glovar.configs[config_key]["user_id"]
+                        if uid == aid:
+                            if not glovar.configs[config_key]["commit"]:
+                                if action == "commit":
+                                    commit_change(client, config_key)
+                                else:
+                                    config_type = glovar.configs[config_key]["type"]
+                                    if config_type == "warn":
+                                        if action == "default":
+                                            if data:
+                                                warn_default(config_key)
+                                            else:
+                                                glovar.configs[config_key]["config"]["default"] = False
+                                        elif action == "limit":
+                                            if action_type:
+                                                glovar.configs[config_key]["config"]["limit"] = data
+                                            else:
+                                                thread(answer_callback, (client, callback_query.id, ""))
+                                        elif action == "mention":
+                                            glovar.configs[config_key]["config"]["mention"] = data
+                                        elif action == "report":
+                                            if action_type == "auto":
+                                                glovar.configs[config_key]["config"]["report"]["auto"] = data
+                                            elif action_type == "manual":
+                                                glovar.configs[config_key]["config"]["report"]["manual"] = data
 
-                                markup = warn_button(glovar.configs[config_key]["config"])
-                                thread(edit_message_reply_markup, (client, cid, mid, markup))
+                                        markup = warn_button(glovar.configs[config_key]["config"])
+                                        thread(edit_message_reply_markup, (client, cid, mid, markup))
+                    finally:
+                        glovar.configs[config_key]["locked"] = False
                 else:
                     thread(answer_callback, (client, callback_query.id, "已提交或失效"))
         else:
