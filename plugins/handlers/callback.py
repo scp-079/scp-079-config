@@ -66,6 +66,7 @@ def answer(client, callback_query):
                                                 glovar.configs[config_key]["config"]["limit"] = data
                                             else:
                                                 thread(answer_callback, (client, callback_query.id, ""))
+                                                return
                                         elif action == "mention":
                                             glovar.configs[config_key]["config"]["mention"] = data
                                         elif action == "report":
