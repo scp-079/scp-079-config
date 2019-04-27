@@ -59,9 +59,9 @@ def process_data(client, message):
                         text, markup = get_config_message(config_key)
                         sent_message = send_message(client, glovar.config_channel_id, text, None, markup)
                         if sent_message:
-                            glovar.config[config_key]["message_id"] = sent_message.message_id
+                            glovar.configs[config_key]["message_id"] = sent_message.message_id
                             delay(300, check_commit, [client, config_key])
                         else:
-                            glovar.config.pop(config_key, None)
+                            glovar.configs.pop(config_key, None)
     except Exception as e:
         logger.warning(f"Process data error: {e}", exc_info=True)
