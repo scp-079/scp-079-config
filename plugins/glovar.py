@@ -105,7 +105,6 @@ if (bot_token in {"", "[DATA EXPUNGED]"}
         or project_name in {"", "[DATA EXPUNGED]"}
         or warn_link in {"", "[DATA EXPUNGED]"}
         or warn_name in {"", "[DATA EXPUNGED]"}):
-    logger.critical("No proper settings")
     raise SystemExit('No proper settings')
 
 # Start program

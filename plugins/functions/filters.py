@@ -53,7 +53,6 @@ def is_exchange_channel(_, message: Message) -> bool:
 
 
 def is_test_group(_, message: Message) -> bool:
-    logger.warning(message)
     cid = message.chat.id
     if cid == glovar.test_group_id:
         return True
