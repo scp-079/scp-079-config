@@ -135,14 +135,14 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
+                    f"{config['limit']}",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
                     f"{(lambda x: '-️' if x > 2 else '*')(config['limit'])}",
                     callback_data=button_data("limit",
                                               (lambda x: "set" if x > 2 else None)(config['limit']),
                                               config['limit'] - 1)
-                ),
-                InlineKeyboardButton(
-                    f"{config['limit']}",
-                    callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
                     f"{(lambda x: '+️' if x < 5 else '*')(config['limit'])}",
