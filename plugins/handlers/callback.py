@@ -83,7 +83,9 @@ def answer(client, callback_query):
                     finally:
                         glovar.configs[config_key]["locked"] = False
                 else:
-                    thread(answer_callback, (client, callback_query.id, "已提交或失效"))
+                    thread(answer_callback, (client, callback_query.id, ""))
+            else:
+                thread(answer_callback, (client, callback_query.id, "已提交或失效"))
         else:
             thread(answer_callback, (client, callback_query.id, ""))
     except Exception as e:
