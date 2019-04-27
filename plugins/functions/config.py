@@ -168,7 +168,7 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
                 ),
                 InlineKeyboardButton(
                     f"{(lambda x: '✅' if x else '☑️')(config['report']['auto'])}",
-                    callback_data=button_data("report", "auto", not config['report']['manual'])
+                    callback_data=button_data("report", "auto", not config['report']['auto'])
                 )
             ],
             [
