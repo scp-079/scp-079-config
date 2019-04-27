@@ -22,7 +22,7 @@ from pyrogram import Client, Filters
 
 from .. import glovar
 from ..functions.config import check_commit, get_config_message
-from ..functions.etc import delay, random_str, receive_data
+from ..functions.etc import delay, random_str, receive_data, send_data, thread
 from ..functions.filters import exchange_channel
 from ..functions.telegram import send_message
 
@@ -61,6 +61,20 @@ def process_data(client, message):
                         if sent_message:
                             glovar.configs[config_key]["message_id"] = sent_message.message_id
                             delay(300, check_commit, [client, config_key])
+                            group_id = glovar.configs[config_key]["group_id"]
+                            user_id = glovar.configs[config_key]["user_id"]
+                            exchange_text = send_data(
+                                sender="CONFIG",
+                                receivers=["WARN"],
+                                action="config",
+                                action_type="reply",
+                                data={
+                                    "group_id": group_id,
+                                    "user_id": user_id,
+                                    "message_id": sent_message.message_id
+                                }
+                            )
+                            thread(send_message, (client, glovar.exchange_channel_id, exchange_text))
                         else:
                             glovar.configs.pop(config_key, None)
     except Exception as e:
