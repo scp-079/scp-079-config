@@ -55,7 +55,7 @@ def commit_change(client: Client, config_key: str) -> bool:
             config_data = glovar.configs[config_key]["config"]
             # Edit config message
             text = get_config_text(config_key)
-            text += f"结果：{'已更新设置'}"
+            text += f"结果：{code('已更新设置')}"
             thread(edit_message_text, (client, glovar.config_channel_id, message_id, text))
             # Commit changes to exchange channel
             receivers = []
