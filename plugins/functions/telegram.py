@@ -55,11 +55,8 @@ def edit_message_reply_markup(client: Client, cid: int, mid: int,
                     message_id=mid,
                     reply_markup=markup
                 )
-                logger.warning(result)
             except FloodWait as e:
                 sleep(e.x + 1)
-                logger.warning(e.x)
-                logger.warning(e)
     except Exception as e:
         logger.warning(f"Edit message reply markup error: {e}", exc_info=True)
 
