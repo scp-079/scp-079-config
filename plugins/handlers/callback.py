@@ -75,6 +75,7 @@ def answer(client, callback_query):
                                                 glovar.configs[config_key]["config"]["report"]["manual"] = data
 
                                         markup = warn_button(glovar.configs[config_key]["config"])
+                                        thread(answer_callback, (client, callback_query.id, ""))
                                         thread(edit_message_reply_markup, (client, cid, mid, markup))
                     finally:
                         glovar.configs[config_key]["locked"] = False
