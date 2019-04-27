@@ -1,6 +1,6 @@
 # SCP-079-CONFIG
 
-This bot is used to warn or ban someone in group by admin commands.
+This bot is used to manage settings for each bot.
 
 ## How to use
 
@@ -20,13 +20,9 @@ See [this article](https://scp-079.org/config/).
 - plugins
     - functions
         - `etc.py` : Miscellaneous
-        - `file.py` : Save files
         - `filters.py` : Some filters
-        - `group.py` : Functions about group
-        - `ids.py` : Modify id lists
         - `telegram.py` : Some telegram functions
         - `timers.py` : Timer functions
-        - `user.py` : Functions about user
     - handlers
         - `callback.py` : Handle callbacks
         - `command` : Handle commands

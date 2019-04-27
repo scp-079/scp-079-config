@@ -18,28 +18,25 @@
 
 import logging
 
-from pyrogram import Client
+from pyrogram import Client, Filters
 
 from .. import glovar
-from .etc import send_data, thread
-from .telegram import send_message
+from ..functions.etc import bold, thread
+from ..functions.filters import test_group
+
+from ..functions.telegram import send_message
+
 
 # Enable logging
 logger = logging.getLogger(__name__)
 
-
-def update_status(client: Client) -> bool:
+@Client.on_message(Filters.incoming & Filters.group & test_group
+                   & Filters.command(["version"], glovar.prefix))
+def version(client, message):
     try:
-        exchange_text = send_data(
-            sender="WARN",
-            receivers=["MANAGE"],
-            action="update",
-            action_type="status",
-            data="awake"
-        )
-        thread(send_message, (client, glovar.exchange_channel_id, exchange_text))
-        return True
+        cid = message.chat.id
+        mid = message.message_id
+        text = f"版本：{bold(glovar.version)}"
+        thread(send_message, (client, cid, text, mid))
     except Exception as e:
-        logger.warning(f"Update status error: {e}")
-
-    return False
+        logger.warning(f"Version error: {e}", exc_info=True)

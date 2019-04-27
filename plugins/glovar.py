@@ -25,13 +25,17 @@ logger = logging.getLogger(__name__)
 
 # Init
 
+all_commands: List[str] = ["version"]
+
 configs: Dict[str, Dict[str, Union[int, dict, str]]] = {}
 # configs = {
 #     "random": {
+#         "type": "warn",
 #         "group_id": -10012345678,
 #         "group_name": "Group Name",
 #         "group_link": "link to group",
 #         "user_id": 12345678,
+#         "message_id": 123,
 #         "config": {
 #             "default": True
 #             "limit": 3,
@@ -45,7 +49,7 @@ configs: Dict[str, Dict[str, Union[int, dict, str]]] = {}
 #     }
 # }
 
-version = "0.0.1"
+version = "0.0.2"
 
 # Read data from config.ini
 
@@ -55,6 +59,7 @@ prefix: List[str] = []
 prefix_str: str = "/!"
 
 # [channels]
+config_channel_id: int = 0
 debug_channel_id: int = 0
 exchange_channel_id: int = 0
 test_group_id: int = 0
@@ -63,6 +68,8 @@ test_group_id: int = 0
 config_channel_username: str = ""
 project_link: str = ""
 project_name: str = ""
+warn_link: str = ""
+warn_name: str = ""
 
 try:
     config = RawConfigParser()
@@ -71,6 +78,7 @@ try:
     bot_token = config["basic"].get("bot_token", bot_token)
     prefix = list(config["basic"].get("prefix", prefix_str))
     # [channels]
+    config_channel_id = int(config["channels"].get("config_channel_id", config_channel_id))
     debug_channel_id = int(config["channels"].get("debug_channel_id", debug_channel_id))
     exchange_channel_id = int(config["channels"].get("exchange_channel_id", exchange_channel_id))
     test_group_id = int(config["channels"].get("test_group_id", test_group_id))
@@ -78,18 +86,23 @@ try:
     config_channel_username = config["custom"].get("config_channel_username", config_channel_username)
     project_link = config["custom"].get("project_link", project_link)
     project_name = config["custom"].get("project_name", project_name)
+    warn_link = config["custom"].get("warn_link", warn_link)
+    warn_name = config["custom"].get("warn_name", warn_name)
 except Exception as e:
     logger.warning(f"Read data from config.ini error: {e}", exc_info=True)
 
 # Check
 if (bot_token in {"", "[DATA EXPUNGED]"}
         or prefix == []
+        or config_channel_id == 0
         or debug_channel_id == 0
         or exchange_channel_id == 0
         or test_group_id == 0
         or config_channel_username in {"", "[DATA EXPUNGED]"}
         or project_link in {"", "[DATA EXPUNGED]"}
-        or project_name in {"", "[DATA EXPUNGED]"}):
+        or project_name in {"", "[DATA EXPUNGED]"}
+        or warn_link in {"", "[DATA EXPUNGED]"}
+        or warn_name in {"", "[DATA EXPUNGED]"}):
     logger.critical("No proper settings")
     raise SystemExit('No proper settings')
 

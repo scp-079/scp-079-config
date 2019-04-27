@@ -18,7 +18,7 @@
 
 import logging
 from time import sleep
-from typing import Optional
+from typing import Optional, Union
 
 from pyrogram import Client, InlineKeyboardMarkup, Message, ParseMode
 from pyrogram.errors import FloodWait
@@ -40,6 +40,25 @@ def answer_callback(client: Client, query_id: str, text: str) -> Optional[bool]:
                 sleep(e.x + 1)
     except Exception as e:
         logger.warning(f"Answer query to {query_id} error: {e}", exc_info=True)
+
+    return result
+
+
+def edit_message_reply_markup(client: Client, cid: int, mid: int,
+                              markup: InlineKeyboardMarkup) -> Optional[Union[bool, Message]]:
+    result = None
+    try:
+        while not result:
+            try:
+                result = client.edit_message_reply_markup(
+                    chat_id=cid,
+                    message_id=mid,
+                    reply_markup=markup
+                )
+            except FloodWait as e:
+                sleep(e.x + 1)
+    except Exception as e:
+        logger.warning(f"Edit message reply markup error: {e}", exc_info=True)
 
     return result
 
