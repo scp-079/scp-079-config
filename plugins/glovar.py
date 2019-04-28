@@ -65,7 +65,6 @@ exchange_channel_id: int = 0
 test_group_id: int = 0
 
 # [custom]
-config_channel_username: str = ""
 project_link: str = ""
 project_name: str = ""
 warn_link: str = ""
@@ -83,7 +82,6 @@ try:
     exchange_channel_id = int(config["channels"].get("exchange_channel_id", exchange_channel_id))
     test_group_id = int(config["channels"].get("test_group_id", test_group_id))
     # [custom]
-    config_channel_username = config["custom"].get("config_channel_username", config_channel_username)
     project_link = config["custom"].get("project_link", project_link)
     project_name = config["custom"].get("project_name", project_name)
     warn_link = config["custom"].get("warn_link", warn_link)
@@ -100,7 +98,6 @@ if (bot_token in {"", "[DATA EXPUNGED]"}
         or debug_channel_id == 0
         or exchange_channel_id == 0
         or test_group_id == 0
-        or config_channel_username in {"", "[DATA EXPUNGED]"}
         or project_link in {"", "[DATA EXPUNGED]"}
         or project_name in {"", "[DATA EXPUNGED]"}
         or warn_link in {"", "[DATA EXPUNGED]"}
