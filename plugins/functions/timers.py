@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 def update_status(client: Client) -> bool:
     try:
         exchange_text = send_data(
-            sender="WARN",
+            sender="CONFIG",
             receivers=["MANAGE"],
             action="update",
             action_type="status",
