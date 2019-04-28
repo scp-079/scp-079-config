@@ -56,10 +56,7 @@ def answer(client, callback_query):
                                     config_type = glovar.configs[config_key]["type"]
                                     if config_type == "warn":
                                         if action == "default":
-                                            if data:
-                                                warn_default(config_key)
-                                            else:
-                                                glovar.configs[config_key]["config"]["default"] = False
+                                            warn_default(config_key)
                                         else:
                                             glovar.configs[config_key]["config"]["default"] = False
                                             if action == "limit":
