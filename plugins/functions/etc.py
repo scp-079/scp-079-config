@@ -101,7 +101,7 @@ def receive_data(message: Message) -> dict:
     return {}
 
 
-def send_data(sender: str, receivers: List[str], action: str, action_type: str, data=None) -> str:
+def format_data(sender: str, receivers: List[str], action: str, action_type: str, data=None) -> str:
     """Make a unified format string for data exchange.
 
     Args:
@@ -176,7 +176,7 @@ def send_data(sender: str, receivers: List[str], action: str, action_type: str, 
                     watch:
                         {
                             "id": 12345678,
-                            "type": "all / bad / delete"
+                            "type": "all / ban / delete"
                         }
 
                 Backup:
@@ -226,7 +226,10 @@ def send_data(sender: str, receivers: List[str], action: str, action_type: str, 
                         }
 
                 Leave:
-                    -10012345678
+                    {
+                        "id": -10012345678,
+                        "reason": "reason here"
+                    }
 
                 Request:
                     leave:
