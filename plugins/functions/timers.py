@@ -27,11 +27,12 @@ logger = logging.getLogger(__name__)
 
 
 def update_status(client: Client) -> bool:
+    # Update running status to BACKUP
     try:
         share_data(
             client=client,
             sender="CONFIG",
-            receivers=["MANAGE"],
+            receivers=["BACKUP"],
             action="update",
             action_type="status",
             data="awake"

@@ -49,7 +49,7 @@ configs: Dict[str, Dict[str, Union[int, dict, str]]] = {}
 #     }
 # }
 
-version = "0.0.4"
+version = "0.0.5"
 
 # Read data from config.ini
 

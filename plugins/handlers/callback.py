@@ -23,7 +23,7 @@ from json import loads
 from pyrogram import Client
 
 from .. import glovar
-from ..functions.config import commit_change, warn_default, warn_button
+from ..functions.config import commit_change, get_config_message, set_default
 from ..functions.etc import thread
 from ..functions.telegram import answer_callback, edit_message_reply_markup
 
@@ -34,6 +34,7 @@ logger = logging.getLogger(__name__)
 @Client.on_callback_query()
 def answer(client, callback_query):
     try:
+        # Basic data about this callback
         cid = callback_query.message.chat.id
         uid = callback_query.from_user.id
         mid = callback_query.message.message_id
@@ -41,41 +42,49 @@ def answer(client, callback_query):
         action = callback_data["a"]
         action_type = callback_data["t"]
         data = callback_data["d"]
+        # Answer the callback
         if action != "none":
             config_key = callback_query.message.text.split("\n")[0].split("：")[1]
             if glovar.configs.get(config_key):
+                # Check whether the config is locked
                 if not glovar.configs[config_key].get("locked"):
                     try:
+                        # Lock the config status until bot answers callback, avoid multiple responses
                         glovar.configs[config_key]["locked"] = True
+                        # Check user's permission with this config session
                         aid = glovar.configs[config_key]["user_id"]
                         if uid == aid:
-                            if not glovar.configs[config_key]["commit"]:
-                                if action == "commit":
-                                    commit_change(client, config_key)
+                            # Commit the changes if user press commit button, else change some settings
+                            if action == "commit":
+                                commit_change(client, config_key)
+                            else:
+                                config_type = glovar.configs[config_key]["type"]
+                                if action == "default":
+                                    set_default(config_type, config_key)
                                 else:
-                                    config_type = glovar.configs[config_key]["type"]
-                                    if config_type == "warn":
-                                        if action == "default":
-                                            warn_default(config_key)
-                                        else:
-                                            glovar.configs[config_key]["config"]["default"] = False
-                                            if action == "limit":
-                                                if action_type:
-                                                    glovar.configs[config_key]["config"]["limit"] = data
-                                                else:
-                                                    thread(answer_callback, (client, callback_query.id, ""))
-                                                    return
-                                            elif action == "mention":
-                                                glovar.configs[config_key]["config"]["mention"] = data
-                                            elif action == "report":
-                                                if action_type == "auto":
-                                                    glovar.configs[config_key]["config"]["report"]["auto"] = data
-                                                elif action_type == "manual":
-                                                    glovar.configs[config_key]["config"]["report"]["manual"] = data
+                                    glovar.configs[config_key]["config"]["default"] = False
+                                    # NOPORN
+                                    if config_type == "noporn":
+                                        glovar.configs[config_key]["config"][action] = data
+                                    # WARN
+                                    elif config_type == "warn":
+                                        if action == "limit":
+                                            # If action type is "set" (not None), then set it to the new number
+                                            if action_type:
+                                                glovar.configs[config_key]["config"]["limit"] = data
+                                            # Else do not set
+                                            else:
+                                                thread(answer_callback, (client, callback_query.id, ""))
+                                                # Do not edit the message, because bot did nothing
+                                                return
+                                        elif action == "mention":
+                                            glovar.configs[config_key]["config"]["mention"] = data
+                                        elif action == "report":
+                                            glovar.configs[config_key]["config"]["report"][action_type] = data
 
-                                        markup = warn_button(glovar.configs[config_key]["config"])
-                                        edit_message_reply_markup(client, cid, mid, markup)
-                                        thread(answer_callback, (client, callback_query.id, ""))
+                                _, markup = get_config_message(config_type)
+                                edit_message_reply_markup(client, cid, mid, markup)
+                                thread(answer_callback, (client, callback_query.id, ""))
                     finally:
                         glovar.configs[config_key]["locked"] = False
                 else:

@@ -31,14 +31,18 @@ logger = logging.getLogger(__name__)
 
 
 def check_commit(client: Client, config_key: str) -> bool:
+    # Check whether the config session is committed or not
     try:
         if glovar.configs.get(config_key):
             if not glovar.configs[config_key]["commit"]:
+                # If it is not committed, edit the session message to update the status (invalid)
                 text = get_config_text(config_key)
                 text += f"状态：{code('会话已失效')}"
                 mid = glovar.configs[config_key]["message_id"]
                 thread(edit_message_text, (client, glovar.config_channel_id, mid, text))
 
+            # Pop this config data
+            glovar.configs.pop(config_key, "")
             return True
     except Exception as e:
         logger.warning(f"Check commit error: {e}", exc_info=True)
@@ -49,20 +53,20 @@ def check_commit(client: Client, config_key: str) -> bool:
 def commit_change(client: Client, config_key: str) -> bool:
     try:
         if glovar.configs.get(config_key):
+            # Change commit status
             glovar.configs[config_key]["commit"] = True
+            # Use config type to get the right receiver
             config_type = glovar.configs[config_key]["type"]
             group_id = glovar.configs[config_key]["group_id"]
+            # The config session message id
             message_id = glovar.configs[config_key]["message_id"]
             config_data = glovar.configs[config_key]["config"]
-            # Edit config message
+            # Edit config session message
             text = get_config_text(config_key)
             text += f"结果：{code('已更新设置')}"
             thread(edit_message_text, (client, glovar.config_channel_id, message_id, text))
             # Commit changes to exchange channel
-            receivers = []
-            if config_type == "warn":
-                receivers = ["WARN"]
-
+            receivers = [config_type.upper()]
             share_data(
                 client=client,
                 sender="CONFIG",
@@ -82,14 +86,14 @@ def commit_change(client: Client, config_key: str) -> bool:
 
 
 def get_config_message(config_key: str) -> (str, Optional[InlineKeyboardMarkup]):
+    # Get a config session message (text + reply markup)
     text = ""
     markup = None
     if glovar.configs.get(config_key):
         config_type = glovar.configs[config_key]["type"]
         config_data = glovar.configs[config_key]["config"]
-        if config_type == "warn":
-            markup = warn_button(config_data)
-
+        # For each config type, use different function to generate reply markup buttons
+        markup = eval(f"{config_type}_button")(config_data)
         text = get_config_text(config_key)
         text += f"说明：{code('请在此进行设置，如设置完毕请点击提交，本会话将在 5 分钟后失效')}"
 
@@ -97,16 +101,15 @@ def get_config_message(config_key: str) -> (str, Optional[InlineKeyboardMarkup])
 
 
 def get_config_text(config_key: str) -> str:
+    # Get a config session message text
     config_type = glovar.configs[config_key]["type"]
-    project_name = ""
-    project_link = ""
     group_id = glovar.configs[config_key]["group_id"]
     group_name = glovar.configs[config_key]["group_name"]
     group_link = glovar.configs[config_key]["group_link"]
     user_id = glovar.configs[config_key]["user_id"]
-    if config_type == "warn":
-        project_name = glovar.warn_name
-        project_link = glovar.warn_link
+    # For each config type, use different project name and project link
+    project_name = eval(f"glovar.{config_type}_name")
+    project_link = eval(f"glovar.{config_type}_link")
 
     text = (f"设置编号：{code(config_key)}\n"
             f"项目编号：{general_link(project_name, project_link)}\n"
@@ -117,7 +120,75 @@ def get_config_text(config_key: str) -> str:
     return text
 
 
+def noporn_button(config: dict) -> InlineKeyboardMarkup:
+    # Get inline markup for NOPORN
+    markup = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "默认设置",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config['default'])}",
+                    callback_data=button_data((lambda x: "default" if not x else "none")(config['default']),
+                                              None,
+                                              not config['default'])
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "过滤频道",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config['channel'])}",
+                    callback_data=button_data("channel", None, not config['channel'])
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "媒体复查",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config['recheck'])}",
+                    callback_data=button_data("recheck", None, not config['recheck'])
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "提交",
+                    callback_data=button_data("commit")
+                )
+            ]
+        ]
+    )
+
+    return markup
+
+
+def noporn_default(config_key: str) -> bool:
+    # NOPORN's default config
+    if glovar.configs.get(config_key):
+        glovar.configs[config_key]["config"] = {
+            "default": True,
+            "channel": True,
+            "locked": 0,
+            "recheck": False
+        }
+
+    return True
+
+
+def set_default(config_type: str, config_key: str) -> bool:
+    eval(f"{config_type}_default")(config_key)
+
+    return True
+
+
 def warn_button(config: dict) -> InlineKeyboardMarkup:
+    # Get inline markup for WARN
     markup = InlineKeyboardMarkup(
         [
             [
@@ -197,6 +268,7 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
 
 
 def warn_default(config_key: str) -> bool:
+    # WARN's default config
     if glovar.configs.get(config_key):
         glovar.configs[config_key]["config"] = {
             "default": True,
