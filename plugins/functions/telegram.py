@@ -29,13 +29,16 @@ logger = logging.getLogger(__name__)
 def answer_callback(client: Client, query_id: str, text: str) -> Optional[bool]:
     result = None
     try:
-        while not result:
+        flood_wait = True
+        while flood_wait:
+            flood_wait = False
             try:
                 result = client.answer_callback_query(
                     callback_query_id=query_id,
                     text=text
                 )
             except FloodWait as e:
+                flood_wait = True
                 sleep(e.x + 1)
     except Exception as e:
         logger.warning(f"Answer query to {query_id} error: {e}", exc_info=True)
@@ -47,7 +50,9 @@ def edit_message_reply_markup(client: Client, cid: int, mid: int,
                               markup: InlineKeyboardMarkup) -> Optional[Union[bool, Message]]:
     result = None
     try:
-        while not result:
+        flood_wait = True
+        while flood_wait:
+            flood_wait = False
             try:
                 result = client.edit_message_reply_markup(
                     chat_id=cid,
@@ -55,6 +60,7 @@ def edit_message_reply_markup(client: Client, cid: int, mid: int,
                     reply_markup=markup
                 )
             except FloodWait as e:
+                flood_wait = True
                 sleep(e.x + 1)
     except Exception as e:
         logger.warning(f"Edit message reply markup error: {e}", exc_info=True)
@@ -67,7 +73,9 @@ def edit_message_text(client: Client, cid: int, mid: int, text: str,
     result = None
     try:
         if text.strip():
-            while not result:
+            flood_wait = True
+            while flood_wait:
+                flood_wait = False
                 try:
                     result = client.edit_message_text(
                         chat_id=cid,
@@ -78,6 +86,7 @@ def edit_message_text(client: Client, cid: int, mid: int, text: str,
                         reply_markup=markup
                     )
                 except FloodWait as e:
+                    flood_wait = True
                     sleep(e.x + 1)
     except Exception as e:
         logger.warning(f"Edit message in {cid} error: {e}", exc_info=True)
@@ -90,7 +99,9 @@ def send_message(client: Client, cid: int, text: str, mid: int = None,
     result = None
     try:
         if text.strip():
-            while not result:
+            flood_wait = True
+            while flood_wait:
+                flood_wait = False
                 try:
                     result = client.send_message(
                         chat_id=cid,
@@ -101,6 +112,7 @@ def send_message(client: Client, cid: int, text: str, mid: int = None,
                         reply_markup=markup
                     )
                 except FloodWait as e:
+                    flood_wait = True
                     sleep(e.x + 1)
     except Exception as e:
         logger.warning(f"Send message to {cid} error: {e}", exc_info=True)

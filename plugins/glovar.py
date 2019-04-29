@@ -49,7 +49,7 @@ configs: Dict[str, Dict[str, Union[int, dict, str]]] = {}
 #     }
 # }
 
-version = "0.0.3"
+version = "0.0.4"
 
 # Read data from config.ini
 
@@ -65,6 +65,8 @@ exchange_channel_id: int = 0
 test_group_id: int = 0
 
 # [custom]
+noporn_link: str = ""
+noporn_name: str = ""
 warn_link: str = ""
 warn_name: str = ""
 
@@ -80,6 +82,8 @@ try:
     exchange_channel_id = int(config["channels"].get("exchange_channel_id", exchange_channel_id))
     test_group_id = int(config["channels"].get("test_group_id", test_group_id))
     # [custom]
+    noporn_link = config["custom"].get("noporn_link", noporn_link)
+    noporn_name = config["custom"].get("noporn_name", noporn_name)
     warn_link = config["custom"].get("warn_link", warn_link)
     warn_name = config["custom"].get("warn_name", warn_name)
 except Exception as e:
@@ -94,6 +98,8 @@ if (bot_token in {"", "[DATA EXPUNGED]"}
         or debug_channel_id == 0
         or exchange_channel_id == 0
         or test_group_id == 0
+        or noporn_link in {"", "[DATA EXPUNGED]"}
+        or noporn_name in {"", "[DATA EXPUNGED]"}
         or warn_link in {"", "[DATA EXPUNGED]"}
         or warn_name in {"", "[DATA EXPUNGED]"}):
     raise SystemExit('No proper settings')

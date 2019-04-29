@@ -20,9 +20,7 @@ import logging
 
 from pyrogram import Client
 
-from .. import glovar
-from .etc import send_data, thread
-from .telegram import send_message
+from .channel import share_data
 
 # Enable logging
 logger = logging.getLogger(__name__)
@@ -30,14 +28,14 @@ logger = logging.getLogger(__name__)
 
 def update_status(client: Client) -> bool:
     try:
-        exchange_text = send_data(
+        share_data(
+            client=client,
             sender="CONFIG",
             receivers=["MANAGE"],
             action="update",
             action_type="status",
             data="awake"
         )
-        thread(send_message, (client, glovar.exchange_channel_id, exchange_text))
         return True
     except Exception as e:
         logger.warning(f"Update status error: {e}")

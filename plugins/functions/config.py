@@ -22,8 +22,9 @@ from typing import Optional
 from pyrogram import Client, InlineKeyboardButton, InlineKeyboardMarkup
 
 from .. import glovar
-from .etc import button_data, code, general_link, send_data, thread
-from .telegram import edit_message_text, send_message
+from .channel import share_data
+from .etc import button_data, code, general_link, thread
+from .telegram import edit_message_text
 
 # Enable logging
 logger = logging.getLogger(__name__)
@@ -62,7 +63,8 @@ def commit_change(client: Client, config_key: str) -> bool:
             if config_type == "warn":
                 receivers = ["WARN"]
 
-            exchange_text = send_data(
+            share_data(
+                client=client,
                 sender="CONFIG",
                 receivers=receivers,
                 action="config",
@@ -72,7 +74,6 @@ def commit_change(client: Client, config_key: str) -> bool:
                     "config": config_data
                 }
             )
-            thread(send_message, (client, glovar.exchange_channel_id, exchange_text))
             return True
     except Exception as e:
         logger.warning(f"Commit change error: {e}")

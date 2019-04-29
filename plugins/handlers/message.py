@@ -21,8 +21,9 @@ import logging
 from pyrogram import Client, Filters
 
 from .. import glovar
+from ..functions.channel import share_data
 from ..functions.config import check_commit, get_config_message
-from ..functions.etc import delay, random_str, receive_data, send_data, thread
+from ..functions.etc import delay, random_str, receive_data
 from ..functions.filters import exchange_channel
 from ..functions.telegram import send_message
 
@@ -63,7 +64,8 @@ def process_data(client, message):
                             delay(300, check_commit, [client, config_key])
                             group_id = glovar.configs[config_key]["group_id"]
                             user_id = glovar.configs[config_key]["user_id"]
-                            exchange_text = send_data(
+                            share_data(
+                                client=client,
                                 sender="CONFIG",
                                 receivers=["WARN"],
                                 action="config",
@@ -74,7 +76,6 @@ def process_data(client, message):
                                     "message_id": sent_message.message_id
                                 }
                             )
-                            thread(send_message, (client, glovar.exchange_channel_id, exchange_text))
                         else:
                             glovar.configs.pop(config_key, None)
     except Exception as e:
