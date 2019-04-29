@@ -80,6 +80,7 @@ def answer(client, callback_query):
                                         elif action == "mention":
                                             glovar.configs[config_key]["config"]["mention"] = data
                                         elif action == "report":
+                                            # Key "report" was created when generate the button first time
                                             glovar.configs[config_key]["config"]["report"][action_type] = data
 
                                 _, markup = get_config_message(config_type)
