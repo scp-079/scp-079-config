@@ -130,10 +130,10 @@ def noporn_button(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '✅' if x else '☑️')(config['default'])}",
-                    callback_data=button_data((lambda x: "default" if not x else "none")(config['default']),
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('default'))}",
+                    callback_data=button_data((lambda x: "default" if not x else "none")(config.get('default')),
                                               None,
-                                              not config['default'])
+                                              not config.get('default'))
                 )
             ],
             [
@@ -142,8 +142,8 @@ def noporn_button(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '✅' if x else '☑️')(config['channel'])}",
-                    callback_data=button_data("channel", None, not config['channel'])
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('channel'))}",
+                    callback_data=button_data("channel", None, not config.get('channel'))
                 )
             ],
             [
@@ -152,8 +152,8 @@ def noporn_button(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '✅' if x else '☑️')(config['recheck'])}",
-                    callback_data=button_data("recheck", None, not config['recheck'])
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('recheck'))}",
+                    callback_data=button_data("recheck", None, not config.get('recheck'))
                 )
             ],
             [
@@ -189,6 +189,12 @@ def set_default(config_type: str, config_key: str) -> bool:
 
 def warn_button(config: dict) -> InlineKeyboardMarkup:
     # Get inline markup for WARN
+    if not config.get("limit"):
+        config["limit"] = 3
+
+    if not config.get("report"):
+        config["report"] = {}
+
     markup = InlineKeyboardMarkup(
         [
             [
@@ -197,10 +203,10 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '✅' if x else '☑️')(config['default'])}",
-                    callback_data=button_data((lambda x: "default" if not x else "none")(config['default']),
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('default'))}",
+                    callback_data=button_data((lambda x: "default" if not x else "none")(config.get('default')),
                                               None,
-                                              not config['default'])
+                                              not config.get('default'))
                 )
             ],
             [
@@ -231,8 +237,8 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '✅' if x else '☑️')(config['mention'])}",
-                    callback_data=button_data("mention", None, not config['mention'])
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('mention'))}",
+                    callback_data=button_data("mention", None, not config.get('mention'))
                 )
             ],
             [
@@ -241,8 +247,8 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '✅' if x else '☑️')(config['report']['auto'])}",
-                    callback_data=button_data("report", "auto", not config['report']['auto'])
+                    f"{(lambda x: '✅' if x else '☑️')(config['report'].get('auto'))}",
+                    callback_data=button_data("report", "auto", not config['report'].get('auto'))
                 )
             ],
             [
@@ -251,8 +257,8 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '✅' if x else '☑️')(config['report']['manual'])}",
-                    callback_data=button_data("report", "manual", not config['report']['manual'])
+                    f"{(lambda x: '✅' if x else '☑️')(config['report'].get('manual'))}",
+                    callback_data=button_data("report", "manual", not config['report'].get('manual'))
                 )
             ],
             [
