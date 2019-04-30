@@ -46,7 +46,7 @@ app.start()
 
 # Timer
 scheduler = BackgroundScheduler()
-scheduler.add_job(update_status, "cron", [app], hour=20, minute=30)
+scheduler.add_job(update_status, "cron", [app], minute=30)
 scheduler.start()
 
 # Hold
