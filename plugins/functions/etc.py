@@ -67,40 +67,6 @@ def delay(secs: int, target: Callable, args: list) -> bool:
     return True
 
 
-def get_text(message: Message) -> Optional[str]:
-    text = None
-    if message.text:
-        text = message.text
-    elif message.caption:
-        text = message.caption
-
-    return text
-
-
-def general_link(text: Union[int, str], link: str) -> str:
-    return f"[{text}]({link})"
-
-
-def message_link(cid: int, mid: int) -> str:
-    return f"[{mid}](https://t.me/c/{str(cid)[4:]}/{mid})"
-
-
-def random_str(i: int) -> str:
-    return ''.join(choice(ascii_letters + digits) for _ in range(i))
-
-
-def receive_data(message: Message) -> dict:
-    text = get_text(message)
-    try:
-        assert text is not None, f"Can't get text from message: {message}"
-        data = loads(text)
-        return data
-    except Exception as e:
-        logger.warning(f"Receive data error: {e}")
-
-    return {}
-
-
 def format_data(sender: str, receivers: List[str], action: str, action_type: str, data=None) -> str:
     """Make a unified format string for data exchange.
 
@@ -312,6 +278,40 @@ def format_data(sender: str, receivers: List[str], action: str, action_type: str
     }
 
     return code_block(dumps(data, indent=4))
+
+
+def get_text(message: Message) -> Optional[str]:
+    text = None
+    if message.text:
+        text = message.text
+    elif message.caption:
+        text = message.caption
+
+    return text
+
+
+def general_link(text: Union[int, str], link: str) -> str:
+    return f"[{text}]({link})"
+
+
+def message_link(cid: int, mid: int) -> str:
+    return f"[{mid}](https://t.me/c/{str(cid)[4:]}/{mid})"
+
+
+def random_str(i: int) -> str:
+    return ''.join(choice(ascii_letters + digits) for _ in range(i))
+
+
+def receive_data(message: Message) -> dict:
+    text = get_text(message)
+    try:
+        assert text is not None, f"Can't get text from message: {message}"
+        data = loads(text)
+        return data
+    except Exception as e:
+        logger.warning(f"Receive data error: {e}")
+
+    return {}
 
 
 def thread(target: Callable, args: tuple) -> bool:
