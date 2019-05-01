@@ -20,7 +20,7 @@ See [this article](https://scp-079.org/config/).
 
 - plugins
     - functions
-        - `channel.py` : Send message to channel
+        - `channel.py` : Send messages to channel
         - `config.py` : Generate config session message
         - `etc.py` : Miscellaneous
         - `filters.py` : Some filters

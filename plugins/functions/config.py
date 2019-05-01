@@ -101,7 +101,7 @@ def get_config_message(config_key: str) -> (str, Optional[InlineKeyboardMarkup])
 
 
 def get_config_text(config_key: str) -> str:
-    # Get a config session message text
+    # Get a config session message text prefix
     project_name = glovar.configs[config_key]["project_name"]
     project_link = glovar.configs[config_key]["project_link"]
     group_id = glovar.configs[config_key]["group_id"]
@@ -116,6 +116,252 @@ def get_config_text(config_key: str) -> str:
             f"用户 ID：{code(user_id)}\n")
 
     return text
+
+
+def captcha_button(config: dict) -> InlineKeyboardMarkup:
+    # Get inline markup for CAPTCHA
+    markup = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "默认设置",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('default'))}",
+                    callback_data=button_data((lambda x: "default" if not x else "none")(config.get('default')),
+                                              None,
+                                              not config.get('default'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "自动免验证",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('auto'))}",
+                    callback_data=button_data("auto", None, not config.get('auto'))
+                )
+            ]
+        ]
+    )
+
+    return markup
+
+
+def clean_button(config: dict) -> InlineKeyboardMarkup:
+    # Get inline markup for CLEAN
+    markup = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "默认设置",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('default'))}",
+                    callback_data=button_data((lambda x: "default" if not x else "none")(config.get('default')),
+                                              None,
+                                              not config.get('default'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    f"联系人 {(lambda x: '✅' if x else '☑️')(config.get('con'))}",
+                    callback_data=button_data("con", None, not config.get('con'))
+                ),
+                InlineKeyboardButton(
+                    f"通过 Bot {(lambda x: '✅' if x else '☑️')(config.get('via'))}",
+                    callback_data=button_data("via", None, not config.get('via'))
+                ),
+                InlineKeyboardButton(
+                    f"动图 {(lambda x: '✅' if x else '☑️')(config.get('ani'))}",
+                    callback_data=button_data("ani", None, not config.get('ani'))
+                ),
+                InlineKeyboardButton(
+                    f"命令 {(lambda x: '✅' if x else '☑️')(config.get('bmd'))}",
+                    callback_data=button_data("bmd", None, not config.get('bmd'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    f"视频 {(lambda x: '✅' if x else '☑️')(config.get('vdi'))}",
+                    callback_data=button_data("vdi", None, not config.get('vdi'))
+                ),
+                InlineKeyboardButton(
+                    f"短视频 {(lambda x: '✅' if x else '☑️')(config.get('vdn'))}",
+                    callback_data=button_data("vdn", None, not config.get('vdn'))
+                ),
+                InlineKeyboardButton(
+                    f"贴纸 {(lambda x: '✅' if x else '☑️')(config.get('sti'))}",
+                    callback_data=button_data("sti", None, not config.get('sti'))
+                ),
+                InlineKeyboardButton(
+                    f"图片 {(lambda x: '✅' if x else '☑️')(config.get('pho'))}",
+                    callback_data=button_data("pho", None, not config.get('pho'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    f"音频 {(lambda x: '✅' if x else '☑️')(config.get('aud'))}",
+                    callback_data=button_data("aud", None, not config.get('aud'))
+                ),
+                InlineKeyboardButton(
+                    f"语音 {(lambda x: '✅' if x else '☑️')(config.get('voi'))}",
+                    callback_data=button_data("voi", None, not config.get('voi'))
+                ),
+                InlineKeyboardButton(
+                    f"游戏 {(lambda x: '✅' if x else '☑️')(config.get('gam'))}",
+                    callback_data=button_data("gam", None, not config.get('gam'))
+                ),
+                InlineKeyboardButton(
+                    f"网址 {(lambda x: '✅' if x else '☑️')(config.get('url'))}",
+                    callback_data=button_data("url", None, not config.get('url'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    f"入群 {(lambda x: '✅' if x else '☑️')(config.get('new'))}",
+                    callback_data=button_data("new", None, not config.get('new'))
+                ),
+                InlineKeyboardButton(
+                    f"离群 {(lambda x: '✅' if x else '☑️')(config.get('lef'))}",
+                    callback_data=button_data("lef", None, not config.get('lef'))
+                ),
+                InlineKeyboardButton(
+                    f"定位 {(lambda x: '✅' if x else '☑️')(config.get('loc'))}",
+                    callback_data=button_data("loc", None, not config.get('loc'))
+                ),
+                InlineKeyboardButton(
+                    f"文件 {(lambda x: '✅' if x else '☑️')(config.get('doc'))}",
+                    callback_data=button_data("doc", None, not config.get('doc'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    f"EXE {(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
+                    callback_data=button_data("exe", None, not config.get('exe'))
+                ),
+                InlineKeyboardButton(
+                    f"APK {(lambda x: '✅' if x else '☑️')(config.get('apk'))}",
+                    callback_data=button_data("apk", None, not config.get('apk'))
+                ),
+                InlineKeyboardButton(
+                    f"BAT {(lambda x: '✅' if x else '☑️')(config.get('bat'))}",
+                    callback_data=button_data("bat", None, not config.get('bat'))
+                ),
+                InlineKeyboardButton(
+                    f"CMD {(lambda x: '✅' if x else '☑️')(config.get('cmd'))}",
+                    callback_data=button_data("cmd", None, not config.get('cmd'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    f"TG 链接 {(lambda x: '✅' if x else '☑️')(config.get('tgl'))}",
+                    callback_data=button_data("tgl", None, not config.get('tgl'))
+                ),
+                InlineKeyboardButton(
+                    f"TG 代理 {(lambda x: '✅' if x else '☑️')(config.get('tgp'))}",
+                    callback_data=button_data("tgp", None, not config.get('tgp'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "提交",
+                    callback_data=button_data("commit")
+                )
+            ]
+        ]
+    )
+
+    return markup
+
+
+def lang_button(config: dict) -> InlineKeyboardMarkup:
+    # Get inline markup for LANG
+    markup = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "默认设置",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('default'))}",
+                    callback_data=button_data((lambda x: "default" if not x else "none")(config.get('default')),
+                                              None,
+                                              not config.get('default'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "昵称默认",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('name'))}",
+                    callback_data=button_data("name", None, not config.get('name'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "文字默认",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('text'))}",
+                    callback_data=button_data("text", None, not config.get('text'))
+                )
+            ]
+        ]
+    )
+
+    return markup
+
+
+def noflood_button(config: dict) -> InlineKeyboardMarkup:
+    # Get inline markup for NOFLOOD
+    markup = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "默认设置",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('default'))}",
+                    callback_data=button_data((lambda x: "default" if not x else "none")(config.get('default')),
+                                              None,
+                                              not config.get('default'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "10 秒内消息上限",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{config['limit']}",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '-️' if x > 2 else '*')(config['limit'])}",
+                    callback_data=button_data((lambda x: "limit" if x > 10 else "none")(config['limit']),
+                                              None,
+                                              config['limit'] - 10)
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '+️' if x < 5 else '*')(config['limit'])}",
+                    callback_data=button_data((lambda x: "limit" if x < 50 else "none")(config['limit']),
+                                              None,
+                                              config['limit'] + 10)
+                )
+            ]
+        ]
+    )
+
+    return markup
 
 
 def noporn_button(config: dict) -> InlineKeyboardMarkup:
@@ -166,6 +412,38 @@ def noporn_button(config: dict) -> InlineKeyboardMarkup:
     return markup
 
 
+def nospam_button(config: dict) -> InlineKeyboardMarkup:
+    # Get inline markup for NOSPAM
+    markup = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "默认设置",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('default'))}",
+                    callback_data=button_data((lambda x: "default" if not x else "none")(config.get('default')),
+                                              None,
+                                              not config.get('default'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "试验特性",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('auto'))}",
+                    callback_data=button_data("auto", None, not config.get('auto'))
+                )
+            ]
+        ]
+    )
+
+    return markup
+
+
 def set_default(config_key: str) -> bool:
     glovar.configs[config_key]["config"] = deepcopy(glovar.configs[config_key]["default"])
 
@@ -205,14 +483,14 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
                 ),
                 InlineKeyboardButton(
                     f"{(lambda x: '-️' if x > 2 else '*')(config['limit'])}",
-                    callback_data=button_data("limit",
-                                              (lambda x: "set" if x > 2 else None)(config['limit']),
+                    callback_data=button_data((lambda x: "limit" if x > 2 else "none")(config['limit']),
+                                              None,
                                               config['limit'] - 1)
                 ),
                 InlineKeyboardButton(
                     f"{(lambda x: '+️' if x < 5 else '*')(config['limit'])}",
-                    callback_data=button_data("limit",
-                                              (lambda x: "set" if x < 5 else None)(config['limit']),
+                    callback_data=button_data((lambda x: "limit" if x < 2 else "none")(config['limit']),
+                                              None,
                                               config['limit'] + 1)
                 )
             ],

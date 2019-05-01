@@ -63,22 +63,32 @@ def answer(client, callback_query):
                                     set_default(config_key)
                                 else:
                                     glovar.configs[config_key]["config"]["default"] = False
+                                    # CAPTCHA
+                                    if config_type == "captcha":
+                                        glovar.configs[config_key]["config"][action] = data
+                                    # CLEAN
+                                    elif config_type == "clean":
+                                        glovar.configs[config_key]["config"][action] = data
+                                    # LANG
+                                    elif config_type == "lang":
+                                        glovar.configs[config_key]["config"][action] = data
+                                        if (glovar.configs[config_key]["config"]["name"]
+                                                and glovar.configs[config_key]["config"]["text"]):
+                                            glovar.configs[config_key]["default"] = True
+                                    # NOFLOOD
+                                    elif config_type == "noflood":
+                                        if action == "limit":
+                                            glovar.configs[config_key]["config"][action] = data
                                     # NOPORN
-                                    if config_type == "noporn":
+                                    elif config_type == "noporn":
+                                        glovar.configs[config_key]["config"][action] = data
+                                    # NOSPAM
+                                    elif config_type == "nospam":
                                         glovar.configs[config_key]["config"][action] = data
                                     # WARN
                                     elif config_type == "warn":
-                                        if action == "limit":
-                                            # If action type is "set" (not None), then set it to the new number
-                                            if action_type:
-                                                glovar.configs[config_key]["config"]["limit"] = data
-                                            # Else do not set
-                                            else:
-                                                thread(answer_callback, (client, callback_query.id, ""))
-                                                # Do not edit the message, because bot did nothing
-                                                return
-                                        elif action == "mention":
-                                            glovar.configs[config_key]["config"]["mention"] = data
+                                        if action in {"limit", "mention"}:
+                                            glovar.configs[config_key]["config"][action] = data
                                         elif action == "report":
                                             # Key "report" was created when generate the button first time
                                             glovar.configs[config_key]["config"]["report"][action_type] = data
