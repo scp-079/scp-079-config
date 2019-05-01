@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-from typing import List
+from typing import List, Union
 
 from pyrogram import Client
 
@@ -30,11 +30,13 @@ from .telegram import send_message
 logger = logging.getLogger(__name__)
 
 
-def share_data(client: Client, receivers: List[str], action: str, action_type: str, data=None) -> bool:
+def share_data(client: Client, receivers: List[str], action: str, action_type: str,
+               data: Union[dict, int, str]) -> bool:
     # Use this function to share data in exchange channel
     try:
+        sender = "CONFIG"
         text = format_data(
-            sender="CONFIG",
+            sender=sender,
             receivers=receivers,
             action=action,
             action_type=action_type,
