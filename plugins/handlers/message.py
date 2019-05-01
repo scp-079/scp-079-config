@@ -67,14 +67,14 @@ def process_data(client, message):
                             user_id = glovar.configs[config_key]["user_id"]
                             share_data(
                                 client=client,
-                                sender="CONFIG",
                                 receivers=[sender],
                                 action="config",
                                 action_type="reply",
                                 data={
                                     "group_id": group_id,
                                     "user_id": user_id,
-                                    "message_id": sent_message.message_id
+                                    "config_link": f"https://t.me/"
+                                    f"{glovar.config_channel_username}/{sent_message.message_id}"
                                 }
                             )
                         else:

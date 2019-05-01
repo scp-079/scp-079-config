@@ -63,12 +63,7 @@ config_channel_id: int = 0
 debug_channel_id: int = 0
 exchange_channel_id: int = 0
 test_group_id: int = 0
-
-# [custom]
-noporn_link: str = ""
-noporn_name: str = ""
-warn_link: str = ""
-warn_name: str = ""
+config_channel_username: str = ""
 
 try:
     config = RawConfigParser()
@@ -81,11 +76,7 @@ try:
     debug_channel_id = int(config["channels"].get("debug_channel_id", debug_channel_id))
     exchange_channel_id = int(config["channels"].get("exchange_channel_id", exchange_channel_id))
     test_group_id = int(config["channels"].get("test_group_id", test_group_id))
-    # [custom]
-    noporn_link = config["custom"].get("noporn_link", noporn_link)
-    noporn_name = config["custom"].get("noporn_name", noporn_name)
-    warn_link = config["custom"].get("warn_link", warn_link)
-    warn_name = config["custom"].get("warn_name", warn_name)
+    config_channel_username = config["channels"].get("config_channel_username", config_channel_username)
 except Exception as e:
     logger.warning(f"Read data from config.ini error: {e}", exc_info=True)
 
@@ -95,11 +86,7 @@ if (bot_token in {"", "[DATA EXPUNGED]"}
         or config_channel_id == 0
         or debug_channel_id == 0
         or exchange_channel_id == 0
-        or test_group_id == 0
-        or noporn_link in {"", "[DATA EXPUNGED]"}
-        or noporn_name in {"", "[DATA EXPUNGED]"}
-        or warn_link in {"", "[DATA EXPUNGED]"}
-        or warn_name in {"", "[DATA EXPUNGED]"}):
+        or test_group_id == 0):
     raise SystemExit('No proper settings')
 
 # Start program

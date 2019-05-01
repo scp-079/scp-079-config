@@ -188,11 +188,14 @@ def format_data(sender: str, receivers: List[str], action: str, action_type: str
                 Config:
                     ask:
                         {
+                            "project_name": "Project name",
+                            "project_link": "Link to project",
                             "group_id": -10012345678,
                             "group_name": "Group Name",
                             "group_link": "link to group",
                             "user_id": 12345678
-                            "config": dict
+                            "config": dict,
+                            "default": dict
                         }
 
                     commit:

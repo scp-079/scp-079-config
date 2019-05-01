@@ -30,11 +30,11 @@ from .telegram import send_message
 logger = logging.getLogger(__name__)
 
 
-def share_data(client: Client, sender: str, receivers: List[str], action: str, action_type: str, data=None) -> bool:
+def share_data(client: Client, receivers: List[str], action: str, action_type: str, data=None) -> bool:
     # Use this function to share data in exchange channel
     try:
         text = format_data(
-            sender=sender,
+            sender="CONFIG",
             receivers=receivers,
             action=action,
             action_type=action_type,

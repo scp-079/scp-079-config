@@ -31,7 +31,6 @@ def update_status(client: Client) -> bool:
     try:
         share_data(
             client=client,
-            sender="CONFIG",
             receivers=["BACKUP"],
             action="update",
             action_type="status",

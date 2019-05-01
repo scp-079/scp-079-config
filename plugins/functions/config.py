@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+from copy import deepcopy
 from typing import Optional
 
 from pyrogram import Client, InlineKeyboardButton, InlineKeyboardMarkup
@@ -69,7 +70,6 @@ def commit_change(client: Client, config_key: str) -> bool:
             receivers = [config_type.upper()]
             share_data(
                 client=client,
-                sender="CONFIG",
                 receivers=receivers,
                 action="config",
                 action_type="commit",
@@ -102,14 +102,12 @@ def get_config_message(config_key: str) -> (str, Optional[InlineKeyboardMarkup])
 
 def get_config_text(config_key: str) -> str:
     # Get a config session message text
-    config_type = glovar.configs[config_key]["type"]
+    project_name = glovar.configs[config_key]["project_name"]
+    project_link = glovar.configs[config_key]["project_link"]
     group_id = glovar.configs[config_key]["group_id"]
     group_name = glovar.configs[config_key]["group_name"]
     group_link = glovar.configs[config_key]["group_link"]
     user_id = glovar.configs[config_key]["user_id"]
-    # For each config type, use different project name and project link
-    project_name = eval(f"glovar.{config_type}_name")
-    project_link = eval(f"glovar.{config_type}_link")
 
     text = (f"设置编号：{code(config_key)}\n"
             f"项目编号：{general_link(project_name, project_link)}\n"
@@ -168,21 +166,8 @@ def noporn_button(config: dict) -> InlineKeyboardMarkup:
     return markup
 
 
-def noporn_default(config_key: str) -> bool:
-    # NOPORN's default config
-    if glovar.configs.get(config_key):
-        glovar.configs[config_key]["config"] = {
-            "default": True,
-            "channel": True,
-            "locked": 0,
-            "recheck": False
-        }
-
-    return True
-
-
-def set_default(config_type: str, config_key: str) -> bool:
-    eval(f"{config_type}_default")(config_key)
+def set_default(config_key: str) -> bool:
+    glovar.configs[config_key]["config"] = deepcopy(glovar.configs[config_key]["default"])
 
     return True
 
@@ -271,20 +256,3 @@ def warn_button(config: dict) -> InlineKeyboardMarkup:
     )
 
     return markup
-
-
-def warn_default(config_key: str) -> bool:
-    # WARN's default config
-    if glovar.configs.get(config_key):
-        glovar.configs[config_key]["config"] = {
-            "default": True,
-            "limit": 3,
-            "locked": 0,
-            "mention": False,
-            "report": {
-                "auto": False,
-                "manual": False
-            }
-        }
-
-    return True

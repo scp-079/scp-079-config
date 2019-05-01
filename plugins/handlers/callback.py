@@ -60,7 +60,7 @@ def answer(client, callback_query):
                             else:
                                 config_type = glovar.configs[config_key]["type"]
                                 if action == "default":
-                                    set_default(config_type, config_key)
+                                    set_default(config_key)
                                 else:
                                     glovar.configs[config_key]["config"]["default"] = False
                                     # NOPORN
