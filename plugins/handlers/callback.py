@@ -93,7 +93,7 @@ def answer(client, callback_query):
                                             # Key "report" was created when generate the button first time
                                             glovar.configs[config_key]["config"]["report"][action_type] = data
 
-                                _, markup = get_config_message(config_type)
+                                _, markup = get_config_message(config_key)
                                 edit_message_reply_markup(client, cid, mid, markup)
                                 thread(answer_callback, (client, callback_query.id, ""))
                     finally:
