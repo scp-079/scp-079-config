@@ -25,13 +25,14 @@ from pyrogram import Client
 from .. import glovar
 from ..functions.config import commit_change, get_config_message, set_default
 from ..functions.etc import thread
+from ..functions.filters import config_channel
 from ..functions.telegram import answer_callback, edit_message_reply_markup
 
 # Enable logging
 logger = logging.getLogger(__name__)
 
 
-@Client.on_callback_query()
+@Client.on_callback_query(config_channel)
 def answer(client, callback_query):
     try:
         # Basic data about this callback

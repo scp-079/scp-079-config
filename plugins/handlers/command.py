@@ -26,7 +26,6 @@ from ..functions.filters import test_group
 
 from ..functions.telegram import send_message
 
-
 # Enable logging
 logger = logging.getLogger(__name__)
 

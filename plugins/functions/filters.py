@@ -60,7 +60,7 @@ def is_test_group(_, message: Message) -> bool:
     return False
 
 
-class_c = Filters.create(
+config_channel = Filters.create(
     name="Config Channel",
     func=is_config_channel
 )
