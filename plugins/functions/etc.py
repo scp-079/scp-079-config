@@ -86,7 +86,7 @@ def format_data(sender: str, receivers: List[str], action: str, action_type: str
 
 
 def get_text(message: Message) -> str:
-    # Get message's text, including link and mentioned user's name
+    # Get message's text
     text = ""
     try:
         if message.text or message.caption:
