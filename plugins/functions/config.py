@@ -108,7 +108,6 @@ def get_config_text(config_key: str) -> str:
     group_name = glovar.configs[config_key]["group_name"]
     group_link = glovar.configs[config_key]["group_link"]
     user_id = glovar.configs[config_key]["user_id"]
-
     text = (f"设置编号：{code(config_key)}\n"
             f"项目编号：{general_link(project_name, project_link)}\n"
             f"群组 ID：{code(group_id)}\n"
