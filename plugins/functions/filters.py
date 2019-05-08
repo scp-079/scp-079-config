@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 
 
 def is_config_channel(_, update: Union[CallbackQuery, Message]) -> bool:
-    # Check if this message is sent from config channel
+    # Check if the message is sent from config channel
     try:
         if isinstance(update, CallbackQuery):
             message = update.message
@@ -46,7 +46,7 @@ def is_config_channel(_, update: Union[CallbackQuery, Message]) -> bool:
 
 
 def is_exchange_channel(_, message: Message) -> bool:
-    # Check if this message is sent from exchange channel
+    # Check if the message is sent from exchange channel
     cid = message.chat.id
     if cid == glovar.exchange_channel_id:
         return True
@@ -55,7 +55,7 @@ def is_exchange_channel(_, message: Message) -> bool:
 
 
 def is_test_group(_, message: Message) -> bool:
-    # Check if this message is sent from test group
+    # Check if the message is sent from test group
     cid = message.chat.id
     if cid == glovar.test_group_id:
         return True
