@@ -239,20 +239,20 @@ def clean_button(config: dict) -> InlineKeyboardMarkup:
             ],
             [
                 InlineKeyboardButton(
-                    f"EXE {(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
+                    f"EXE APK{(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
                     callback_data=button_data("exe", None, not config.get('exe'))
                 ),
                 InlineKeyboardButton(
-                    f"APK {(lambda x: '✅' if x else '☑️')(config.get('apk'))}",
-                    callback_data=button_data("apk", None, not config.get('apk'))
-                ),
-                InlineKeyboardButton(
-                    f"BAT {(lambda x: '✅' if x else '☑️')(config.get('bat'))}",
+                    f"BAT CMD{(lambda x: '✅' if x else '☑️')(config.get('bat'))}",
                     callback_data=button_data("bat", None, not config.get('bat'))
                 ),
                 InlineKeyboardButton(
-                    f"CMD {(lambda x: '✅' if x else '☑️')(config.get('cmd'))}",
-                    callback_data=button_data("cmd", None, not config.get('cmd'))
+                    f"AFF 链接{(lambda x: '✅' if x else '☑️')(config.get('aff'))}",
+                    callback_data=button_data("aff", None, not config.get('aff'))
+                ),
+                InlineKeyboardButton(
+                    f"短链接{(lambda x: '✅' if x else '☑️')(config.get('cmd'))}",
+                    callback_data=button_data("sho", None, not config.get('sho'))
                 )
             ],
             [
@@ -263,6 +263,14 @@ def clean_button(config: dict) -> InlineKeyboardMarkup:
                 InlineKeyboardButton(
                     f"TG 代理 {(lambda x: '✅' if x else '☑️')(config.get('tgp'))}",
                     callback_data=button_data("tgp", None, not config.get('tgp'))
+                ),
+                InlineKeyboardButton(
+                    f"国内 IM{(lambda x: '✅' if x else '☑️')(config.get('cim'))}",
+                    callback_data=button_data("cim", None, not config.get('cim'))
+                ),
+                InlineKeyboardButton(
+                    f"二维码{(lambda x: '✅' if x else '☑️')(config.get('qrc'))}",
+                    callback_data=button_data("qrc", None, not config.get('qrc'))
                 )
             ],
             [
