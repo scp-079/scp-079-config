@@ -98,7 +98,7 @@ def edit_message_text(client: Client, cid: int, mid: int, text: str,
 
 
 def send_message(client: Client, cid: int, text: str, mid: int = None,
-                 markup: InlineKeyboardMarkup = None) -> Optional[bool, Message]:
+                 markup: InlineKeyboardMarkup = None) -> Optional[Union[bool, Message]]:
     # Send a message to a chat
     result = None
     try:
