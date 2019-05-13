@@ -48,7 +48,19 @@ def is_config_channel(_, update: Union[CallbackQuery, Message]) -> bool:
 def is_exchange_channel(_, message: Message) -> bool:
     # Check if the message is sent from exchange channel
     cid = message.chat.id
-    if cid == glovar.exchange_channel_id:
+    if glovar.should_hide:
+        if cid == glovar.hide_channel_id:
+            return True
+    elif cid == glovar.exchange_channel_id:
+        return True
+
+    return False
+
+
+def is_hide_channel(_, message: Message) -> bool:
+    # Check if the message is sent from hide channel
+    cid = message.chat.id
+    if cid == glovar.hide_channel_id:
         return True
 
     return False
@@ -71,6 +83,11 @@ config_channel = Filters.create(
 exchange_channel = Filters.create(
     name="Exchange Channel",
     func=is_exchange_channel
+)
+
+hide_channel = Filters.create(
+    name="Hide Channel",
+    func=is_hide_channel
 )
 
 test_group = Filters.create(

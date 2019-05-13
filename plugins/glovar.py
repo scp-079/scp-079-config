@@ -51,7 +51,9 @@ configs: Dict[str, Dict[str, Union[int, dict, str]]] = {}
 
 sender: str = "CONFIG"
 
-version: str = "0.0.8"
+should_hide: bool = False
+
+version: str = "0.0.9"
 
 # Read data from config.ini
 
@@ -64,6 +66,7 @@ prefix_str: str = "/!"
 config_channel_id: int = 0
 debug_channel_id: int = 0
 exchange_channel_id: int = 0
+hide_channel_id: int = 0
 test_group_id: int = 0
 config_channel_username: str = ""
 
@@ -77,6 +80,7 @@ try:
     config_channel_id = int(config["channels"].get("config_channel_id", config_channel_id))
     debug_channel_id = int(config["channels"].get("debug_channel_id", debug_channel_id))
     exchange_channel_id = int(config["channels"].get("exchange_channel_id", exchange_channel_id))
+    hide_channel_id = int(config["channels"].get("hide_channel_id", hide_channel_id))
     test_group_id = int(config["channels"].get("test_group_id", test_group_id))
     config_channel_username = config["channels"].get("config_channel_username", config_channel_username)
 except Exception as e:
@@ -88,6 +92,7 @@ if (bot_token in {"", "[DATA EXPUNGED]"}
         or config_channel_id == 0
         or debug_channel_id == 0
         or exchange_channel_id == 0
+        or hide_channel_id == 0
         or test_group_id == 0):
     raise SystemExit('No proper settings')
 

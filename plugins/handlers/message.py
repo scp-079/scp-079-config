@@ -24,11 +24,31 @@ from .. import glovar
 from ..functions.channel import share_data
 from ..functions.config import check_commit, get_config_message
 from ..functions.etc import delay, random_str, receive_data
-from ..functions.filters import exchange_channel
+from ..functions.filters import exchange_channel, hide_channel
 from ..functions.telegram import send_message
 
 # Enable logging
 logger = logging.getLogger(__name__)
+
+
+@Client.on_message(Filters.incoming & Filters.channel & hide_channel
+                   & ~Filters.command(glovar.all_commands, glovar.prefix))
+def exchange_emergency(_, message):
+    try:
+        # Read basic information
+        data = receive_data(message)
+        sender = data["from"]
+        receivers = data["to"]
+        action = data["action"]
+        action_type = data["type"]
+        data = data["data"]
+        if "EMERGENCY" in receivers:
+            if sender == "EMERGENCY":
+                if action == "backup":
+                    if action_type == "hide":
+                        glovar.should_hide = data
+    except Exception as e:
+        logger.warning(f"Exchange emergency error: {e}", exc_info=True)
 
 
 @Client.on_message(Filters.incoming & Filters.channel & exchange_channel
