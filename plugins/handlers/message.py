@@ -43,7 +43,7 @@ def process_data(client, message):
         action_type = data["type"]
         data = data["data"]
         if "CONFIG" in receivers:
-            if sender in {"CAPTCHA", "CLEAN", "LANG", "NOFLOOD", "NOPORN", "WARN"}:
+            if sender in {"CAPTCHA", "CLEAN", "LANG", "NOFLOOD", "NOPORN", "TIP", "WARN"}:
                 if action == "config":
                     if action_type == "ask":
                         # Generate a new config key

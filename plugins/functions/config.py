@@ -457,6 +457,80 @@ def set_default(config_key: str) -> bool:
     return True
 
 
+def tip_button(config: dict) -> InlineKeyboardMarkup:
+    # Get inline markup for TIP
+    if not config.get("limit"):
+        config["limit"] = 3
+
+    if not config.get("report"):
+        config["report"] = {}
+
+    markup = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "默认设置",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('default'))}",
+                    callback_data=button_data((lambda x: "default" if not x else "none")(config.get('default')),
+                                              None,
+                                              not config.get('default'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "OT 警告",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('ot'))}",
+                    callback_data=button_data("ot", None, not config.get('ot'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "欢迎信息",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('welcome'))}",
+                    callback_data=button_data("welcome", None, not config.get('welcome'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "RM 警告",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('rm'))}",
+                    callback_data=button_data("rm", None, not config.get('rm'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "自定义关键词",
+                    callback_data=button_data("none")
+                ),
+                InlineKeyboardButton(
+                    f"{(lambda x: '✅' if x else '☑️')(config.get('custom'))}",
+                    callback_data=button_data("custom", None, not config.get('custom'))
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "提交",
+                    callback_data=button_data("commit")
+                )
+            ]
+        ]
+    )
+
+    return markup
+
+
 def warn_button(config: dict) -> InlineKeyboardMarkup:
     # Get inline markup for WARN
     if not config.get("limit"):

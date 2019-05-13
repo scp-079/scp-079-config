@@ -51,7 +51,7 @@ configs: Dict[str, Dict[str, Union[int, dict, str]]] = {}
 
 sender: str = "CONFIG"
 
-version: str = "0.0.7"
+version: str = "0.0.8"
 
 # Read data from config.ini
 
