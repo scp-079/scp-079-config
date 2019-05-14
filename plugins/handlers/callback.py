@@ -86,6 +86,9 @@ def answer(client, callback_query):
                                     # NOSPAM
                                     elif config_type == "nospam":
                                         glovar.configs[config_key]["config"][action] = data
+                                    # TIP
+                                    elif config_type == "tip":
+                                        glovar.configs[config_key]["config"][action] = data
                                     # WARN
                                     elif config_type == "warn":
                                         if action in {"limit", "mention"}:
