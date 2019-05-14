@@ -41,3 +41,15 @@ def version(client, message):
         thread(send_message, (client, cid, text, mid))
     except Exception as e:
         logger.warning(f"Version error: {e}", exc_info=True)
+
+
+@Client.on_message(Filters.incoming & Filters.group & test_group
+                   & Filters.command(["t"], glovar.prefix))
+def test(client, message):
+    try:
+        cid = message.chat.id
+        mid = message.message_id
+        text = "test"
+        thread(send_message, (client, cid, text, mid))
+    except Exception as e:
+        logger.warning(f"Test error: {e}", exc_info=True)
