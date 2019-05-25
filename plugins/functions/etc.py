@@ -33,7 +33,8 @@ logger = logging.getLogger(__name__)
 
 def bold(text) -> str:
     # Get a bold text
-    if text:
+    text = str(text)
+    if text.strip():
         return f"**{text}**"
 
     return ""
@@ -51,7 +52,8 @@ def button_data(action: str, action_type: str = None, data: Union[int, str] = No
 
 def code(text) -> str:
     # Get a code text
-    if text:
+    text = str(text)
+    if text.strip():
         return f"`{text}`"
 
     return ""
@@ -59,7 +61,8 @@ def code(text) -> str:
 
 def code_block(text) -> str:
     # Get a code block text
-    if text:
+    text = str(text)
+    if text.strip():
         return f"```{text}```"
 
     return ""
