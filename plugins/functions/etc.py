@@ -122,15 +122,15 @@ def random_str(i: int) -> str:
 
 def receive_data(message: Message) -> dict:
     # Receive data from exchange channel
-    text = get_text(message)
+    data = {}
     try:
-        assert text is not "", f"Can't get text from message: {message}"
-        data = loads(text)
-        return data
+        text = get_text(message)
+        if text:
+            data = loads(text)
     except Exception as e:
         logger.warning(f"Receive data error: {e}")
 
-    return {}
+    return data
 
 
 def thread(target: Callable, args: tuple) -> bool:

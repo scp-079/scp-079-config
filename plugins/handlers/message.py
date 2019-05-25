@@ -57,48 +57,49 @@ def process_data(client, message):
     try:
         # Read basic information
         data = receive_data(message)
-        sender = data["from"]
-        receivers = data["to"]
-        action = data["action"]
-        action_type = data["type"]
-        data = data["data"]
-        if "CONFIG" in receivers:
-            if sender in {"CAPTCHA", "CLEAN", "LANG", "NOFLOOD", "NOPORN", "TIP", "WARN"}:
-                if action == "config":
-                    if action_type == "ask":
-                        # Generate a new config key
-                        config_key = random_str(8)
-                        while glovar.configs.get(config_key):
+        if data:
+            sender = data["from"]
+            receivers = data["to"]
+            action = data["action"]
+            action_type = data["type"]
+            data = data["data"]
+            if "CONFIG" in receivers:
+                if sender in {"CAPTCHA", "CLEAN", "LANG", "NOFLOOD", "NOPORN", "TIP", "WARN"}:
+                    if action == "config":
+                        if action_type == "ask":
+                            # Generate a new config key
                             config_key = random_str(8)
+                            while glovar.configs.get(config_key):
+                                config_key = random_str(8)
 
-                        # Set basic data
-                        glovar.configs[config_key] = data
-                        glovar.configs[config_key]["type"] = sender.lower()
-                        glovar.configs[config_key]["commit"] = False
-                        # Send the config session message
-                        text, markup = get_config_message(config_key)
-                        sent_message = send_message(client, glovar.config_channel_id, text, None, markup)
-                        if sent_message:
-                            # If message is sent, initiate the check process
-                            glovar.configs[config_key]["message_id"] = sent_message.message_id
-                            delay(300, check_commit, [client, config_key])
-                            # Reply the bot in the exchange channel, let it send a report in the group
-                            group_id = glovar.configs[config_key]["group_id"]
-                            user_id = glovar.configs[config_key]["user_id"]
-                            share_data(
-                                client=client,
-                                receivers=[sender],
-                                action="config",
-                                action_type="reply",
-                                data={
-                                    "group_id": group_id,
-                                    "user_id": user_id,
-                                    "config_link": f"https://t.me/"
-                                    f"{glovar.config_channel_username}/{sent_message.message_id}"
-                                }
-                            )
-                        else:
-                            # If something goes wrong, pop the config
-                            glovar.configs.pop(config_key, None)
+                            # Set basic data
+                            glovar.configs[config_key] = data
+                            glovar.configs[config_key]["type"] = sender.lower()
+                            glovar.configs[config_key]["commit"] = False
+                            # Send the config session message
+                            text, markup = get_config_message(config_key)
+                            sent_message = send_message(client, glovar.config_channel_id, text, None, markup)
+                            if sent_message:
+                                # If message is sent, initiate the check process
+                                glovar.configs[config_key]["message_id"] = sent_message.message_id
+                                delay(300, check_commit, [client, config_key])
+                                # Reply the bot in the exchange channel, let it send a report in the group
+                                group_id = glovar.configs[config_key]["group_id"]
+                                user_id = glovar.configs[config_key]["user_id"]
+                                share_data(
+                                    client=client,
+                                    receivers=[sender],
+                                    action="config",
+                                    action_type="reply",
+                                    data={
+                                        "group_id": group_id,
+                                        "user_id": user_id,
+                                        "config_link": f"https://t.me/"
+                                        f"{glovar.config_channel_username}/{sent_message.message_id}"
+                                    }
+                                )
+                            else:
+                                # If something goes wrong, pop the config
+                                glovar.configs.pop(config_key, None)
     except Exception as e:
         logger.warning(f"Process data error: {e}", exc_info=True)
