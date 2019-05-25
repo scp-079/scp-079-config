@@ -217,22 +217,22 @@ def button_lang(config: dict) -> InlineKeyboardMarkup:
             ],
             [
                 InlineKeyboardButton(
-                    "昵称默认",
+                    "昵称过滤",
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '✅' if x else '☑️')(config.get('name'))}",
-                    callback_data=button_data("name", None, not config.get('name'))
+                    f"{(lambda x: '✅' if x else '☑️')(config['name']['enable'])}",
+                    callback_data=button_data("name", None, not config['name']['enable'])
                 )
             ],
             [
                 InlineKeyboardButton(
-                    "文字默认",
+                    "文字过滤",
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '✅' if x else '☑️')(config.get('text'))}",
-                    callback_data=button_data("text", None, not config.get('text'))
+                    f"{(lambda x: '✅' if x else '☑️')(config['text']['enable'])}",
+                    callback_data=button_data("text", None, not config['text']['enable'])
                 )
             ]
         ]
