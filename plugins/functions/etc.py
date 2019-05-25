@@ -18,12 +18,14 @@
 
 import logging
 from json import dumps, loads
-from random import choice
+from random import choice, uniform
 from string import ascii_letters, digits
 from threading import Thread, Timer
+from time import sleep
 from typing import Callable, List, Union
 
 from pyrogram import Message
+from pyrogram.errors import FloodWait
 
 # Enable logging
 logger = logging.getLogger(__name__)
@@ -140,3 +142,14 @@ def thread(target: Callable, args: tuple) -> bool:
 def user_mention(uid: int) -> str:
     # Get a mention text
     return f"[{uid}](tg://user?id={uid})"
+
+
+def wait_flood(e: FloodWait) -> bool:
+    # Wait flood secs
+    try:
+        sleep(e.x + uniform(0.5, 1.0))
+        return True
+    except Exception as e:
+        logger.warning(f"Wait flood error: {e}", exc_info=True)
+
+    return False

@@ -89,6 +89,9 @@ def answer(client, callback_query):
                                     # TIP
                                     elif config_type == "tip":
                                         glovar.configs[config_key]["config"][action] = data
+                                    # USER
+                                    elif config_type == "user":
+                                        glovar.configs[config_key]["config"][action] = data
                                     # WARN
                                     elif config_type == "warn":
                                         if action in {"limit", "mention"}:
