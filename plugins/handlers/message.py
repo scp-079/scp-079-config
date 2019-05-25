@@ -100,6 +100,5 @@ def process_data(client, message):
                         else:
                             # If something goes wrong, pop the config
                             glovar.configs.pop(config_key, None)
-
     except Exception as e:
         logger.warning(f"Process data error: {e}", exc_info=True)

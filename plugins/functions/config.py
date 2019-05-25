@@ -130,7 +130,7 @@ def button_clean(config: dict) -> InlineKeyboardMarkup:
                 ),
                 InlineKeyboardButton(
                     f"服务 {(lambda x: '✅' if x else '☑️')(config.get('ser'))}",
-                    callback_data=button_data("url", None, not config.get('ser'))
+                    callback_data=button_data("ser", None, not config.get('ser'))
                 )
             ],
             [
@@ -165,7 +165,7 @@ def button_clean(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("aff", None, not config.get('aff'))
                 ),
                 InlineKeyboardButton(
-                    f"短链接{(lambda x: '✅' if x else '☑️')(config.get('cmd'))}",
+                    f"短链接{(lambda x: '✅' if x else '☑️')(config.get('sho'))}",
                     callback_data=button_data("sho", None, not config.get('sho'))
                 )
             ],
@@ -201,6 +201,13 @@ def button_clean(config: dict) -> InlineKeyboardMarkup:
 
 def button_lang(config: dict) -> InlineKeyboardMarkup:
     # Get inline markup for LANG
+    for the_type in ["name", "text"]:
+        if not config.get(the_type):
+            config[the_type] = {}
+
+        if not config[the_type].get("enable"):
+            config[the_type]["enable"] = True
+
     markup = InlineKeyboardMarkup(
         [
             [
@@ -267,13 +274,13 @@ def button_noflood(config: dict) -> InlineKeyboardMarkup:
                     callback_data=button_data("none")
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '-️' if x > 2 else '*')(config['limit'])}",
+                    f"{(lambda x: '-️' if x > 10 else '*')(config['limit'])}",
                     callback_data=button_data((lambda x: "limit" if x > 10 else "none")(config['limit']),
                                               None,
                                               config['limit'] - 10)
                 ),
                 InlineKeyboardButton(
-                    f"{(lambda x: '+️' if x < 5 else '*')(config['limit'])}",
+                    f"{(lambda x: '+️' if x < 50 else '*')(config['limit'])}",
                     callback_data=button_data((lambda x: "limit" if x < 50 else "none")(config['limit']),
                                               None,
                                               config['limit'] + 10)
@@ -367,12 +374,6 @@ def button_nospam(config: dict) -> InlineKeyboardMarkup:
 
 def button_tip(config: dict) -> InlineKeyboardMarkup:
     # Get inline markup for TIP
-    if not config.get("limit"):
-        config["limit"] = 3
-
-    if not config.get("report"):
-        config["report"] = {}
-
     markup = InlineKeyboardMarkup(
         [
             [
@@ -588,6 +589,7 @@ def check_commit(client: Client, config_key: str) -> bool:
 
 
 def commit_change(client: Client, config_key: str) -> bool:
+    # Commit the new configuration
     try:
         if glovar.configs.get(config_key):
             # Change commit status
@@ -654,6 +656,7 @@ def get_config_text(config_key: str) -> str:
 
 
 def set_default(config_key: str) -> bool:
+    # Set the config to the default one
     glovar.configs[config_key]["config"] = deepcopy(glovar.configs[config_key]["default"])
 
     return True
