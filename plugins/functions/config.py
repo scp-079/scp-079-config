@@ -159,12 +159,12 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        f"EXE APK{(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
+                        f"可执行文件{(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
                         callback_data=button_data("exe", None, not config.get('exe'))
                     ),
                     InlineKeyboardButton(
-                        f"BAT CMD{(lambda x: '✅' if x else '☑️')(config.get('bat'))}",
-                        callback_data=button_data("bat", None, not config.get('bat'))
+                        f"定时清理成员{(lambda x: '✅' if x else '☑️')(config.get('tcl'))}",
+                        callback_data=button_data("tcl", None, not config.get('tcl'))
                     ),
                     InlineKeyboardButton(
                         f"AFF 链接{(lambda x: '✅' if x else '☑️')(config.get('aff'))}",
