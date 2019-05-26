@@ -90,6 +90,11 @@ def format_data(sender: str, receivers: List[str], action: str, action_type: str
     return code_block(dumps(data, indent=4))
 
 
+def general_link(text: Union[int, str], link: str) -> str:
+    # Get a general markdown link
+    return f"[{text}]({link})"
+
+
 def get_text(message: Message) -> str:
     # Get message's text
     text = ""
@@ -103,11 +108,6 @@ def get_text(message: Message) -> str:
         logger.warning(f"Get text error: {e}", exc_info=True)
 
     return text
-
-
-def general_link(text: Union[int, str], link: str) -> str:
-    # Get a general markdown link
-    return f"[{text}]({link})"
 
 
 def message_link(cid: int, mid: int) -> str:
