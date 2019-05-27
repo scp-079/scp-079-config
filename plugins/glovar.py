@@ -37,9 +37,9 @@ configs: Dict[str, Dict[str, Union[int, dict, str]]] = {}
 #         "user_id": 12345678,
 #         "message_id": 123,
 #         "config": {
-#             "default": True
-#             "limit": 3,
+#             "default": True,
 #             "locked": 0,
+#             "limit": 3,
 #             "mention": False,
 #             "report": {
 #                 "auto": False,
