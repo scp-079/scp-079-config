@@ -23,7 +23,7 @@ from pyrogram import Client, Filters
 from .. import glovar
 from ..functions.channel import share_data
 from ..functions.config import check_commit, get_config_message
-from ..functions.etc import delay, random_str, receive_data
+from ..functions.etc import delay, message_link, random_str, receive_data
 from ..functions.filters import exchange_channel, hide_channel
 from ..functions.telegram import send_message
 
@@ -94,8 +94,7 @@ def process_data(client, message):
                                     data={
                                         "group_id": group_id,
                                         "user_id": user_id,
-                                        "config_link": f"https://t.me/"
-                                        f"{glovar.config_channel_username}/{sent_message.message_id}"
+                                        "config_link": message_link(sent_message)
                                     }
                                 )
                             else:

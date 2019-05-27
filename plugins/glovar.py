@@ -53,7 +53,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.1.2"
+version: str = "0.1.3"
 
 # Read data from config.ini
 
@@ -68,7 +68,6 @@ debug_channel_id: int = 0
 exchange_channel_id: int = 0
 hide_channel_id: int = 0
 test_group_id: int = 0
-config_channel_username: str = ""
 
 try:
     config = RawConfigParser()
@@ -82,7 +81,6 @@ try:
     exchange_channel_id = int(config["channels"].get("exchange_channel_id", exchange_channel_id))
     hide_channel_id = int(config["channels"].get("hide_channel_id", hide_channel_id))
     test_group_id = int(config["channels"].get("test_group_id", test_group_id))
-    config_channel_username = config["channels"].get("config_channel_username", config_channel_username)
 except Exception as e:
     logger.warning(f"Read data from config.ini error: {e}", exc_info=True)
 
@@ -97,6 +95,6 @@ if (bot_token in {"", "[DATA EXPUNGED]"}
     raise SystemExit('No proper settings')
 
 # Start program
-copyright_text = (f"SCP-079-CONFIG v{version}, Copyright (C) 2019 SCP-079 <https://scp-079.org>\n"
+copyright_text = (f"SCP-079-{sender} v{version}, Copyright (C) 2019 SCP-079 <https://scp-079.org>\n"
                   "Licensed under the terms of the GNU General Public License v3 or later (GPLv3+)\n")
 print(copyright_text)
