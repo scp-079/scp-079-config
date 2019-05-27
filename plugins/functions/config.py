@@ -141,12 +141,12 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        f"定时动图 {(lambda x: '✅' if x else '☑️')(config.get('tan'))}",
-                        callback_data=button_data("tan", None, not config.get('tan'))
+                        f"定时贴纸动图 {(lambda x: '✅' if x else '☑️')(config.get('ttd'))}",
+                        callback_data=button_data("ttd", None, not config.get('ttd'))
                     ),
                     InlineKeyboardButton(
-                        f"定时贴纸 {(lambda x: '✅' if x else '☑️')(config.get('tst'))}",
-                        callback_data=button_data("tst", None, not config.get('tst'))
+                        f"自助删除 {(lambda x: '✅' if x else '☑️')(config.get('sde'))}",
+                        callback_data=button_data("sde", None, not config.get('sde'))
                     ),
                     InlineKeyboardButton(
                         f"定位 {(lambda x: '✅' if x else '☑️')(config.get('loc'))}",
@@ -185,8 +185,8 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("tgp", None, not config.get('tgp'))
                     ),
                     InlineKeyboardButton(
-                        f"国内 IM{(lambda x: '✅' if x else '☑️')(config.get('cim'))}",
-                        callback_data=button_data("cim", None, not config.get('cim'))
+                        f"IM 链接 {(lambda x: '✅' if x else '☑️')(config.get('iml'))}",
+                        callback_data=button_data("iml", None, not config.get('iml'))
                     ),
                     InlineKeyboardButton(
                         f"二维码{(lambda x: '✅' if x else '☑️')(config.get('qrc'))}",
