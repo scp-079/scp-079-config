@@ -39,7 +39,7 @@ def is_config_channel(_, update: Union[CallbackQuery, Message]) -> bool:
         if cid == glovar.config_channel_id:
             return True
     except Exception as e:
-        logger.warning(f"Is class c error: {e}")
+        logger.warning(f"Is config channel error: {e}")
 
     return False
 
