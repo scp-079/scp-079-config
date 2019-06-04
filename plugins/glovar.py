@@ -27,10 +27,11 @@ logger = logging.getLogger(__name__)
 
 all_commands: List[str] = ["version"]
 
-configs: Dict[str, Dict[str, Union[int, dict, str]]] = {}
+configs: Dict[str, Dict[str, Union[bool, int, dict, str]]] = {}
 # configs = {
 #     "random": {
 #         "type": "warn",
+#         "lock": False,
 #         "group_id": -10012345678,
 #         "group_name": "Group Name",
 #         "group_link": "link to group",
@@ -38,7 +39,7 @@ configs: Dict[str, Dict[str, Union[int, dict, str]]] = {}
 #         "message_id": 123,
 #         "config": {
 #             "default": True,
-#             "locked": 0,
+#             "lock": 0,
 #             "limit": 3,
 #             "mention": False,
 #             "report": {
@@ -53,7 +54,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.1.3"
+version: str = "0.1.4"
 
 # Read data from config.ini
 

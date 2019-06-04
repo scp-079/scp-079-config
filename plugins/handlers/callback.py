@@ -47,10 +47,10 @@ def answer(client, callback_query):
             config_key = callback_query.message.text.split("\n")[0].split("：")[1]
             if glovar.configs.get(config_key):
                 # Check whether the config is locked
-                if not glovar.configs[config_key].get("locked"):
+                if not glovar.configs[config_key].get("lock"):
                     try:
                         # Lock the config status until bot answers callback, avoid multiple responses
-                        glovar.configs[config_key]["locked"] = True
+                        glovar.configs[config_key]["lock"] = True
                         # Check user's permission with this config session
                         aid = glovar.configs[config_key]["user_id"]
                         if uid == aid:
@@ -103,7 +103,7 @@ def answer(client, callback_query):
                                 edit_message_reply_markup(client, cid, mid, markup)
                                 thread(answer_callback, (client, callback_query.id, ""))
                     finally:
-                        glovar.configs[config_key]["locked"] = False
+                        glovar.configs[config_key]["lock"] = False
                 else:
                     thread(answer_callback, (client, callback_query.id, ""))
             else:
