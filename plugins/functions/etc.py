@@ -17,12 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-from json import dumps, loads
+from json import dumps
 from random import choice, uniform
 from string import ascii_letters, digits
 from threading import Thread, Timer
 from time import sleep
-from typing import Callable, List, Optional, Union
+from typing import Any, Callable, Optional, Union
 
 from pyrogram import Message
 from pyrogram.errors import FloodWait
@@ -31,7 +31,7 @@ from pyrogram.errors import FloodWait
 logger = logging.getLogger(__name__)
 
 
-def bold(text) -> str:
+def bold(text: Any) -> str:
     # Get a bold text
     try:
         text = str(text)
@@ -59,7 +59,7 @@ def button_data(action: str, action_type: str = None, data: Union[int, str] = No
     return result
 
 
-def code(text) -> str:
+def code(text: Any) -> str:
     # Get a code text
     try:
         text = str(text)
@@ -71,7 +71,7 @@ def code(text) -> str:
     return ""
 
 
-def code_block(text) -> str:
+def code_block(text: Any) -> str:
     # Get a code block text
     try:
         text = str(text)
@@ -94,24 +94,6 @@ def delay(secs: int, target: Callable, args: list) -> bool:
         logger.warning(f"Delay error: {e}", exc_info=True)
 
     return False
-
-
-def format_data(sender: str, receivers: List[str], action: str, action_type: str, data=None) -> str:
-    # See https://scp-079.org/exchange/
-    text = ""
-    try:
-        data = {
-            "from": sender,
-            "to": receivers,
-            "action": action,
-            "type": action_type,
-            "data": data
-        }
-        text = code_block(dumps(data, indent=4))
-    except Exception as e:
-        logger.warning(f"Format data error: {e}", exc_info=True)
-
-    return text
 
 
 def general_link(text: Union[int, str], link: str) -> str:
@@ -180,19 +162,6 @@ def random_str(i: int) -> str:
         logger.warning(f"Random str error: {e}", exc_info=True)
 
     return text
-
-
-def receive_data(message: Message) -> dict:
-    # Receive data from exchange channel
-    data = {}
-    try:
-        text = get_text(message)
-        if text:
-            data = loads(text)
-    except Exception as e:
-        logger.warning(f"Receive data error: {e}")
-
-    return data
 
 
 def thread(target: Callable, args: tuple) -> bool:

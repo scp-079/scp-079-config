@@ -387,6 +387,28 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                         f"{(lambda x: '✅' if x else '☑️')(config.get('auto'))}",
                         callback_data=button_data("auto", None, not config.get('auto'))
                     )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "消息字节上限",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        f"{config['limit']}",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        f"{(lambda x: '-️' if x > 3000 else '*')(config['limit'])}",
+                        callback_data=button_data((lambda x: "limit" if x > 3000 else "none")(config['limit']),
+                                                  None,
+                                                  config['limit'] - 1000)
+                    ),
+                    InlineKeyboardButton(
+                        f"{(lambda x: '+️' if x < 9000 else '*')(config['limit'])}",
+                        callback_data=button_data((lambda x: "limit" if x < 9000 else "none")(config['limit']),
+                                                  None,
+                                                  config['limit'] + 1000)
+                    )
                 ]
             ]
         )

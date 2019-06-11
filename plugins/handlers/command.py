@@ -18,7 +18,7 @@
 
 import logging
 
-from pyrogram import Client, Filters
+from pyrogram import Client, Filters, Message
 
 from .. import glovar
 from ..functions.etc import bold, thread, user_mention
@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 
 @Client.on_message(Filters.incoming & Filters.group & test_group
                    & Filters.command(["version"], glovar.prefix))
-def version(client, message):
+def version(client: Client, message: Message):
     try:
         cid = message.chat.id
         aid = message.from_user.id

@@ -18,12 +18,12 @@
 
 import logging
 
-from pyrogram import Client, Filters
+from pyrogram import Client, Filters, Message
 
 from .. import glovar
-from ..functions.channel import share_data
+from ..functions.channel import receive_text_data, share_data
 from ..functions.config import check_commit, get_config_message
-from ..functions.etc import delay, message_link, random_str, receive_data
+from ..functions.etc import delay, message_link, random_str
 from ..functions.filters import exchange_channel, hide_channel
 from ..functions.telegram import send_message
 
@@ -33,10 +33,10 @@ logger = logging.getLogger(__name__)
 
 @Client.on_message(Filters.incoming & Filters.channel & hide_channel
                    & ~Filters.command(glovar.all_commands, glovar.prefix))
-def exchange_emergency(_, message):
+def exchange_emergency(_, message: Message):
     try:
         # Read basic information
-        data = receive_data(message)
+        data = receive_text_data(message)
         sender = data["from"]
         receivers = data["to"]
         action = data["action"]
@@ -53,10 +53,10 @@ def exchange_emergency(_, message):
 
 @Client.on_message(Filters.incoming & Filters.channel & exchange_channel
                    & ~Filters.command(glovar.all_commands, glovar.prefix))
-def process_data(client, message):
+def process_data(client: Client, message: Message):
     try:
         # Read basic information
-        data = receive_data(message)
+        data = receive_text_data(message)
         if data:
             sender = data["from"]
             receivers = data["to"]

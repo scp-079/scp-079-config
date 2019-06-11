@@ -19,7 +19,7 @@
 import logging
 from json import loads
 
-from pyrogram import Client
+from pyrogram import Client, CallbackQuery
 
 from .. import glovar
 from ..functions.config import commit_change, get_config_message, set_default
@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 
 @Client.on_callback_query(config_channel)
-def answer(client, callback_query):
+def answer(client: Client, callback_query: CallbackQuery):
     try:
         # Basic data about this callback
         cid = callback_query.message.chat.id
@@ -77,8 +77,7 @@ def answer(client, callback_query):
                                             glovar.configs[config_key]["default"] = True
                                     # NOFLOOD
                                     elif config_type == "noflood":
-                                        if action == "limit":
-                                            glovar.configs[config_key]["config"][action] = data
+                                        glovar.configs[config_key]["config"][action] = data
                                     # NOPORN
                                     elif config_type == "noporn":
                                         glovar.configs[config_key]["config"][action] = data

@@ -17,6 +17,7 @@ See [this article](https://scp-079.org/config/).
 - [x] Support SCP-079-NOSPAM
 - [x] Support SCP-079-TIP
 - [x] Support SCP-079-USER
+- [x] Support SCP-079-LONG
 
 ## Requirements
 
