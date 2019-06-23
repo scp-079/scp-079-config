@@ -30,12 +30,12 @@ logger = logging.getLogger(__name__)
 def is_config_channel(_, update: Union[CallbackQuery, Message]) -> bool:
     # Check if the message is sent from the config channel
     try:
-        if isinstance(update, CallbackQuery):
-            message = update.message
-        else:
-            message = update
+        if update.from_user:
+            if isinstance(update, CallbackQuery):
+                message = update.message
+            else:
+                message = update
 
-        if message.chat:
             cid = message.chat.id
             if cid == glovar.config_channel_id:
                 return True
