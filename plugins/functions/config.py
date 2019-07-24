@@ -260,6 +260,54 @@ def button_lang(config: dict) -> Optional[InlineKeyboardMarkup]:
     return markup
 
 
+def button_long(config: dict) -> Optional[InlineKeyboardMarkup]:
+    # Get inline markup for LONG
+    markup = None
+    try:
+        markup = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "默认设置",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        f"{(lambda x: '✅' if x else '☑️')(config.get('default'))}",
+                        callback_data=button_data((lambda x: "default" if not x else "none")(config.get('default')),
+                                                  None,
+                                                  not config.get('default'))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "消息字节长度",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        f"{config['limit']}",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        f"{(lambda x: '-️' if x > 2000 else '*')(config['limit'])}",
+                        callback_data=button_data((lambda x: "limit" if x > 2000 else "none")(config['limit']),
+                                                  None,
+                                                  config['limit'] - 1000)
+                    ),
+                    InlineKeyboardButton(
+                        f"{(lambda x: '+️' if x < 10000 else '*')(config['limit'])}",
+                        callback_data=button_data((lambda x: "limit" if x < 10000 else "none")(config['limit']),
+                                                  None,
+                                                  config['limit'] + 1000)
+                    )
+                ]
+            ]
+        )
+    except Exception as e:
+        logger.warning(f"Button long error: {e}", exc_info=True)
+
+    return markup
+
+
 def button_noflood(config: dict) -> Optional[InlineKeyboardMarkup]:
     # Get inline markup for NOFLOOD
     markup = None

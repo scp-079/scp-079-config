@@ -75,6 +75,9 @@ def answer(client: Client, callback_query: CallbackQuery):
                                         if (glovar.configs[config_key]["config"]["name"]
                                                 and glovar.configs[config_key]["config"]["text"]):
                                             glovar.configs[config_key]["default"] = True
+                                    # LONG
+                                    elif config_type == "long":
+                                        glovar.configs[config_key]["config"][action] = data
                                     # NOFLOOD
                                     elif config_type == "noflood":
                                         glovar.configs[config_key]["config"][action] = data

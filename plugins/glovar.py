@@ -54,7 +54,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.1.5"
+version: str = "0.1.6"
 
 # Read data from config.ini
 
