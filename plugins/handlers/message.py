@@ -33,7 +33,7 @@ logger = logging.getLogger(__name__)
 
 @Client.on_message(Filters.incoming & Filters.channel & hide_channel
                    & ~Filters.command(glovar.all_commands, glovar.prefix))
-def exchange_emergency(_, message: Message):
+def exchange_emergency(_: Client, message: Message):
     try:
         # Read basic information
         data = receive_text_data(message)
