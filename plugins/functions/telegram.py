@@ -86,6 +86,7 @@ def edit_message_text(client: Client, cid: int, mid: int, text: str,
                         chat_id=cid,
                         message_id=mid,
                         text=text,
+                        parse_mode="html",
                         disable_web_page_preview=True,
                         reply_markup=markup
                     )
@@ -113,6 +114,7 @@ def send_message(client: Client, cid: int, text: str, mid: int = None,
                         result = client.send_message(
                             chat_id=cid,
                             text=text_unit,
+                            parse_mode="html",
                             disable_web_page_preview=True,
                             reply_to_message_id=mid,
                             reply_markup=markup
