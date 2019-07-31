@@ -28,7 +28,7 @@ See [this article](https://scp-079.org/config/).
 
 - plugins
     - functions
-        - `channel.py` : Send messages to channel
+        - `channel.py` : Functions about channel
         - `config.py` : Generate config session message
         - `etc.py` : Miscellaneous
         - `filters.py` : Some filters
