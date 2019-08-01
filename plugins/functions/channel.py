@@ -23,7 +23,7 @@ from typing import List, Union
 from pyrogram import Client, Message
 
 from .. import glovar
-from .etc import code_block, get_text, thread
+from .etc import code, code_block, get_text, thread
 from .telegram import send_message
 
 # Enable logging
@@ -41,6 +41,10 @@ def exchange_to_hide(client: Client) -> bool:
             action_type="hide",
             data=True
         )
+        text = (f"项目编号：{code(glovar.sender)}\n"
+                f"发现状况：{code('数据交换频道失效')}\n"
+                f"自动处理：{code('启用 1 号协议')}\n")
+        thread(send_message, (client, glovar.critical_channel_id, text))
         return True
     except Exception as e:
         logger.warning(f"Exchange to hide error: {e}", exc_info=True)

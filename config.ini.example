@@ -20,6 +20,7 @@ prefix = /!
 
 [channels]
 config_channel_id = [DATA EXPUNGED]
+critical_channel_id = [DATA EXPUNGED]
 debug_channel_id = [DATA EXPUNGED]
 exchange_channel_id = [DATA EXPUNGED]
 hide_channel_id = [DATA EXPUNGED]
