@@ -34,14 +34,13 @@ def exchange_to_hide(client: Client) -> bool:
     # Let other bots exchange data in the hide channel instead
     try:
         glovar.should_hide = True
-        text = format_data(
-            sender="EMERGENCY",
+        share_data(
+            client=client,
             receivers=["EMERGENCY"],
             action="backup",
             action_type="hide",
             data=True
         )
-        thread(send_message, (client, glovar.hide_channel_id, text))
         return True
     except Exception as e:
         logger.warning(f"Exchange to hide error: {e}", exc_info=True)

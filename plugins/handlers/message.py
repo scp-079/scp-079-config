@@ -44,9 +44,11 @@ def exchange_emergency(_: Client, message: Message):
             action_type = data["type"]
             data = data["data"]
             if "EMERGENCY" in receivers:
-                if sender == "EMERGENCY":
-                    if action == "backup":
-                        if action_type == "hide":
+                if action == "backup":
+                    if action_type == "hide":
+                        if data is True:
+                            glovar.should_hide = data
+                        elif data is False and sender == "MANAGE":
                             glovar.should_hide = data
     except Exception as e:
         logger.warning(f"Exchange emergency error: {e}", exc_info=True)
