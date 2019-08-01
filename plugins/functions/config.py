@@ -109,7 +109,7 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("vdi", None, not config.get('vdi'))
                     ),
                     InlineKeyboardButton(
-                        f"短视频 {(lambda x: '✅' if x else '☑️')(config.get('vdn'))}",
+                        f"圆视频 {(lambda x: '✅' if x else '☑️')(config.get('vdn'))}",
                         callback_data=button_data("vdn", None, not config.get('vdn'))
                     ),
                     InlineKeyboardButton(
@@ -117,8 +117,8 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("sti", None, not config.get('sti'))
                     ),
                     InlineKeyboardButton(
-                        f"图片 {(lambda x: '✅' if x else '☑️')(config.get('pho'))}",
-                        callback_data=button_data("pho", None, not config.get('pho'))
+                        f"动态贴纸 {(lambda x: '✅' if x else '☑️')(config.get('ast'))}",
+                        callback_data=button_data("ast", None, not config.get('ast'))
                     )
                 ],
                 [
