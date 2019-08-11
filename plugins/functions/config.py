@@ -328,7 +328,7 @@ def button_noflood(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        "10 秒内消息上限",
+                        "5 秒内消息上限",
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
@@ -336,16 +336,16 @@ def button_noflood(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        f"{(lambda x: '-️' if x > 10 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x > 10 else "none")(config['limit']),
+                        f"{(lambda x: '-️' if x > 5 else '*')(config['limit'])}",
+                        callback_data=button_data((lambda x: "limit" if x > 50 else "none")(config['limit']),
                                                   None,
-                                                  config['limit'] - 10)
+                                                  config['limit'] - 5)
                     ),
                     InlineKeyboardButton(
-                        f"{(lambda x: '+️' if x < 50 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x < 50 else "none")(config['limit']),
+                        f"{(lambda x: '+️' if x < 20 else '*')(config['limit'])}",
+                        callback_data=button_data((lambda x: "limit" if x < 20 else "none")(config['limit']),
                                                   None,
-                                                  config['limit'] + 10)
+                                                  config['limit'] + 5)
                     )
                 ]
             ]
