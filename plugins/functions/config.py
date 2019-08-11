@@ -337,7 +337,7 @@ def button_noflood(config: dict) -> Optional[InlineKeyboardMarkup]:
                     ),
                     InlineKeyboardButton(
                         f"{(lambda x: '-️' if x > 5 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x > 50 else "none")(config['limit']),
+                        callback_data=button_data((lambda x: "limit" if x > 5 else "none")(config['limit']),
                                                   None,
                                                   config['limit'] - 5)
                     ),
