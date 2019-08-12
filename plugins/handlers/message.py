@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 
 @Client.on_message(Filters.incoming & Filters.channel & hide_channel
-                   & ~Filters.command(glovar.all_commands, glovar.prefix))
+                   & ~Filters.command(glovar.all_commands, glovar.prefix), group=-1)
 def exchange_emergency(_: Client, message: Message):
     try:
         # Read basic information
