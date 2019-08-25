@@ -762,6 +762,7 @@ def set_default(config_key: str) -> bool:
     # Set the config to the default one
     try:
         glovar.configs[config_key]["config"] = deepcopy(glovar.configs[config_key]["default"])
+
         return True
     except Exception as e:
         logger.warning(f"Set default error: {e}", exc_info=True)
