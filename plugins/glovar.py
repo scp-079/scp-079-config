@@ -21,6 +21,12 @@ from configparser import RawConfigParser
 from typing import Dict, List, Union
 
 # Enable logging
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.WARNING,
+    filename='log',
+    filemode='w'
+)
 logger = logging.getLogger(__name__)
 
 # Init
@@ -96,7 +102,8 @@ if (bot_token in {"", "[DATA EXPUNGED]"}
         or exchange_channel_id == 0
         or hide_channel_id == 0
         or test_group_id == 0):
-    raise SystemExit('No proper settings')
+    logger.critical("No proper settings")
+    raise SystemExit("No proper settings")
 
 # Start program
 copyright_text = (f"SCP-079-{sender} v{version}, Copyright (C) 2019 SCP-079 <https://scp-079.org>\n"
