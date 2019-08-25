@@ -386,16 +386,6 @@ def button_noporn(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        "媒体复查",
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        f"{(lambda x: '✅' if x else '☑️')(config.get('recheck'))}",
-                        callback_data=button_data("recheck", None, not config.get('recheck'))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
                         "提交",
                         callback_data=button_data("commit")
                     )
