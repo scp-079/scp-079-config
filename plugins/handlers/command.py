@@ -31,6 +31,7 @@ logger = logging.getLogger(__name__)
 @Client.on_message(Filters.incoming & Filters.group & test_group
                    & Filters.command(["version"], glovar.prefix))
 def version(client: Client, message: Message):
+    # Check the program's version
     try:
         cid = message.chat.id
         aid = message.from_user.id

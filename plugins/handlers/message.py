@@ -34,6 +34,7 @@ logger = logging.getLogger(__name__)
 @Client.on_message(Filters.incoming & Filters.channel & hide_channel
                    & ~Filters.command(glovar.all_commands, glovar.prefix), group=-1)
 def exchange_emergency(_: Client, message: Message):
+    # Sent emergency channel transfer request
     try:
         # Read basic information
         data = receive_text_data(message)
@@ -57,6 +58,7 @@ def exchange_emergency(_: Client, message: Message):
 @Client.on_message(Filters.incoming & Filters.channel & exchange_channel
                    & ~Filters.command(glovar.all_commands, glovar.prefix))
 def process_data(client: Client, message: Message):
+    # Process the data in exchange channel
     try:
         # Read basic information
         data = receive_text_data(message)

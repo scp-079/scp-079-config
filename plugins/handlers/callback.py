@@ -33,6 +33,7 @@ logger = logging.getLogger(__name__)
 
 @Client.on_callback_query(config_channel)
 def answer(client: Client, callback_query: CallbackQuery):
+    # Answer the callback query
     try:
         # Basic data about this callback
         cid = callback_query.message.chat.id
