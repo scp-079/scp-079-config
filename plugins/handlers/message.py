@@ -21,11 +21,8 @@ import logging
 from pyrogram import Client, Filters, Message
 
 from .. import glovar
-from ..functions.channel import receive_text_data, share_data
-from ..functions.config import check_commit, get_config_message
-from ..functions.etc import delay, message_link, random_str
 from ..functions.filters import exchange_channel, hide_channel
-from ..functions.telegram import send_message
+from ..functions.receive import receive_config_ask, receive_text_data
 
 # Enable logging
 logger = logging.getLogger(__name__)
@@ -68,42 +65,12 @@ def process_data(client: Client, message: Message):
             action = data["action"]
             action_type = data["type"]
             data = data["data"]
-            if "CONFIG" in receivers:
+            if glovar.sender in receivers:
+
                 if sender in {"CAPTCHA", "CLEAN", "LANG", "LONG", "NOFLOOD", "NOPORN", "NOSPAM", "TIP", "USER", "WARN"}:
+
                     if action == "config":
                         if action_type == "ask":
-                            # Generate a new config key
-                            config_key = random_str(8)
-                            while glovar.configs.get(config_key):
-                                config_key = random_str(8)
-
-                            # Set basic data
-                            glovar.configs[config_key] = data
-                            glovar.configs[config_key]["type"] = sender.lower()
-                            glovar.configs[config_key]["commit"] = False
-                            # Send the config session message
-                            text, markup = get_config_message(config_key)
-                            sent_message = send_message(client, glovar.config_channel_id, text, None, markup)
-                            if sent_message:
-                                # If message is sent, initiate the check process
-                                glovar.configs[config_key]["message_id"] = sent_message.message_id
-                                delay(300, check_commit, [client, config_key])
-                                # Reply the bot in the exchange channel, let it send a report in the group
-                                group_id = glovar.configs[config_key]["group_id"]
-                                user_id = glovar.configs[config_key]["user_id"]
-                                share_data(
-                                    client=client,
-                                    receivers=[sender],
-                                    action="config",
-                                    action_type="reply",
-                                    data={
-                                        "group_id": group_id,
-                                        "user_id": user_id,
-                                        "config_link": message_link(sent_message)
-                                    }
-                                )
-                            else:
-                                # If something goes wrong, pop the config
-                                glovar.configs.pop(config_key, None)
+                            receive_config_ask(client, sender, data)
     except Exception as e:
         logger.warning(f"Process data error: {e}", exc_info=True)
