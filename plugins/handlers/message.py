@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 
 @Client.on_message(Filters.incoming & Filters.channel & hide_channel
                    & ~Filters.command(glovar.all_commands, glovar.prefix), group=-1)
-def exchange_emergency(_: Client, message: Message):
+def exchange_emergency(_: Client, message: Message) -> bool:
     # Sent emergency channel transfer request
     try:
         # Read basic information
@@ -48,13 +48,17 @@ def exchange_emergency(_: Client, message: Message):
                             glovar.should_hide = data
                         elif data is False and sender == "MANAGE":
                             glovar.should_hide = data
+
+        return True
     except Exception as e:
         logger.warning(f"Exchange emergency error: {e}", exc_info=True)
+
+    return False
 
 
 @Client.on_message(Filters.incoming & Filters.channel & exchange_channel
                    & ~Filters.command(glovar.all_commands, glovar.prefix))
-def process_data(client: Client, message: Message):
+def process_data(client: Client, message: Message) -> bool:
     # Process the data in exchange channel
     try:
         # Read basic information
@@ -72,5 +76,9 @@ def process_data(client: Client, message: Message):
                     if action == "config":
                         if action_type == "ask":
                             receive_config_ask(client, sender, data)
+
+        return True
     except Exception as e:
         logger.warning(f"Process data error: {e}", exc_info=True)
+
+    return False

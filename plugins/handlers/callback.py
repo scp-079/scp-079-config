@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 
 @Client.on_callback_query(config_channel)
-def answer(client: Client, callback_query: CallbackQuery):
+def answer(client: Client, callback_query: CallbackQuery) -> bool:
     # Answer the callback query
     try:
         # Basic data about this callback
@@ -113,5 +113,9 @@ def answer(client: Client, callback_query: CallbackQuery):
                 thread(answer_callback, (client, callback_query.id, "已提交或失效"))
         else:
             thread(answer_callback, (client, callback_query.id, ""))
+
+        return True
     except Exception as e:
         logger.warning(f"Answer callback error: {e}", exc_info=True)
+
+    return False
