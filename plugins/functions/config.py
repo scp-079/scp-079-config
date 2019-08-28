@@ -58,6 +58,12 @@ def button_captcha(config: dict) -> Optional[InlineKeyboardMarkup]:
                         f"{(lambda x: '✅' if x else '☑️')(config.get('auto'))}",
                         callback_data=button_data("auto", None, not config.get('auto'))
                     )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "提交",
+                        callback_data=button_data("commit")
+                    )
                 ]
             ]
         )
@@ -251,6 +257,12 @@ def button_lang(config: dict) -> Optional[InlineKeyboardMarkup]:
                         f"{(lambda x: '✅' if x else '☑️')(config['text']['enable'])}",
                         callback_data=button_data("text", None, not config['text']['enable'])
                     )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "提交",
+                        callback_data=button_data("commit")
+                    )
                 ]
             ]
         )
@@ -299,6 +311,12 @@ def button_long(config: dict) -> Optional[InlineKeyboardMarkup]:
                                                   None,
                                                   config['limit'] + 1000)
                     )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "提交",
+                        callback_data=button_data("commit")
+                    )
                 ]
             ]
         )
@@ -346,6 +364,12 @@ def button_noflood(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data((lambda x: "limit" if x < 15 else "none")(config['limit']),
                                                   None,
                                                   config['limit'] + 5)
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "提交",
+                        callback_data=button_data("commit")
                     )
                 ]
             ]
@@ -446,6 +470,12 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data((lambda x: "limit" if x < 9000 else "none")(config['limit']),
                                                   None,
                                                   config['limit'] + 1000)
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "提交",
+                        callback_data=button_data("commit")
                     )
                 ]
             ]
@@ -564,6 +594,12 @@ def button_user(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         f"{(lambda x: '✅' if x else '☑️')(config.get('dafm'))}",
                         callback_data=button_data("dafm", None, not config.get('dafm'))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "提交",
+                        callback_data=button_data("commit")
                     )
                 ]
             ]
