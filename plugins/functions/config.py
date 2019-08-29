@@ -101,8 +101,8 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("via", None, not config.get('via'))
                     ),
                     InlineKeyboardButton(
-                        text=f"动图 {(lambda x: '✅' if x else '☑️')(config.get('ani'))}",
-                        callback_data=button_data("ani", None, not config.get('ani'))
+                        text=f"动图 {(lambda x: '✅' if x else '☑️')(config.get('gif'))}",
+                        callback_data=button_data("gif", None, not config.get('gif'))
                     ),
                     InlineKeyboardButton(
                         text=f"命令 {(lambda x: '✅' if x else '☑️')(config.get('bmd'))}",
