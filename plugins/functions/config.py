@@ -161,7 +161,7 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("aff", None, not config.get('aff'))
                     ),
                     InlineKeyboardButton(
-                        text=f"可执行文件{(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
+                        text=f"执行文件{(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
                         callback_data=button_data("exe", None, not config.get('exe'))
                     )
                 ],
