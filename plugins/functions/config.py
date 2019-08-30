@@ -97,66 +97,30 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("con", None, not config.get('con'))
                     ),
                     InlineKeyboardButton(
-                        text=f"通过 Bot {(lambda x: '✅' if x else '☑️')(config.get('via'))}",
-                        callback_data=button_data("via", None, not config.get('via'))
-                    ),
-                    InlineKeyboardButton(
-                        text=f"动图 {(lambda x: '✅' if x else '☑️')(config.get('gif'))}",
-                        callback_data=button_data("gif", None, not config.get('gif'))
-                    ),
-                    InlineKeyboardButton(
-                        text=f"命令 {(lambda x: '✅' if x else '☑️')(config.get('bmd'))}",
-                        callback_data=button_data("bmd", None, not config.get('bmd'))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text=f"视频 {(lambda x: '✅' if x else '☑️')(config.get('vdi'))}",
-                        callback_data=button_data("vdi", None, not config.get('vdi'))
+                        text=f"定位 {(lambda x: '✅' if x else '☑️')(config.get('loc'))}",
+                        callback_data=button_data("loc", None, not config.get('loc'))
                     ),
                     InlineKeyboardButton(
                         text=f"圆视频 {(lambda x: '✅' if x else '☑️')(config.get('vdn'))}",
                         callback_data=button_data("vdn", None, not config.get('vdn'))
                     ),
                     InlineKeyboardButton(
-                        text=f"贴纸 {(lambda x: '✅' if x else '☑️')(config.get('sti'))}",
-                        callback_data=button_data("sti", None, not config.get('sti'))
-                    ),
-                    InlineKeyboardButton(
-                        text=f"动态贴纸 {(lambda x: '✅' if x else '☑️')(config.get('ast'))}",
-                        callback_data=button_data("ast", None, not config.get('ast'))
+                        text=f"语音 {(lambda x: '✅' if x else '☑️')(config.get('voi'))}",
+                        callback_data=button_data("voi", None, not config.get('voi'))
                     )
                 ],
                 [
+                    InlineKeyboardButton(
+                        text=f"动态贴纸 {(lambda x: '✅' if x else '☑️')(config.get('ast'))}",
+                        callback_data=button_data("ast", None, not config.get('ast'))
+                    ),
                     InlineKeyboardButton(
                         text=f"音频 {(lambda x: '✅' if x else '☑️')(config.get('aud'))}",
                         callback_data=button_data("aud", None, not config.get('aud'))
                     ),
                     InlineKeyboardButton(
-                        text=f"语音 {(lambda x: '✅' if x else '☑️')(config.get('voi'))}",
-                        callback_data=button_data("voi", None, not config.get('voi'))
-                    ),
-                    InlineKeyboardButton(
-                        text=f"游戏 {(lambda x: '✅' if x else '☑️')(config.get('gam'))}",
-                        callback_data=button_data("gam", None, not config.get('gam'))
-                    ),
-                    InlineKeyboardButton(
-                        text=f"服务 {(lambda x: '✅' if x else '☑️')(config.get('ser'))}",
-                        callback_data=button_data("ser", None, not config.get('ser'))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text=f"定时贴纸动图 {(lambda x: '✅' if x else '☑️')(config.get('ttd'))}",
-                        callback_data=button_data("ttd", None, not config.get('ttd'))
-                    ),
-                    InlineKeyboardButton(
-                        text=f"自助删除 {(lambda x: '✅' if x else '☑️')(config.get('sde'))}",
-                        callback_data=button_data("sde", None, not config.get('sde'))
-                    ),
-                    InlineKeyboardButton(
-                        text=f"定位 {(lambda x: '✅' if x else '☑️')(config.get('loc'))}",
-                        callback_data=button_data("loc", None, not config.get('loc'))
+                        text=f"命令 {(lambda x: '✅' if x else '☑️')(config.get('bmd'))}",
+                        callback_data=button_data("bmd", None, not config.get('bmd'))
                     ),
                     InlineKeyboardButton(
                         text=f"文件 {(lambda x: '✅' if x else '☑️')(config.get('doc'))}",
@@ -164,24 +128,52 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                     )
                 ],
                 [
+
+
                     InlineKeyboardButton(
-                        text=f"可执行文件{(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
-                        callback_data=button_data("exe", None, not config.get('exe'))
+                        text=f"游戏 {(lambda x: '✅' if x else '☑️')(config.get('gam'))}",
+                        callback_data=button_data("gam", None, not config.get('gam'))
                     ),
                     InlineKeyboardButton(
-                        text=f"定时清理成员{(lambda x: '✅' if x else '☑️')(config.get('tcl'))}",
-                        callback_data=button_data("tcl", None, not config.get('tcl'))
+                        text=f"动图 {(lambda x: '✅' if x else '☑️')(config.get('gif'))}",
+                        callback_data=button_data("gif", None, not config.get('gif'))
+                    ),
+                    InlineKeyboardButton(
+                        text=f"通过 Bot {(lambda x: '✅' if x else '☑️')(config.get('via'))}",
+                        callback_data=button_data("via", None, not config.get('via'))
+                    ),
+                    InlineKeyboardButton(
+                        text=f"视频 {(lambda x: '✅' if x else '☑️')(config.get('vdi'))}",
+                        callback_data=button_data("vdi", None, not config.get('vdi'))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=f"服务 {(lambda x: '✅' if x else '☑️')(config.get('ser'))}",
+                        callback_data=button_data("ser", None, not config.get('ser'))
+                    ),
+                    InlineKeyboardButton(
+                        text=f"贴纸 {(lambda x: '✅' if x else '☑️')(config.get('sti'))}",
+                        callback_data=button_data("sti", None, not config.get('sti'))
                     ),
                     InlineKeyboardButton(
                         text=f"AFF 链接{(lambda x: '✅' if x else '☑️')(config.get('aff'))}",
                         callback_data=button_data("aff", None, not config.get('aff'))
                     ),
                     InlineKeyboardButton(
-                        text=f"短链接{(lambda x: '✅' if x else '☑️')(config.get('sho'))}",
-                        callback_data=button_data("sho", None, not config.get('sho'))
+                        text=f"可执行文件{(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
+                        callback_data=button_data("exe", None, not config.get('exe'))
                     )
                 ],
                 [
+                    InlineKeyboardButton(
+                        text=f"IM 链接 {(lambda x: '✅' if x else '☑️')(config.get('iml'))}",
+                        callback_data=button_data("iml", None, not config.get('iml'))
+                    ),
+                    InlineKeyboardButton(
+                        text=f"短链接{(lambda x: '✅' if x else '☑️')(config.get('sho'))}",
+                        callback_data=button_data("sho", None, not config.get('sho'))
+                    ),
                     InlineKeyboardButton(
                         text=f"TG 链接 {(lambda x: '✅' if x else '☑️')(config.get('tgl'))}",
                         callback_data=button_data("tgl", None, not config.get('tgl'))
@@ -189,14 +181,24 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         text=f"TG 代理 {(lambda x: '✅' if x else '☑️')(config.get('tgp'))}",
                         callback_data=button_data("tgp", None, not config.get('tgp'))
-                    ),
-                    InlineKeyboardButton(
-                        text=f"IM 链接 {(lambda x: '✅' if x else '☑️')(config.get('iml'))}",
-                        callback_data=button_data("iml", None, not config.get('iml'))
-                    ),
+                    )
+                ],
+                [
                     InlineKeyboardButton(
                         text=f"二维码{(lambda x: '✅' if x else '☑️')(config.get('qrc'))}",
                         callback_data=button_data("qrc", None, not config.get('qrc'))
+                    ),
+                    InlineKeyboardButton(
+                        text=f"自助删除 {(lambda x: '✅' if x else '☑️')(config.get('sde'))}",
+                        callback_data=button_data("sde", None, not config.get('sde'))
+                    ),
+                    InlineKeyboardButton(
+                        text=f"定时清群{(lambda x: '✅' if x else '☑️')(config.get('tcl'))}",
+                        callback_data=button_data("tcl", None, not config.get('tcl'))
+                    ),
+                    InlineKeyboardButton(
+                        text=f"定时贴纸 {(lambda x: '✅' if x else '☑️')(config.get('ttd'))}",
+                        callback_data=button_data("ttd", None, not config.get('ttd'))
                     )
                 ],
                 [
