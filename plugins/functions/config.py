@@ -185,7 +185,7 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text=f"二维码{(lambda x: '✅' if x else '☑️')(config.get('qrc'))}",
+                        text=f"二维码 {(lambda x: '✅' if x else '☑️')(config.get('qrc'))}",
                         callback_data=button_data("qrc", None, not config.get('qrc'))
                     ),
                     InlineKeyboardButton(
