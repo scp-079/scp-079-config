@@ -157,11 +157,11 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("sti", None, not config.get('sti'))
                     ),
                     InlineKeyboardButton(
-                        text=f"推广链接{(lambda x: '✅' if x else '☑️')(config.get('aff'))}",
+                        text=f"推广链接 {(lambda x: '✅' if x else '☑️')(config.get('aff'))}",
                         callback_data=button_data("aff", None, not config.get('aff'))
                     ),
                     InlineKeyboardButton(
-                        text=f"执行文件{(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
+                        text=f"执行文件 {(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
                         callback_data=button_data("exe", None, not config.get('exe'))
                     )
                 ],
@@ -171,7 +171,7 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("iml", None, not config.get('iml'))
                     ),
                     InlineKeyboardButton(
-                        text=f"短链接{(lambda x: '✅' if x else '☑️')(config.get('sho'))}",
+                        text=f"短链接 {(lambda x: '✅' if x else '☑️')(config.get('sho'))}",
                         callback_data=button_data("sho", None, not config.get('sho'))
                     ),
                     InlineKeyboardButton(
@@ -193,7 +193,7 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("sde", None, not config.get('sde'))
                     ),
                     InlineKeyboardButton(
-                        text=f"定时清群{(lambda x: '✅' if x else '☑️')(config.get('tcl'))}",
+                        text=f"定时清群 {(lambda x: '✅' if x else '☑️')(config.get('tcl'))}",
                         callback_data=button_data("tcl", None, not config.get('tcl'))
                     ),
                     InlineKeyboardButton(
