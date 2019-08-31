@@ -157,7 +157,7 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("sti", None, not config.get('sti'))
                     ),
                     InlineKeyboardButton(
-                        text=f"AFF 链接{(lambda x: '✅' if x else '☑️')(config.get('aff'))}",
+                        text=f"推广链接{(lambda x: '✅' if x else '☑️')(config.get('aff'))}",
                         callback_data=button_data("aff", None, not config.get('aff'))
                     ),
                     InlineKeyboardButton(
