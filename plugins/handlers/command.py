@@ -22,13 +22,13 @@ from pyrogram import Client, Filters, Message
 
 from .. import glovar
 from ..functions.etc import bold, thread, user_mention
-from ..functions.filters import test_group
+from ..functions.filters import from_user, test_group
 from ..functions.telegram import send_message
 
 # Enable logging
 logger = logging.getLogger(__name__)
 
-@Client.on_message(Filters.incoming & Filters.group & test_group
+@Client.on_message(Filters.incoming & Filters.group & test_group & from_user
                    & Filters.command(["version"], glovar.prefix))
 def version(client: Client, message: Message) -> bool:
     # Check the program's version
