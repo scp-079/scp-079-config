@@ -454,6 +454,16 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text="阻止机器人进群",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('bot'))}",
+                        callback_data=button_data("bot", None, not config.get('bot'))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text="提交",
                         callback_data=button_data("commit")
                     )
