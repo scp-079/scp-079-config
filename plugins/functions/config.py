@@ -294,7 +294,7 @@ def button_long(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text="消息字节长度",
+                        text="消息字节上限",
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
@@ -450,28 +450,6 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         text=f"{(lambda x: '✅' if x else '☑️')(config.get('auto'))}",
                         callback_data=button_data("auto", None, not config.get('auto'))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text="消息字节上限",
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{config['limit']}",
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '-️' if x > 3000 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x > 3000 else "none")(config['limit']),
-                                                  None,
-                                                  config['limit'] - 1000)
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '+️' if x < 9000 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x < 9000 else "none")(config['limit']),
-                                                  None,
-                                                  config['limit'] + 1000)
                     )
                 ],
                 [
