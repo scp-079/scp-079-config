@@ -444,7 +444,7 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text="试验特性",
+                        text="机器学习",
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
