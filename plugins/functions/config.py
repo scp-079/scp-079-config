@@ -25,7 +25,7 @@ from pyrogram import Client, InlineKeyboardButton, InlineKeyboardMarkup
 from .. import glovar
 from .channel import share_data
 from .etc import button_data, code, general_link, thread
-from .telegram import edit_message_text
+from .telegram import edit_message_text, send_message
 
 # Enable logging
 logger = logging.getLogger(__name__)
@@ -725,7 +725,7 @@ def commit_change(client: Client, config_key: str) -> bool:
             # Edit config session message
             text = get_config_text(config_key)
             text += f"结果：{code('已更新设置')}"
-            edit_message_text(client, glovar.config_channel_id, message_id, text)
+            thread(edit_message_text, (client, glovar.config_channel_id, message_id, text))
             # Commit changes to exchange channel
             receivers = [config_type.upper()]
             share_data(
@@ -738,7 +738,18 @@ def commit_change(client: Client, config_key: str) -> bool:
                     "config": config_data
                 }
             )
-            return True
+            # Send debug message
+            group_name = glovar.configs[config_key]["group_name"]
+            group_link = glovar.configs[config_key]["group_link"]
+            user_id = glovar.configs[config_key]["user_id"]
+            text = (f"项目编号：{general_link(glovar.project_name, glovar.project_link)}\n"
+                    f"群组 ID：{code(group_id)}\n"
+                    f"群组名称：{general_link(group_name, group_link)}\n"
+                    f"群管理：{code(user_id)}\n"
+                    f"执行操作：{code('提交设置')}\n")
+            thread(send_message, (client, glovar.debug_channel_id, text))
+
+        return True
     except Exception as e:
         logger.warning(f"Commit change error: {e}")
 
@@ -777,7 +788,7 @@ def get_config_text(config_key: str) -> str:
                 f"项目编号：{general_link(project_name, project_link)}\n"
                 f"群组 ID：{code(group_id)}\n"
                 f"群组名称：{general_link(group_name, group_link)}\n"
-                f"用户 ID：{code(user_id)}\n")
+                f"群管理：{code(user_id)}\n")
     except Exception as e:
         logger.warning(f"Get config text error: {e}", exc_info=True)
 
