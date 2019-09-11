@@ -242,22 +242,42 @@ def button_lang(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text="昵称过滤",
+                        text="默认名称设置",
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config['name']['enable'])}",
-                        callback_data=button_data("name", None, not config['name']['enable'])
+                        text=f"{(lambda x: '✅' if x else '☑️')(config['name']['default'])}",
+                        callback_data=button_data("name", "default", not config['name']['default'])
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        text="文字过滤",
+                        text="检查消息名称",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config['name']['enable'])}",
+                        callback_data=button_data("name", "enable", not config['name']['enable'])
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text="默认文字设置",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config['text']['default'])}",
+                        callback_data=button_data("text", "default", not config['text']['default'])
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text="检查消息文字",
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
                         text=f"{(lambda x: '✅' if x else '☑️')(config['text']['enable'])}",
-                        callback_data=button_data("text", None, not config['text']['enable'])
+                        callback_data=button_data("text", "enable", not config['text']['enable'])
                     )
                 ],
                 [

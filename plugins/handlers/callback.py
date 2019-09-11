@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+from copy import deepcopy
 from json import loads
 
 from pyrogram import Client, CallbackQuery
@@ -72,10 +73,11 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                         glovar.configs[config_key]["config"][action] = data
                                     # LANG
                                     elif config_type == "lang":
-                                        glovar.configs[config_key]["config"][action] = data
-                                        if (glovar.configs[config_key]["config"]["name"]
-                                                and glovar.configs[config_key]["config"]["text"]):
-                                            glovar.configs[config_key]["default"] = True
+                                        if action_type == "enable":
+                                            glovar.configs[config_key]["config"][action][action_type] = data
+                                        elif action_type == "default":
+                                            default_config = deepcopy(glovar.configs[config_key]["default"][action])
+                                            glovar.configs[config_key]["config"][action] = default_config
                                     # LONG
                                     elif config_type == "long":
                                         glovar.configs[config_key]["config"][action] = data
