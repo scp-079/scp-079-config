@@ -74,8 +74,11 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                     # LANG
                                     elif config_type == "lang":
                                         if action_type == "enable":
+                                            glovar.configs[config_key]["config"]["default"] = False
+                                            glovar.configs[config_key]["config"][action]["default"] = False
                                             glovar.configs[config_key]["config"][action][action_type] = data
                                         elif action_type == "default":
+                                            glovar.configs[config_key]["config"]["default"] = False
                                             default_config = deepcopy(glovar.configs[config_key]["default"][action])
                                             glovar.configs[config_key]["config"][action] = default_config
                                     # LONG
