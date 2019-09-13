@@ -785,8 +785,8 @@ def commit_change(client: Client, config_key: str) -> bool:
             group_link = glovar.configs[config_key]["group_link"]
             user_id = glovar.configs[config_key]["user_id"]
             text = (f"项目编号：{general_link(glovar.project_name, glovar.project_link)}\n"
-                    f"群组 ID：{code(group_id)}\n"
                     f"群组名称：{general_link(group_name, group_link)}\n"
+                    f"群组 ID：{code(group_id)}\n"
                     f"群管理：{code(user_id)}\n"
                     f"执行操作：{code('提交设置')}\n")
             thread(send_message, (client, glovar.debug_channel_id, text))
