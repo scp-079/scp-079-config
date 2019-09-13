@@ -828,8 +828,8 @@ def get_config_text(config_key: str) -> str:
         user_id = glovar.configs[config_key]["user_id"]
         text = (f"设置编号：{code(config_key)}\n"
                 f"项目编号：{general_link(project_name, project_link)}\n"
-                f"群组 ID：{code(group_id)}\n"
                 f"群组名称：{general_link(group_name, group_link)}\n"
+                f"群组 ID：{code(group_id)}\n"
                 f"群管理：{code(user_id)}\n")
     except Exception as e:
         logger.warning(f"Get config text error: {e}", exc_info=True)
