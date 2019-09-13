@@ -368,7 +368,29 @@ def button_noflood(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text="5 秒内消息上限",
+                        text="检测时间秒数",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{config['time']}",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '-️' if x > 5 else '*')(config['time'])}",
+                        callback_data=button_data((lambda x: "time" if x > 5 else "none")(config['time']),
+                                                  None,
+                                                  config['time'] - 5)
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '+️' if x < 60 else '*')(config['time'])}",
+                        callback_data=button_data((lambda x: "time" if x < 60 else "none")(config['time']),
+                                                  None,
+                                                  config['time'] + 5)
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text="消息条数上限",
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
@@ -376,16 +398,16 @@ def button_noflood(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '-️' if x > 5 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x > 5 else "none")(config['limit']),
+                        text=f"{(lambda x: '-️' if x > 2 else '*')(config['limit'])}",
+                        callback_data=button_data((lambda x: "limit" if x > 2 else "none")(config['limit']),
                                                   None,
-                                                  config['limit'] - 5)
+                                                  config['limit'] - 1)
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '+️' if x < 15 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x < 15 else "none")(config['limit']),
+                        text=f"{(lambda x: '+️' if x < 20 else '*')(config['limit'])}",
+                        callback_data=button_data((lambda x: "limit" if x < 20 else "none")(config['limit']),
                                                   None,
-                                                  config['limit'] + 5)
+                                                  config['limit'] + 1)
                     )
                 ],
                 [
