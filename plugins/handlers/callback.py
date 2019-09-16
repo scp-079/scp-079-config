@@ -74,6 +74,9 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                     # LANG
                                     elif config_type == "lang":
                                         if action_type == "enable":
+                                            if not glovar.configs[config_key]["config"].get(action, {}):
+                                                glovar.configs[config_key]["config"][action] = {}
+
                                             glovar.configs[config_key]["config"][action]["default"] = False
                                             glovar.configs[config_key]["config"][action][action_type] = data
                                         elif action_type == "default":
@@ -102,7 +105,9 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                         if action in {"delete", "limit", "mention"}:
                                             glovar.configs[config_key]["config"][action] = data
                                         elif action == "report":
-                                            # Key "report" was created when generate the button first time
+                                            if not glovar.configs[config_key]["config"].get("report", {}):
+                                                glovar.configs[config_key]["config"]["report"] = {}
+
                                             glovar.configs[config_key]["config"]["report"][action_type] = data
 
                                 _, markup = get_config_message(config_key)

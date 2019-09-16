@@ -219,13 +219,10 @@ def button_lang(config: dict) -> Optional[InlineKeyboardMarkup]:
     # Get inline markup for LANG
     markup = None
     try:
-        for the_type in ["name", "text"]:
-            if not config.get(the_type):
-                config[the_type] = {}
-
-            if not config[the_type].get("enable"):
-                config[the_type]["enable"] = True
-
+        name_default = config.get("name") and config["name"].get("default")
+        name_enable = config.get("name") and config["name"].get("enable")
+        text_default = config.get("text") and config["text"].get("default")
+        text_enable = config.get("text") and config["text"].get("enable")
         markup = InlineKeyboardMarkup(
             [
                 [
@@ -246,8 +243,8 @@ def button_lang(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config['name']['default'])}",
-                        callback_data=button_data("name", "default", not config['name']['default'])
+                        text=f"{(lambda x: '✅' if x else '☑️')(name_default)}",
+                        callback_data=button_data("name", "default", name_default)
                     )
                 ],
                 [
@@ -256,8 +253,8 @@ def button_lang(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config['name']['enable'])}",
-                        callback_data=button_data("name", "enable", not config['name']['enable'])
+                        text=f"{(lambda x: '✅' if x else '☑️')(name_enable)}",
+                        callback_data=button_data("name", "enable", not name_enable)
                     )
                 ],
                 [
@@ -266,8 +263,8 @@ def button_lang(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config['text']['default'])}",
-                        callback_data=button_data("text", "default", not config['text']['default'])
+                        text=f"{(lambda x: '✅' if x else '☑️')(text_default)}",
+                        callback_data=button_data("text", "default", not text_default)
                     )
                 ],
                 [
@@ -276,8 +273,8 @@ def button_lang(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config['text']['enable'])}",
-                        callback_data=button_data("text", "enable", not config['text']['enable'])
+                        text=f"{(lambda x: '✅' if x else '☑️')(text_enable)}",
+                        callback_data=button_data("text", "enable", not text_enable)
                     )
                 ],
                 [
@@ -318,20 +315,20 @@ def button_long(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{config['limit']}",
+                        text=f"{config.get('limit', 3)}",
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '-️' if x > 2000 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x > 2000 else "none")(config['limit']),
+                        text=f"{(lambda x: '-️' if x > 2000 else '*')(config.get('limit', 3))}",
+                        callback_data=button_data((lambda x: "limit" if x > 2000 else "none")(config.get('limit', 3)),
                                                   None,
-                                                  config['limit'] - 1000)
+                                                  config.get('limit', 3) - 1000)
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '+️' if x < 10000 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x < 10000 else "none")(config['limit']),
+                        text=f"{(lambda x: '+️' if x < 10000 else '*')(config.get('limit', 3))}",
+                        callback_data=button_data((lambda x: "limit" if x < 10000 else "none")(config.get('limit', 3)),
                                                   None,
-                                                  config['limit'] + 1000)
+                                                  config.get('limit', 3) + 1000)
                     )
                 ],
                 [
@@ -372,20 +369,20 @@ def button_noflood(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{config['time']}",
+                        text=f"{config.get('time', 10)}",
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '-️' if x > 5 else '*')(config['time'])}",
-                        callback_data=button_data((lambda x: "time" if x > 5 else "none")(config['time']),
+                        text=f"{(lambda x: '-️' if x > 5 else '*')(config.get('time', 10))}",
+                        callback_data=button_data((lambda x: "time" if x > 5 else "none")(config.get('time', 10)),
                                                   None,
-                                                  config['time'] - 5)
+                                                  config.get('time', 10) - 5)
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '+️' if x < 60 else '*')(config['time'])}",
-                        callback_data=button_data((lambda x: "time" if x < 60 else "none")(config['time']),
+                        text=f"{(lambda x: '+️' if x < 60 else '*')(config.get('time', 10))}",
+                        callback_data=button_data((lambda x: "time" if x < 60 else "none")(config.get('time', 10)),
                                                   None,
-                                                  config['time'] + 5)
+                                                  config.get('time', 10) + 5)
                     )
                 ],
                 [
@@ -394,20 +391,20 @@ def button_noflood(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{config['limit']}",
+                        text=f"{config.get('limit', 5)}",
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '-️' if x > 2 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x > 2 else "none")(config['limit']),
+                        text=f"{(lambda x: '-️' if x > 2 else '*')(config.get('limit', 5))}",
+                        callback_data=button_data((lambda x: "limit" if x > 2 else "none")(config.get('limit', 5)),
                                                   None,
-                                                  config['limit'] - 1)
+                                                  config.get('limit', 5) - 1)
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '+️' if x < 20 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x < 20 else "none")(config['limit']),
+                        text=f"{(lambda x: '+️' if x < 20 else '*')(config.get('limit', 5))}",
+                        callback_data=button_data((lambda x: "limit" if x < 20 else "none")(config.get('limit', 5)),
                                                   None,
-                                                  config['limit'] + 1)
+                                                  config.get('limit', 5) + 1)
                     )
                 ],
                 [
@@ -656,12 +653,8 @@ def button_warn(config: dict) -> Optional[InlineKeyboardMarkup]:
     # Get inline markup for WARN
     markup = None
     try:
-        if not config.get("limit"):
-            config["limit"] = 3
-
-        if not config.get("report"):
-            config["report"] = {}
-
+        report_auto = config.get("report") and config["report"].get("auto")
+        report_manual = config.get("report") and config["report"].get("manual")
         markup = InlineKeyboardMarkup(
             [
                 [
@@ -682,20 +675,20 @@ def button_warn(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{config['limit']}",
+                        text=f"{config.get('limit', 3)}",
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '-️' if x > 2 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x > 2 else "none")(config['limit']),
+                        text=f"{(lambda x: '-️' if x > 2 else '*')(config.get('limit', 3))}",
+                        callback_data=button_data((lambda x: "limit" if x > 2 else "none")(config.get('limit', 3)),
                                                   None,
-                                                  config['limit'] - 1)
+                                                  config.get('limit', 3) - 1)
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '+️' if x < 5 else '*')(config['limit'])}",
-                        callback_data=button_data((lambda x: "limit" if x < 5 else "none")(config['limit']),
+                        text=f"{(lambda x: '+️' if x < 5 else '*')(config.get('limit', 3))}",
+                        callback_data=button_data((lambda x: "limit" if x < 5 else "none")(config.get('limit', 3)),
                                                   None,
-                                                  config['limit'] + 1)
+                                                  config.get('limit', 3) + 1)
                     )
                 ],
                 [
@@ -724,8 +717,8 @@ def button_warn(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config['report'].get('auto'))}",
-                        callback_data=button_data("report", "auto", not config['report'].get('auto'))
+                        text=f"{(lambda x: '✅' if x else '☑️')(report_auto)}",
+                        callback_data=button_data("report", "auto", not report_auto)
                     )
                 ],
                 [
@@ -734,8 +727,8 @@ def button_warn(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config['report'].get('manual'))}",
-                        callback_data=button_data("report", "manual", not config['report'].get('manual'))
+                        text=f"{(lambda x: '✅' if x else '☑️')(report_manual)}",
+                        callback_data=button_data("report", "manual", not report_manual)
                     )
                 ],
                 [
