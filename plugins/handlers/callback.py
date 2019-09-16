@@ -99,7 +99,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                         glovar.configs[config_key]["config"][action] = data
                                     # WARN
                                     elif config_type == "warn":
-                                        if action in {"limit", "mention"}:
+                                        if action in {"delete", "limit", "mention"}:
                                             glovar.configs[config_key]["config"][action] = data
                                         elif action == "report":
                                             # Key "report" was created when generate the button first time

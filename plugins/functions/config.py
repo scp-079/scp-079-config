@@ -506,6 +506,16 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text="仅举报",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('report'))}",
+                        callback_data=button_data("report", None, not config.get('report'))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text="提交",
                         callback_data=button_data("commit")
                     )
@@ -686,6 +696,16 @@ def button_warn(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data((lambda x: "limit" if x < 5 else "none")(config['limit']),
                                                   None,
                                                   config['limit'] + 1)
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text="协助删除",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('delete'))}",
+                        callback_data=button_data("delete", None, not config.get('delete'))
                     )
                 ],
                 [
