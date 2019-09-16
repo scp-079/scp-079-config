@@ -801,7 +801,8 @@ def commit_change(client: Client, config_key: str) -> bool:
                     f"群组名称：{general_link(group_name, group_link)}\n"
                     f"群组 ID：{code(group_id)}\n"
                     f"群管理：{code(user_id)}\n"
-                    f"执行操作：{code('提交设置')}\n")
+                    f"执行操作：{code('提交设置')}\n"
+                    f"针对项目：{code(config_type.upper())}\n")
             thread(send_message, (client, glovar.debug_channel_id, text))
 
         return True
