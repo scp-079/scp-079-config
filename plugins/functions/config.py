@@ -610,22 +610,22 @@ def button_user(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text="协助删除",
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('delete'))}",
+                        callback_data=button_data("delete", None, not config.get('delete'))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text="订阅列表",
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
                         text=f"{(lambda x: '✅' if x else '☑️')(config.get('subscribe'))}",
                         callback_data=button_data("subscribe", None, not config.get('subscribe'))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text="自助删除",
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('dafm'))}",
-                        callback_data=button_data("dafm", None, not config.get('dafm'))
                     )
                 ],
                 [
