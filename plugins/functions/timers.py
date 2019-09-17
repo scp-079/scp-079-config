@@ -20,10 +20,30 @@ import logging
 
 from pyrogram import Client
 
+from .. import glovar
+from .config import remove_old
+from .etc import get_now
 from .channel import share_data
 
 # Enable logging
 logger = logging.getLogger(__name__)
+
+
+def interval_min_01(client: Client) -> bool:
+    # Execute every minute
+    try:
+        # Clear old config data
+        now = get_now()
+        for key in list(glovar.configs):
+            time = glovar.configs[key]["time"]
+            if now - time > 300:
+                remove_old(client, key)
+
+        return True
+    except Exception as e:
+        logger.warning(f"Interval min 01 error: {e}", exc_info=True)
+
+    return False
 
 
 def update_status(client: Client) -> bool:

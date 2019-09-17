@@ -788,10 +788,7 @@ def commit_change(client: Client, key: str) -> bool:
 
         return True
     except Exception as e:
-        logger.warning(f"Commit change error: {e}")
-    finally:
-        glovar.configs.pop(key, {})
-        save("configs")
+        logger.warning(f"Commit change error: {e}", exc_info=True)
 
     return False
 
@@ -849,10 +846,11 @@ def remove_old(client: Client, key: str) -> bool:
 
                 # Pop this config data
                 glovar.configs.pop(key, {})
+                save("configs")
 
         return True
     except Exception as e:
-        logger.warning(f"Check commit error: {e}", exc_info=True)
+        logger.warning(f"Remove old error: {e}", exc_info=True)
 
     return False
 
