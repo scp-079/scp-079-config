@@ -23,6 +23,7 @@ from pyrogram import Client
 from .. import glovar
 from .config import remove_old
 from .etc import get_now
+from .file import save
 from .channel import share_data
 
 # Enable logging
@@ -42,6 +43,19 @@ def interval_min_01(client: Client) -> bool:
         return True
     except Exception as e:
         logger.warning(f"Interval min 01 error: {e}", exc_info=True)
+
+    return False
+
+
+def reset_data() -> bool:
+    # Reset data every month
+    try:
+        glovar.configs = {}
+        save("configs")
+
+        return True
+    except Exception as e:
+        logger.warning(f"Reset data error: {e}", exc_info=True)
 
     return False
 

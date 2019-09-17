@@ -25,7 +25,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from pyrogram import Client
 
 from plugins import glovar
-from plugins.functions.timers import interval_min_01, update_status
+from plugins.functions.timers import interval_min_01, reset_data, update_status
 
 # Enable logging
 logger = logging.getLogger(__name__)
@@ -39,6 +39,7 @@ app = Client(
 # Timer
 scheduler = BackgroundScheduler()
 scheduler.add_job(interval_min_01, "interval", [app], mintues=1)
+scheduler.add_job(reset_data, "cron", day=glovar.reset_day, hour=22)
 scheduler.add_job(update_status, "cron", [app], minute=30)
 scheduler.start()
 
