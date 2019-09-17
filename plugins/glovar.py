@@ -17,7 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+import pickle
 from configparser import RawConfigParser
+from os import mkdir
+from os.path import exists
+from shutil import rmtree
 from typing import Dict, List, Union
 
 # Enable logging
@@ -88,6 +92,27 @@ if (bot_token in {"", "[DATA EXPUNGED]"}
 
 all_commands: List[str] = ["version"]
 
+sender: str = "CONFIG"
+
+should_hide: bool = False
+
+version: str = "0.1.7"
+
+# Load data from pickle
+
+# Init dir
+try:
+    rmtree("tmp")
+except Exception as e:
+    logger.info(f"Remove tmp error: {e}")
+
+for path in ["data", "tmp"]:
+    if not exists(path):
+        mkdir(path)
+
+
+# Init data variables
+
 configs: Dict[str, Dict[str, Union[bool, int, dict, str]]] = {}
 # configs = {
 #     "random": {
@@ -125,11 +150,24 @@ configs: Dict[str, Dict[str, Union[bool, int, dict, str]]] = {}
 #     }
 # }
 
-sender: str = "CONFIG"
-
-should_hide: bool = False
-
-version: str = "0.1.7"
+# Load data
+file_list: List[str] = ["configs"]
+for file in file_list:
+    try:
+        try:
+            if exists(f"data/{file}") or exists(f"data/.{file}"):
+                with open(f"data/{file}", 'rb') as f:
+                    locals()[f"{file}"] = pickle.load(f)
+            else:
+                with open(f"data/{file}", 'wb') as f:
+                    pickle.dump(eval(f"{file}"), f)
+        except Exception as e:
+            logger.error(f"Load data {file} error: {e}", exc_info=True)
+            with open(f"data/.{file}", 'rb') as f:
+                locals()[f"{file}"] = pickle.load(f)
+    except Exception as e:
+        logger.critical(f"Load data {file} backup error: {e}", exc_info=True)
+        raise SystemExit("[DATA CORRUPTION]")
 
 # Start program
 copyright_text = (f"SCP-079-{sender} v{version}, Copyright (C) 2019 SCP-079 <https://scp-079.org>\n"
