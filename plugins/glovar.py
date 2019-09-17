@@ -96,7 +96,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.1.7"
+version: str = "0.1.8"
 
 # Load data from pickle
 
