@@ -25,6 +25,7 @@ from pyrogram import Client, InlineKeyboardButton, InlineKeyboardMarkup
 from .. import glovar
 from .channel import share_data
 from .etc import button_data, code, general_link, thread
+from .file import save
 from .telegram import edit_message_text, send_message
 
 # Enable logging
@@ -745,40 +746,20 @@ def button_warn(config: dict) -> Optional[InlineKeyboardMarkup]:
     return markup
 
 
-def check_commit(client: Client, config_key: str) -> bool:
-    # Check whether the config session is committed or not
-    try:
-        if glovar.configs.get(config_key):
-            if not glovar.configs[config_key]["commit"]:
-                # If it is not committed, edit the session message to update the status (invalid)
-                text = get_config_text(config_key)
-                text += f"状态：{code('会话已失效')}"
-                mid = glovar.configs[config_key]["message_id"]
-                thread(edit_message_text, (client, glovar.config_channel_id, mid, text))
-
-            # Pop this config data
-            glovar.configs.pop(config_key, "")
-            return True
-    except Exception as e:
-        logger.warning(f"Check commit error: {e}", exc_info=True)
-
-    return False
-
-
-def commit_change(client: Client, config_key: str) -> bool:
+def commit_change(client: Client, key: str) -> bool:
     # Commit the new configuration
     try:
-        if glovar.configs.get(config_key):
+        if glovar.configs.get(key):
             # Change commit status
-            glovar.configs[config_key]["commit"] = True
+            glovar.configs[key]["commit"] = True
             # Use config type to get the right receiver
-            config_type = glovar.configs[config_key]["type"]
-            group_id = glovar.configs[config_key]["group_id"]
+            config_type = glovar.configs[key]["type"]
+            group_id = glovar.configs[key]["group_id"]
             # The config session message id
-            message_id = glovar.configs[config_key]["message_id"]
-            config_data = glovar.configs[config_key]["config"]
+            message_id = glovar.configs[key]["message_id"]
+            config_data = glovar.configs[key]["config"]
             # Edit config session message
-            text = get_config_text(config_key)
+            text = get_config_text(key)
             text += f"结果：{code('已更新设置')}"
             thread(edit_message_text, (client, glovar.config_channel_id, message_id, text))
             # Commit changes to exchange channel
@@ -794,9 +775,9 @@ def commit_change(client: Client, config_key: str) -> bool:
                 }
             )
             # Send debug message
-            group_name = glovar.configs[config_key]["group_name"]
-            group_link = glovar.configs[config_key]["group_link"]
-            user_id = glovar.configs[config_key]["user_id"]
+            group_name = glovar.configs[key]["group_name"]
+            group_link = glovar.configs[key]["group_link"]
+            user_id = glovar.configs[key]["user_id"]
             text = (f"项目编号：{general_link(glovar.project_name, glovar.project_link)}\n"
                     f"群组名称：{general_link(group_name, group_link)}\n"
                     f"群组 ID：{code(group_id)}\n"
@@ -808,21 +789,24 @@ def commit_change(client: Client, config_key: str) -> bool:
         return True
     except Exception as e:
         logger.warning(f"Commit change error: {e}")
+    finally:
+        glovar.configs.pop(key, {})
+        save("configs")
 
     return False
 
 
-def get_config_message(config_key: str) -> (str, Optional[InlineKeyboardMarkup]):
+def get_config_message(key: str) -> (str, Optional[InlineKeyboardMarkup]):
     # Get a config session message (text + reply markup)
     text = ""
     markup = None
     try:
-        if glovar.configs.get(config_key):
-            config_type = glovar.configs[config_key]["type"]
-            config_data = glovar.configs[config_key]["config"]
+        if glovar.configs.get(key):
+            config_type = glovar.configs[key]["type"]
+            config_data = glovar.configs[key]["config"]
             # For each config type, use different function to generate reply markup buttons
             markup = eval(f"button_{config_type}")(config_data)
-            text = get_config_text(config_key)
+            text = get_config_text(key)
             text += f"说明：{code('请在此进行设置，如设置完毕请点击提交，本会话将在 5 分钟后失效')}"
     except Exception as e:
         logger.warning(f"Get config message error: {e}", exc_info=True)
@@ -830,17 +814,17 @@ def get_config_message(config_key: str) -> (str, Optional[InlineKeyboardMarkup])
     return text, markup
 
 
-def get_config_text(config_key: str) -> str:
+def get_config_text(key: str) -> str:
     # Get a config session message text prefix
     text = ""
     try:
-        project_name = glovar.configs[config_key]["project_name"]
-        project_link = glovar.configs[config_key]["project_link"]
-        group_id = glovar.configs[config_key]["group_id"]
-        group_name = glovar.configs[config_key]["group_name"]
-        group_link = glovar.configs[config_key]["group_link"]
-        user_id = glovar.configs[config_key]["user_id"]
-        text = (f"设置编号：{code(config_key)}\n"
+        project_name = glovar.configs[key]["project_name"]
+        project_link = glovar.configs[key]["project_link"]
+        group_id = glovar.configs[key]["group_id"]
+        group_name = glovar.configs[key]["group_name"]
+        group_link = glovar.configs[key]["group_link"]
+        user_id = glovar.configs[key]["user_id"]
+        text = (f"设置编号：{code(key)}\n"
                 f"项目编号：{general_link(project_name, project_link)}\n"
                 f"群组名称：{general_link(group_name, group_link)}\n"
                 f"群组 ID：{code(group_id)}\n"
@@ -851,10 +835,33 @@ def get_config_text(config_key: str) -> str:
     return text
 
 
-def set_default(config_key: str) -> bool:
+def remove_old(client: Client, key: str) -> bool:
+    # Remove old config session data
+    try:
+        if glovar.configs.get(key):
+            if not glovar.configs[key]["lock"]:
+                if not glovar.configs[key]["commit"]:
+                    # If it is not committed, edit the session message to update the status (invalid)
+                    text = get_config_text(key)
+                    text += f"状态：{code('会话已失效')}"
+                    mid = glovar.configs[key]["message_id"]
+                    thread(edit_message_text, (client, glovar.config_channel_id, mid, text))
+
+                # Pop this config data
+                glovar.configs.pop(key, {})
+
+        return True
+    except Exception as e:
+        logger.warning(f"Check commit error: {e}", exc_info=True)
+
+    return False
+
+
+def set_default(key: str) -> bool:
     # Set the config to the default one
     try:
-        glovar.configs[config_key]["config"] = deepcopy(glovar.configs[config_key]["default"])
+        glovar.configs[key]["config"] = deepcopy(glovar.configs[key]["default"])
+        save("configs")
 
         return True
     except Exception as e:

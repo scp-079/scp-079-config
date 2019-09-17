@@ -29,39 +29,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Init
-
-all_commands: List[str] = ["version"]
-
-configs: Dict[str, Dict[str, Union[bool, int, dict, str]]] = {}
-# configs = {
-#     "random": {
-#         "type": "warn",
-#         "lock": False,
-#         "group_id": -10012345678,
-#         "group_name": "Group Name",
-#         "group_link": "link to group",
-#         "user_id": 12345678,
-#         "message_id": 123,
-#         "config": {
-#             "default": True,
-#             "lock": 0,
-#             "limit": 3,
-#             "mention": False,
-#             "report": {
-#                 "auto": False,
-#                 "manual": False
-#             }
-#         }
-#     }
-# }
-
-sender: str = "CONFIG"
-
-should_hide: bool = False
-
-version: str = "0.1.6"
-
 # Read data from config.ini
 
 # [basic]
@@ -113,6 +80,53 @@ if (bot_token in {"", "[DATA EXPUNGED]"}
         or project_name in {"", "[DATA EXPUNGED]"}):
     logger.critical("No proper settings")
     raise SystemExit("No proper settings")
+
+# Init
+
+all_commands: List[str] = ["version"]
+
+configs: Dict[str, Dict[str, Union[bool, int, dict, str]]] = {}
+# configs = {
+#     "random": {
+#         "type": "warn",
+#         "lock": False,
+#         "commit": False,
+#         "time": 1512345678,
+#         "group_id": -10012345678,
+#         "group_name": "Group Name",
+#         "group_link": "link to group",
+#         "user_id": 12345678,
+#         "message_id": 123,
+#         "config": {
+#             "default": False,
+#             "lock": 1512345678,
+#             "delete": True,
+#             "limit": 3,
+#             "mention": True,
+#             "report": {
+#                 "auto": True,
+#                 "manual": True
+#             }
+#         },
+#         "default": {
+#             "default": True,
+#             "lock": 0,
+#             "delete": True,
+#             "limit": 3,
+#             "mention": True,
+#             "report": {
+#                 "auto": False,
+#                 "manual": True
+#             }
+#         }
+#     }
+# }
+
+sender: str = "CONFIG"
+
+should_hide: bool = False
+
+version: str = "0.1.7"
 
 # Start program
 copyright_text = (f"SCP-079-{sender} v{version}, Copyright (C) 2019 SCP-079 <https://scp-079.org>\n"

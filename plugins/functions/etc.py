@@ -22,7 +22,7 @@ from json import dumps
 from random import choice, uniform
 from string import ascii_letters, digits
 from threading import Thread, Timer
-from time import sleep
+from time import sleep, time
 from typing import Any, Callable, Optional, Union
 
 from pyrogram import Message
@@ -127,10 +127,24 @@ def get_channel_link(message: Union[int, Message]) -> str:
     return text
 
 
+def get_now() -> int:
+    # Get time for now
+    result = 0
+    try:
+        result = int(time())
+    except Exception as e:
+        logger.warning(f"Get now error: {e}", exc_info=True)
+
+    return result
+
+
 def get_text(message: Message) -> str:
     # Get message's text
     text = ""
     try:
+        if not message:
+            return ""
+
         the_text = message.text or message.caption
         if the_text:
             text += the_text

@@ -23,8 +23,9 @@ from pyrogram import Client, Message
 
 from .. import glovar
 from .channel import share_data
-from .config import check_commit, get_config_message
-from .etc import delay, get_text, message_link, random_str
+from .config import get_config_message
+from .etc import get_now, get_text, message_link, random_str
+from .file import save
 from .telegram import send_message
 
 # Enable logging
@@ -35,24 +36,25 @@ def receive_config_ask(client: Client, sender: str, data: dict) -> bool:
     # Receive config ask
     try:
         # Generate a new config key
-        config_key = random_str(8)
-        while glovar.configs.get(config_key):
-            config_key = random_str(8)
+        key = random_str(8)
+        while glovar.configs.get(key):
+            key = random_str(8)
 
         # Set basic data
-        glovar.configs[config_key] = data
-        glovar.configs[config_key]["type"] = sender.lower()
-        glovar.configs[config_key]["commit"] = False
+        glovar.configs[key] = data
+        glovar.configs[key]["type"] = sender.lower()
+        glovar.configs[key]["lock"] = False
+        glovar.configs[key]["commit"] = False
+        glovar.configs[key]["time"] = get_now()
         # Send the config session message
-        text, markup = get_config_message(config_key)
+        text, markup = get_config_message(key)
         sent_message = send_message(client, glovar.config_channel_id, text, None, markup)
         if sent_message:
             # If message is sent, initiate the check process
-            glovar.configs[config_key]["message_id"] = sent_message.message_id
-            delay(300, check_commit, [client, config_key])
+            glovar.configs[key]["message_id"] = sent_message.message_id
             # Reply the bot in the exchange channel, let it send a report in the group
-            group_id = glovar.configs[config_key]["group_id"]
-            user_id = glovar.configs[config_key]["user_id"]
+            group_id = glovar.configs[key]["group_id"]
+            user_id = glovar.configs[key]["user_id"]
             share_data(
                 client=client,
                 receivers=[sender],
@@ -64,9 +66,10 @@ def receive_config_ask(client: Client, sender: str, data: dict) -> bool:
                     "config_link": message_link(sent_message)
                 }
             )
+            save("configs")
         else:
             # If something goes wrong, pop the config
-            glovar.configs.pop(config_key, None)
+            glovar.configs.pop(key, {})
 
         return True
     except Exception as e:
