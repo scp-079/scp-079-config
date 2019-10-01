@@ -50,7 +50,7 @@ def answer_callback(client: Client, query_id: str, text: str) -> Optional[bool]:
 
 
 def edit_message_reply_markup(client: Client, cid: int, mid: int,
-                              markup: InlineKeyboardMarkup) -> Optional[Union[bool, Message]]:
+                              markup: InlineKeyboardMarkup = None) -> Optional[Union[bool, Message]]:
     # Edit the message's reply markup
     result = None
     try:
@@ -95,6 +95,35 @@ def edit_message_text(client: Client, cid: int, mid: int, text: str,
                     wait_flood(e)
     except Exception as e:
         logger.warning(f"Edit message in {cid} error: {e}", exc_info=True)
+
+    return result
+
+
+def send_document(client: Client, cid: int, document: str, file_ref: str = None, text: str = None, mid: int = None,
+                  markup: InlineKeyboardMarkup = None) -> Optional[Union[bool, Message]]:
+    # Send a document to a chat
+    result = None
+    try:
+        flood_wait = True
+        while flood_wait:
+            flood_wait = False
+            try:
+                result = client.send_document(
+                    chat_id=cid,
+                    document=document,
+                    file_ref=file_ref,
+                    caption=text,
+                    parse_mode="html",
+                    reply_to_message_id=mid,
+                    reply_markup=markup
+                )
+            except FloodWait as e:
+                flood_wait = True
+                wait_flood(e)
+            except (PeerIdInvalid, ChannelInvalid, ChannelPrivate):
+                return False
+    except Exception as e:
+        logger.warning(f"Send document to {cid} error: {e}", exec_info=True)
 
     return result
 

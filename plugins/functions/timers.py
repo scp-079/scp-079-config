@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
+from time import sleep
 
 from pyrogram import Client
 
@@ -28,6 +29,30 @@ from .channel import share_data
 
 # Enable logging
 logger = logging.getLogger(__name__)
+
+
+def backup_files(client: Client) -> bool:
+    # Backup data files to BACKUP
+    try:
+        for file in glovar.file_list:
+            try:
+                share_data(
+                    client=client,
+                    receivers=["BACKUP"],
+                    action="backup",
+                    action_type="pickle",
+                    data=file,
+                    file=f"data/{file}"
+                )
+                sleep(5)
+            except Exception as e:
+                logger.warning(f"Send backup file {file} error: {e}", exc_info=True)
+
+        return True
+    except Exception as e:
+        logger.warning(f"Backup error: {e}", exc_info=True)
+
+    return False
 
 
 def interval_min_01(client: Client) -> bool:

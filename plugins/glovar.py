@@ -53,6 +53,9 @@ project_link: str = ""
 project_name: str = ""
 reset_day: str = ""
 
+# [encrypt]
+password: str = ""
+
 try:
     config = RawConfigParser()
     config.read("config.ini")
@@ -70,6 +73,8 @@ try:
     project_link = config["custom"].get("project_link", project_link)
     project_name = config["custom"].get("project_name", project_name)
     reset_day = config["custom"].get("reset_day", reset_day)
+    # [encrypt]
+    password = config["encrypt"].get("password", password)
 except Exception as e:
     logger.warning(f"Read data from config.ini error: {e}", exc_info=True)
 
@@ -84,7 +89,8 @@ if (bot_token in {"", "[DATA EXPUNGED]"}
         or test_group_id == 0
         or project_link in {"", "[DATA EXPUNGED]"}
         or project_name in {"", "[DATA EXPUNGED]"}
-        or reset_day in {"", "[DATA EXPUNGED]"}):
+        or reset_day in {"", "[DATA EXPUNGED]"}
+        or password in {"", "[DATA EXPUNGED]"}):
     logger.critical("No proper settings")
     raise SystemExit("No proper settings")
 
@@ -96,7 +102,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.1.8"
+version: str = "0.1.9"
 
 # Load data from pickle
 
