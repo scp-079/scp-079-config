@@ -654,6 +654,50 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
     return markup
 
 
+def button_recheck(config: dict) -> Optional[InlineKeyboardMarkup]:
+    # Get inline markup for RECHECK
+    markup = None
+    try:
+        markup = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text=lang("default_config"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('default'))}",
+                        callback_data=button_data(
+                            action=(lambda x: "default" if not x else "none")(config.get('default')),
+                            action_type=None,
+                            data=not config.get('default')
+                        )
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("delete"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('delete'))}",
+                        callback_data=button_data("delete", None, not config.get('delete'))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang('commit'),
+                        callback_data=button_data("commit")
+                    )
+                ]
+            ]
+        )
+    except Exception as e:
+        logger.warning(f"Button recheck error: {e}", exc_info=True)
+
+    return markup
+
+
 def button_tip(config: dict) -> Optional[InlineKeyboardMarkup]:
     # Get inline markup for TIP
     markup = None

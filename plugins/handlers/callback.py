@@ -101,6 +101,9 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                         glovar.configs[key]["config"]["reporter"] = False
                                     elif action == "reporter" and data:
                                         glovar.configs[key]["config"]["deleter"] = False
+                                # RECHECK
+                                elif config_type == "recheck":
+                                    glovar.configs[key]["config"][action] = data
                                 # TIP
                                 elif config_type == "tip":
                                     glovar.configs[key]["config"][action] = data

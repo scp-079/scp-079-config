@@ -18,7 +18,7 @@ See [this article](https://scp-079.org/config/).
 - [x] Support SCP-079-TIP
 - [x] Support SCP-079-USER
 - [x] Support SCP-079-WARN
-- [ ] Support SCP-079-RECHECK
+- [x] Support SCP-079-RECHECK
 
 ## Requirements
 

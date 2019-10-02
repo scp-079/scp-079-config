@@ -84,7 +84,8 @@ def process_data(client: Client, message: Message) -> bool:
         data = data["data"]
         if glovar.sender in receivers:
 
-            if sender in {"CAPTCHA", "CLEAN", "LANG", "LONG", "NOFLOOD", "NOPORN", "NOSPAM", "TIP", "USER", "WARN"}:
+            if sender in {"CAPTCHA", "CLEAN", "LANG", "LONG", "NOFLOOD",
+                          "NOPORN", "NOSPAM", "RECHECK", "TIP", "USER", "WARN"}:
 
                 if action == "config":
                     if action_type == "ask":
