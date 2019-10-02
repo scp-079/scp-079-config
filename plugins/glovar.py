@@ -193,7 +193,7 @@ lang: Dict[str, str] = {
                            or ("Please change settings here. If the it is completed, please click Submit. "
                                "This session will expire after 5 minutes")),
     "config_code": (zh_cn and "设置编号") or "Config",
-    "expired": (zh_cn and "会话已失效") or "Session Expired",
+    "expired": (zh_cn and "会话已失效") or "Session Expired"
 }
 
 # Init
