@@ -118,6 +118,16 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text=lang("friend"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('friend'))}",
+                        callback_data=button_data("friend", None, not config.get("friend"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text=f"{lang('con')} {(lambda x: '✅' if x else '☑️')(config.get('con'))}",
                         callback_data=button_data("con", None, not config.get("con"))
                     ),

@@ -130,6 +130,7 @@ lang: Dict[str, str] = {
     # CAPTCHA
     "captcha_auto": (zh_cn and "自动免验证") or "Auto Pass",
     # CLEAN
+    "friend": (zh_cn and "放行友链") or "Bypass Friend Links",
     "con": (zh_cn and "联系人") or "Contact",
     "loc": (zh_cn and "定位") or "Location",
     "vdn": (zh_cn and "圆视频") or "Round Video",
