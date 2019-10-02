@@ -328,7 +328,7 @@ def button_lang(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text=lang("sticker_title"),
+                        text=lang("sticker_enable"),
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
