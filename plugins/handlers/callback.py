@@ -24,7 +24,7 @@ from pyrogram import Client, CallbackQuery
 
 from .. import glovar
 from ..functions.config import commit_change, get_config_message, set_default
-from ..functions.etc import thread
+from ..functions.etc import lang, thread
 from ..functions.file import save
 from ..functions.filters import config_channel
 from ..functions.telegram import answer_callback, edit_message_reply_markup
@@ -129,7 +129,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
 
                 thread(answer_callback, (client, callback_query.id, ""))
             else:
-                thread(answer_callback, (client, callback_query.id, "已提交或失效"))
+                thread(answer_callback, (client, callback_query.id, lang("invalid_key")))
         else:
             thread(answer_callback, (client, callback_query.id, ""))
 
