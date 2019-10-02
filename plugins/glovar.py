@@ -161,6 +161,8 @@ lang: Dict[str, str] = {
     "text_enable": (zh_cn and "检查消息文字") or "Check Message's Text",
     "sticker_default": (zh_cn and "默认贴纸设置") or "Default Sticker Setting",
     "sticker_enable": (zh_cn and "检查贴纸标题") or "Check Sticker's Title",
+    "spc": (zh_cn and "特殊中文") or "Special Chinese Characters",
+    "spe": (zh_cn and "特殊英文") or "Special English Characters",
     # LONG
     "long_limit": (zh_cn and "消息字节上限") or "The Limit of Message's Bytes Length",
     # NOFLOOD
@@ -205,7 +207,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.2.1"
+version: str = "0.2.2"
 
 # Load data from pickle
 

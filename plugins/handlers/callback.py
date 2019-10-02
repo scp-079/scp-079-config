@@ -76,15 +76,18 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                     glovar.configs[key]["config"][action] = data
                                 # LANG
                                 elif config_type == "lang":
-                                    if action_type == "enable":
-                                        if not glovar.configs[key]["config"].get(action, {}):
-                                            glovar.configs[key]["config"][action] = {}
+                                    if action in {"name", "text", "sticker"}:
+                                        if action_type == "enable":
+                                            if not glovar.configs[key]["config"].get(action, {}):
+                                                glovar.configs[key]["config"][action] = {}
 
-                                        glovar.configs[key]["config"][action]["default"] = False
-                                        glovar.configs[key]["config"][action][action_type] = data
-                                    elif action_type == "default":
-                                        default_config = deepcopy(glovar.configs[key]["default"][action])
-                                        glovar.configs[key]["config"][action] = default_config
+                                            glovar.configs[key]["config"][action]["default"] = False
+                                            glovar.configs[key]["config"][action][action_type] = data
+                                        elif action_type == "default":
+                                            default_config = deepcopy(glovar.configs[key]["default"][action])
+                                            glovar.configs[key]["config"][action] = default_config
+                                    else:
+                                        glovar.configs[key]["config"][action] = data
                                 # LONG
                                 elif config_type == "long":
                                     glovar.configs[key]["config"][action] = data
