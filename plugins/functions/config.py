@@ -168,8 +168,8 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("via", None, not config.get("via"))
                     ),
                     InlineKeyboardButton(
-                        text=f"{lang('vdi')} {(lambda x: '✅' if x else '☑️')(config.get('vdi'))}",
-                        callback_data=button_data("vdi", None, not config.get("vdi"))
+                        text=f"{lang('vid')} {(lambda x: '✅' if x else '☑️')(config.get('vid'))}",
+                        callback_data=button_data("vid", None, not config.get("vid"))
                     )
                 ],
                 [
