@@ -97,6 +97,10 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                 # NOSPAM
                                 elif config_type == "nospam":
                                     glovar.configs[key]["config"][action] = data
+                                    if action == "deleter" and data:
+                                        glovar.configs[key]["config"]["reporter"] = False
+                                    elif action == "reporter" and data:
+                                        glovar.configs[key]["config"]["deleter"] = False
                                 # TIP
                                 elif config_type == "tip":
                                     glovar.configs[key]["config"][action] = data

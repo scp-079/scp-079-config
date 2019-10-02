@@ -21,7 +21,7 @@ import logging
 from pyrogram import Client, Filters, Message
 
 from .. import glovar
-from ..functions.etc import bold, thread, user_mention
+from ..functions.etc import bold, lang, thread, user_mention
 from ..functions.filters import from_user, test_group
 from ..functions.telegram import send_message
 
@@ -36,8 +36,8 @@ def version(client: Client, message: Message) -> bool:
         cid = message.chat.id
         aid = message.from_user.id
         mid = message.message_id
-        text = (f"管理员：{user_mention(aid)}\n\n"
-                f"版本：{bold(glovar.version)}\n")
+        text = (f"{lang('admin')}{lang('colon')}{user_mention(aid)}\n\n"
+                f"{lang('version')}{lang('colon')}{bold(glovar.version)}\n")
         thread(send_message, (client, cid, text, mid))
 
         return True

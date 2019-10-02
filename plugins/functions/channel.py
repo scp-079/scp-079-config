@@ -23,7 +23,7 @@ from typing import List, Union
 from pyrogram import Client
 
 from .. import glovar
-from .etc import code, code_block, thread
+from .etc import code, code_block, lang, thread
 from .file import crypt_file, delete_file, get_new_path
 from .telegram import send_document, send_message
 
@@ -42,9 +42,9 @@ def exchange_to_hide(client: Client) -> bool:
             action_type="hide",
             data=True
         )
-        text = (f"项目编号：{code(glovar.sender)}\n"
-                f"发现状况：{code('数据交换频道失效')}\n"
-                f"自动处理：{code('启用 1 号协议')}\n")
+        text = (f"{lang('project')}{lang('colon')}{code(glovar.sender)}\n"
+                f"{lang('issue')}{lang('colon')}{code(lang('exchange_invalid'))}\n"
+                f"{lang('auto_fix')}{lang('colon')}{code(lang('protocol_1'))}\n")
         thread(send_message, (client, glovar.critical_channel_id, text))
 
         return True

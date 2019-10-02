@@ -21,7 +21,7 @@ import logging
 from pyrogram import Client, Filters, Message
 
 from .. import glovar
-from ..functions.etc import code, general_link, thread
+from ..functions.etc import code, general_link, lang, thread
 from ..functions.filters import exchange_channel, hide_channel
 from ..functions.receive import receive_config_ask, receive_text_data
 from ..functions.telegram import send_message
@@ -37,24 +37,28 @@ def exchange_emergency(client: Client, message: Message) -> bool:
     try:
         # Read basic information
         data = receive_text_data(message)
-        if data:
-            sender = data["from"]
-            receivers = data["to"]
-            action = data["action"]
-            action_type = data["type"]
-            data = data["data"]
-            if "EMERGENCY" in receivers:
-                if action == "backup":
-                    if action_type == "hide":
-                        if data is True:
-                            glovar.should_hide = data
-                        elif data is False and sender == "MANAGE":
-                            glovar.should_hide = data
+        if not data:
+            return True
 
-                        text = (f"项目编号：{general_link(glovar.project_name, glovar.project_link)}\n"
-                                f"执行操作：{code('频道转移')}\n"
-                                f"应急频道：{code((lambda x: '启用' if x else '禁用')(glovar.should_hide))}\n")
-                        thread(send_message, (client, glovar.debug_channel_id, text))
+        sender = data["from"]
+        receivers = data["to"]
+        action = data["action"]
+        action_type = data["type"]
+        data = data["data"]
+        if "EMERGENCY" in receivers:
+            if action == "backup":
+                if action_type == "hide":
+                    if data is True:
+                        glovar.should_hide = data
+                    elif data is False and sender == "MANAGE":
+                        glovar.should_hide = data
+
+                    project_text = general_link(glovar.project_name, glovar.project_link)
+                    hide_text = (lambda x: lang("enabled") if x else "disabled")(glovar.should_hide)
+                    text = (f"{lang('project')}{lang('colon')}{project_text}\n"
+                            f"{lang('action')}{lang('colon')}{code(lang('transfer_channel'))}\n"
+                            f"{lang('emergency_channel')}{lang('colon')}{code(hide_text)}\n")
+                    thread(send_message, (client, glovar.debug_channel_id, text))
 
         return True
     except Exception as e:
@@ -70,19 +74,21 @@ def process_data(client: Client, message: Message) -> bool:
     try:
         # Read basic information
         data = receive_text_data(message)
-        if data:
-            sender = data["from"]
-            receivers = data["to"]
-            action = data["action"]
-            action_type = data["type"]
-            data = data["data"]
-            if glovar.sender in receivers:
+        if not data:
+            return True
 
-                if sender in {"CAPTCHA", "CLEAN", "LANG", "LONG", "NOFLOOD", "NOPORN", "NOSPAM", "TIP", "USER", "WARN"}:
+        sender = data["from"]
+        receivers = data["to"]
+        action = data["action"]
+        action_type = data["type"]
+        data = data["data"]
+        if glovar.sender in receivers:
 
-                    if action == "config":
-                        if action_type == "ask":
-                            receive_config_ask(client, sender, data)
+            if sender in {"CAPTCHA", "CLEAN", "LANG", "LONG", "NOFLOOD", "NOPORN", "NOSPAM", "TIP", "USER", "WARN"}:
+
+                if action == "config":
+                    if action_type == "ask":
+                        receive_config_ask(client, sender, data)
 
         return True
     except Exception as e:

@@ -28,6 +28,8 @@ from typing import Any, Callable, Optional, Union
 from pyrogram import Message
 from pyrogram.errors import FloodWait
 
+from .. import glovar
+
 # Enable logging
 logger = logging.getLogger(__name__)
 
@@ -152,6 +154,17 @@ def get_text(message: Message) -> str:
         logger.warning(f"Get text error: {e}", exc_info=True)
 
     return text
+
+
+def lang(text: str) -> str:
+    # Get the text
+    result = ""
+    try:
+        result = glovar.lang.get(text, text)
+    except Exception as e:
+        logger.warning(f"Lang error: {e}", exc_info=True)
+
+    return result
 
 
 def message_link(message: Message) -> str:

@@ -99,7 +99,7 @@ def edit_message_text(client: Client, cid: int, mid: int, text: str,
     return result
 
 
-def send_document(client: Client, cid: int, document: str, file_ref: str = None, text: str = None, mid: int = None,
+def send_document(client: Client, cid: int, document: str, file_ref: str = None, caption: str = "", mid: int = None,
                   markup: InlineKeyboardMarkup = None) -> Optional[Union[bool, Message]]:
     # Send a document to a chat
     result = None
@@ -112,7 +112,7 @@ def send_document(client: Client, cid: int, document: str, file_ref: str = None,
                     chat_id=cid,
                     document=document,
                     file_ref=file_ref,
-                    caption=text,
+                    caption=caption,
                     parse_mode="html",
                     reply_to_message_id=mid,
                     reply_markup=markup

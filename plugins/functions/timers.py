@@ -35,18 +35,15 @@ def backup_files(client: Client) -> bool:
     # Backup data files to BACKUP
     try:
         for file in glovar.file_list:
-            try:
-                share_data(
-                    client=client,
-                    receivers=["BACKUP"],
-                    action="backup",
-                    action_type="pickle",
-                    data=file,
-                    file=f"data/{file}"
-                )
-                sleep(5)
-            except Exception as e:
-                logger.warning(f"Send backup file {file} error: {e}", exc_info=True)
+            share_data(
+                client=client,
+                receivers=["BACKUP"],
+                action="backup",
+                action_type="pickle",
+                data=file,
+                file=f"data/{file}"
+            )
+            sleep(5)
 
         return True
     except Exception as e:
@@ -85,7 +82,7 @@ def reset_data() -> bool:
     return False
 
 
-def update_status(client: Client) -> bool:
+def update_status(client: Client, the_type: str) -> bool:
     # Update running status to BACKUP
     try:
         share_data(
@@ -93,11 +90,14 @@ def update_status(client: Client) -> bool:
             receivers=["BACKUP"],
             action="backup",
             action_type="status",
-            data="awake"
+            data={
+                "type": the_type,
+                "backup": glovar.backup
+            }
         )
 
         return True
     except Exception as e:
-        logger.warning(f"Update status error: {e}")
+        logger.warning(f"Update status error: {e}", exc_info=True)
 
     return False
