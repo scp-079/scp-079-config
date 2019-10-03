@@ -116,6 +116,7 @@ lang: Dict[str, str] = {
     "action": (zh_cn and "执行操作") or "Action",
     "description": (zh_cn and "说明") or "Description",
     "status": (zh_cn and "状态") or "Status",
+    "reset": (zh_cn and "重置数据") or "Reset Data",
     "version": (zh_cn and "版本") or "Version",
     # Emergency
     "issue": (zh_cn and "发现状况") or "Issue",
@@ -209,7 +210,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.2.2"
+version: str = "0.2.3"
 
 # Load data from pickle
 

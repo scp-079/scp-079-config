@@ -23,9 +23,10 @@ from pyrogram import Client
 
 from .. import glovar
 from .config import remove_old
-from .etc import get_now
+from .etc import code, general_link, get_now, lang, thread
 from .file import save
 from .channel import share_data
+from .telegram import send_message
 
 # Enable logging
 logger = logging.getLogger(__name__)
@@ -69,11 +70,16 @@ def interval_min_01(client: Client) -> bool:
     return False
 
 
-def reset_data() -> bool:
+def reset_data(client: Client) -> bool:
     # Reset data every month
     try:
         glovar.configs = {}
         save("configs")
+
+        # Send debug message
+        text = (f"{lang('project')}{lang('colon')}{general_link(glovar.project_name, glovar.project_link)}\n"
+                f"{lang('action')}{lang('colon')}{code(lang('reset'))}\n")
+        thread(send_message, (client, glovar.debug_channel_id, text))
 
         return True
     except Exception as e:
