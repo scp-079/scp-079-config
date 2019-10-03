@@ -104,17 +104,18 @@ if (bot_token in {"", "[DATA EXPUNGED]"}
 
 # Languages
 lang: Dict[str, str] = {
+    # Admin
+    "admin_group": (zh_cn and "群管理") or "Group Admin",
+    "admin": (zh_cn and "管理员") or "Admin",
     # Basic
     "project": (zh_cn and "项目编号") or "Project",
     "colon": (zh_cn and "：") or ": ",
     "result": (zh_cn and "结果") or "Result",
     "group_name": (zh_cn and "群组名称") or "Group Name",
     "group_id": (zh_cn and "群组 ID") or "Group ID",
-    "admin_group": (zh_cn and "群管理") or "Group Admin",
     "action": (zh_cn and "执行操作") or "Action",
     "description": (zh_cn and "说明") or "Description",
     "status": (zh_cn and "状态") or "Status",
-    "admin": (zh_cn and "管理员") or "Admin",
     "version": (zh_cn and "版本") or "Version",
     # Emergency
     "issue": (zh_cn and "发现状况") or "Issue",
