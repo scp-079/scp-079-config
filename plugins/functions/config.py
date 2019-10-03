@@ -1012,13 +1012,15 @@ def get_config_message(key: str) -> (str, Optional[InlineKeyboardMarkup]):
     text = ""
     markup = None
     try:
-        if glovar.configs.get(key):
-            config_type = glovar.configs[key]["type"]
-            config_data = glovar.configs[key]["config"]
-            # For each config type, use different function to generate reply markup buttons
-            markup = eval(f"button_{config_type}")(config_data)
-            text = get_config_text(key)
-            text += f"{lang('description')}{lang('colon')}{code(lang('config_description'))}\n"
+        if not glovar.configs.get(key):
+            return "", None
+
+        config_type = glovar.configs[key]["type"]
+        config_data = glovar.configs[key]["config"]
+        # For each config type, use different function to generate reply markup buttons
+        markup = eval(f"button_{config_type}")(config_data)
+        text = get_config_text(key)
+        text += f"{lang('description')}{lang('colon')}{code(lang('config_description'))}\n"
     except Exception as e:
         logger.warning(f"Get config message error: {e}", exc_info=True)
 
@@ -1049,18 +1051,20 @@ def get_config_text(key: str) -> str:
 def remove_old(client: Client, key: str) -> bool:
     # Remove old config session data
     try:
-        if glovar.configs.get(key):
-            if not glovar.configs[key]["lock"]:
-                if not glovar.configs[key]["commit"]:
-                    # If it is not committed, edit the session message to update the status (invalid)
-                    text = get_config_text(key)
-                    text += f"{lang('status')}{lang('colon')}{code(lang('expired'))}\n"
-                    mid = glovar.configs[key]["message_id"]
-                    thread(edit_message_text, (client, glovar.config_channel_id, mid, text))
+        if not glovar.configs.get(key):
+            return True
 
-                # Pop this config data
-                glovar.configs.pop(key, {})
-                save("configs")
+        if not glovar.configs[key]["lock"]:
+            if not glovar.configs[key]["commit"]:
+                # If it is not committed, edit the session message to update the status (invalid)
+                text = get_config_text(key)
+                text += f"{lang('status')}{lang('colon')}{code(lang('expired'))}\n"
+                mid = glovar.configs[key]["message_id"]
+                thread(edit_message_text, (client, glovar.config_channel_id, mid, text))
+
+            # Pop this config data
+            glovar.configs.pop(key, {})
+            save("configs")
 
         return True
     except Exception as e:
