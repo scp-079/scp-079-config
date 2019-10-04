@@ -116,6 +116,7 @@ lang: Dict[str, str] = {
     "action": (zh_cn and "执行操作") or "Action",
     "description": (zh_cn and "说明") or "Description",
     "status": (zh_cn and "状态") or "Status",
+    "rollback": (zh_cn and "数据回滚") or "Rollback",
     "reset": (zh_cn and "重置数据") or "Reset Data",
     "version": (zh_cn and "版本") or "Version",
     # Emergency
