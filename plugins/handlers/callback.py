@@ -50,7 +50,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
             key = callback_query.message.text.split("\n")[0].split("：")[1]
             if glovar.configs.get(key):
                 # Check whether the config is locked
-                if glovar.configs[key].get("lock", True) or glovar.configs[key].get("commit", True):
+                if glovar.configs[key]["lock"] or glovar.configs[key]["commit"]:
                     return True
 
                 try:
