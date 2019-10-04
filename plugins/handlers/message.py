@@ -23,7 +23,7 @@ from pyrogram import Client, Filters, Message
 from .. import glovar
 from ..functions.etc import code, general_link, lang, thread
 from ..functions.filters import exchange_channel, hide_channel
-from ..functions.receive import receive_config_ask, receive_text_data
+from ..functions.receive import receive_config_ask, receive_rollback, receive_text_data
 from ..functions.telegram import send_message
 
 # Enable logging
@@ -90,6 +90,12 @@ def process_data(client: Client, message: Message) -> bool:
                 if action == "config":
                     if action_type == "ask":
                         receive_config_ask(client, sender, data)
+
+            elif sender == "MANAGE":
+
+                if action == "backup":
+                    if action_type == "rollback":
+                        receive_rollback(client, message, data)
 
         return True
     except Exception as e:
