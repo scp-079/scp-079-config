@@ -168,7 +168,7 @@ lang: Dict[str, str] = {
     "spc": (zh_cn and "特殊中文") or "Special Chinese Characters",
     "spe": (zh_cn and "特殊英文") or "Special English Characters",
     # LONG
-    "long_limit": (zh_cn and "消息字节上限") or "The Limit of Message's Bytes Length",
+    "long_limit": (zh_cn and "消息字节上限") or "Bytes Length Limit",
     # NOFLOOD
     "noflood_time": (zh_cn and "检测时间秒数") or "Time in seconds",
     "noflood_limit": (zh_cn and "消息条数上限") or "Message Count Limit",
