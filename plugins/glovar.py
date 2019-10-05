@@ -105,19 +105,16 @@ if (bot_token in {"", "[DATA EXPUNGED]"}
 # Languages
 lang: Dict[str, str] = {
     # Admin
-    "admin_group": (zh_cn and "群管理") or "Group Admin",
     "admin": (zh_cn and "管理员") or "Admin",
+    "admin_group": (zh_cn and "群管理") or "Group Admin",
     # Basic
-    "project": (zh_cn and "项目编号") or "Project",
-    "colon": (zh_cn and "：") or ": ",
-    "result": (zh_cn and "结果") or "Result",
-    "group_name": (zh_cn and "群组名称") or "Group Name",
-    "group_id": (zh_cn and "群组 ID") or "Group ID",
     "action": (zh_cn and "执行操作") or "Action",
+    "colon": (zh_cn and "：") or ": ",
     "description": (zh_cn and "说明") or "Description",
-    "status": (zh_cn and "状态") or "Status",
-    "rollback": (zh_cn and "数据回滚") or "Rollback",
+    "project": (zh_cn and "项目编号") or "Project",
     "reset": (zh_cn and "重置数据") or "Reset Data",
+    "rollback": (zh_cn and "数据回滚") or "Rollback",
+    "status": (zh_cn and "状态") or "Status",
     "version": (zh_cn and "版本") or "Version",
     # Emergency
     "issue": (zh_cn and "发现状况") or "Issue",
@@ -126,6 +123,9 @@ lang: Dict[str, str] = {
     "protocol_1": (zh_cn and "启动 1 号协议") or "Initiate Protocol 1",
     "transfer_channel": (zh_cn and "频道转移") or "Transfer Channel",
     "emergency_channel": (zh_cn and "应急频道") or "Emergency Channel",
+    # Group
+    "group_id": (zh_cn and "群组 ID") or "Group ID",
+    "group_name": (zh_cn and "群组名称") or "Group Name",
     # Common
     "default_config": (zh_cn and "默认设置") or "Default Settings",
     "delete": (zh_cn and "协助删除") or "Help Delete",
@@ -192,15 +192,15 @@ lang: Dict[str, str] = {
     "report_auto": (zh_cn and "自动举报") or "Auto Report",
     "report_manual": (zh_cn and "手动举报") or "Manual Report",
     # Special
-    "committed": (zh_cn and "已更新设置") or "Committed",
-    "commit_change": (zh_cn and "提交设置") or "Commit Change",
-    "target": (zh_cn and "针对项目") or "Target Project",
+    "config_code": (zh_cn and "设置编号") or "Config",
     "config_description": ((zh_cn and "请在此进行设置，如设置完毕请点击提交，本会话将在 5 分钟后失效")
                            or ("Please change settings here. If the it is completed, please click Submit. "
                                "This session will expire after 5 minutes")),
-    "config_code": (zh_cn and "设置编号") or "Config",
+    "committed": (zh_cn and "已更新设置") or "Committed",
+    "commit_change": (zh_cn and "提交设置") or "Commit Change",
     "expired": (zh_cn and "会话已失效") or "Session Expired",
-    "invalid_key": (zh_cn and "已提交或失效") or "Committed or Invalid Session"
+    "invalid_key": (zh_cn and "已提交或失效") or "Committed or Invalid Session",
+    "target": (zh_cn and "针对项目") or "Target Project"
 }
 
 # Init

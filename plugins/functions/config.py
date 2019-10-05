@@ -974,7 +974,7 @@ def commit_change(client: Client, key: str) -> bool:
         config_data = glovar.configs[key]["config"]
         # Edit config session message
         text = get_config_text(key)
-        text += f"{lang('result')}{lang('colon')}{code(lang('committed'))}\n"
+        text += f"{lang('status')}{lang('colon')}{code(lang('committed'))}\n"
         thread(edit_message_text, (client, glovar.config_channel_id, message_id, text))
         # Commit changes to exchange channel
         receivers = [config_type.upper()]
