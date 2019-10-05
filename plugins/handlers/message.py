@@ -25,6 +25,7 @@ from ..functions.etc import code, general_link, lang, thread
 from ..functions.filters import exchange_channel, hide_channel
 from ..functions.receive import receive_config_ask, receive_rollback, receive_text_data
 from ..functions.telegram import send_message
+from ..functions.timers import backup_files
 
 # Enable logging
 logger = logging.getLogger(__name__)
@@ -94,7 +95,9 @@ def process_data(client: Client, message: Message) -> bool:
             elif sender == "MANAGE":
 
                 if action == "backup":
-                    if action_type == "rollback":
+                    if action_type == "now":
+                        backup_files(client)
+                    elif action_type == "rollback":
                         receive_rollback(client, message, data)
 
         return True
