@@ -111,10 +111,8 @@ lang: Dict[str, str] = {
     "action": (zh_cn and "执行操作") or "Action",
     "colon": (zh_cn and "：") or ": ",
     "description": (zh_cn and "说明") or "Description",
-    "project": (zh_cn and "项目编号") or "Project",
     "reset": (zh_cn and "重置数据") or "Reset Data",
     "rollback": (zh_cn and "数据回滚") or "Rollback",
-    "status": (zh_cn and "状态") or "Status",
     "version": (zh_cn and "版本") or "Version",
     # Emergency
     "issue": (zh_cn and "发现状况") or "Issue",
@@ -126,6 +124,9 @@ lang: Dict[str, str] = {
     # Group
     "group_id": (zh_cn and "群组 ID") or "Group ID",
     "group_name": (zh_cn and "群组名称") or "Group Name",
+    # Record
+    "project": (zh_cn and "项目编号") or "Project",
+    "status": (zh_cn and "状态") or "Status",
     # Common
     "default_config": (zh_cn and "默认设置") or "Default Settings",
     "delete": (zh_cn and "协助删除") or "Help Delete",
