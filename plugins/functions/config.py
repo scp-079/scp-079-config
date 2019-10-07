@@ -534,6 +534,16 @@ def button_noflood(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text=lang("noflood_purge"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('purge'))}",
+                        callback_data=button_data("purge", None, not config.get("purge"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text=lang("commit"),
                         callback_data=button_data("commit")
                     )

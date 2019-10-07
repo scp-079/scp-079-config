@@ -173,6 +173,7 @@ lang: Dict[str, str] = {
     # NOFLOOD
     "noflood_time": (zh_cn and "检测时间秒数") or "Time in seconds",
     "noflood_limit": (zh_cn and "消息条数上限") or "Message Count Limit",
+    "noflood_purge": (zh_cn and "清除所有消息") or "Purge All Messages",
     # NOPORN
     "noporn_channel": (zh_cn and "过滤频道") or "Check Restricted Channel Message",
     # NOSPAM
