@@ -420,19 +420,19 @@ def button_long(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '-️' if x > 2000 else '*')(config.get('limit', 3))}",
+                        text=f"{(lambda x: '-️' if x > 500 else '*')(config.get('limit', 1500))}",
                         callback_data=button_data(
-                            action=(lambda x: "limit" if x > 2000 else "none")(config.get("limit", 3)),
+                            action=(lambda x: "limit" if x > 500 else "none")(config.get("limit", 1500)),
                             action_type=None,
-                            data=config.get("limit", 3) - 1000
+                            data=config.get("limit", 1500) - 500
                         )
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '+️' if x < 10000 else '*')(config.get('limit', 3))}",
+                        text=f"{(lambda x: '+️' if x < 10000 else '*')(config.get('limit', 1500))}",
                         callback_data=button_data(
-                            action=(lambda x: "limit" if x < 10000 else "none")(config.get("limit", 3)),
+                            action=(lambda x: "limit" if x < 10000 else "none")(config.get("limit", 1500)),
                             action_type=None,
-                            data=config.get("limit", 3) + 1000
+                            data=config.get("limit", 1500) + 500
                         )
                     )
                 ],
