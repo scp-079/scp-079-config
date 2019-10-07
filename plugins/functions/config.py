@@ -416,7 +416,7 @@ def button_long(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{config.get('limit', 3)}",
+                        text=f"{config.get('limit', 1500)}",
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
