@@ -187,7 +187,10 @@ lang: Dict[str, str] = {
     "rm": (zh_cn and "RM 警告") or "RM Jokes Warning",
     "custom": (zh_cn and "自定义关键词") or "Custom keywords",
     # USER
-    "subscribe": (zh_cn and "订阅封禁") or "Subscribe Ban List",
+    "user_sb": (zh_cn and "订阅封禁") or "Subscribe Ban",
+    "user_sd": (zh_cn and "订阅删除") or "Subscribe Delete",
+    "user_gb": (zh_cn and "全局封禁") or "Global Ban",
+    "user_gd": (zh_cn and "全局删除") or "Global Delete",
     # WARN
     "warn_limit": (zh_cn and "警告上限") or "Warn Limit",
     "warn_admin": (zh_cn and "呼叫管理") or "Call Admins",

@@ -844,12 +844,42 @@ def button_user(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text=lang("subscribe"),
+                        text=lang("user_sb"),
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('subscribe'))}",
-                        callback_data=button_data("subscribe", None, not config.get("subscribe"))
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('sb'))}",
+                        callback_data=button_data("sb", None, not config.get("sb"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("user_sd"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('sd'))}",
+                        callback_data=button_data("sd", None, not config.get("sd"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("user_gb"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('gb'))}",
+                        callback_data=button_data("gb", None, not config.get("gb"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("user_gd"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('gd'))}",
+                        callback_data=button_data("gd", None, not config.get("gd"))
                     )
                 ],
                 [
