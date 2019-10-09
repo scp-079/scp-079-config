@@ -46,6 +46,7 @@ def exchange_emergency(client: Client, message: Message) -> bool:
         action = data["action"]
         action_type = data["type"]
         data = data["data"]
+
         if "EMERGENCY" not in receivers:
             return True
 
