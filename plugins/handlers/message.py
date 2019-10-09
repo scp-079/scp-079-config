@@ -46,20 +46,26 @@ def exchange_emergency(client: Client, message: Message) -> bool:
         action = data["action"]
         action_type = data["type"]
         data = data["data"]
-        if "EMERGENCY" in receivers:
-            if action == "backup":
-                if action_type == "hide":
-                    if data is True:
-                        glovar.should_hide = data
-                    elif data is False and sender == "MANAGE":
-                        glovar.should_hide = data
+        if "EMERGENCY" not in receivers:
+            return True
 
-                    project_text = general_link(glovar.project_name, glovar.project_link)
-                    hide_text = (lambda x: lang("enabled") if x else "disabled")(glovar.should_hide)
-                    text = (f"{lang('project')}{lang('colon')}{project_text}\n"
-                            f"{lang('action')}{lang('colon')}{code(lang('transfer_channel'))}\n"
-                            f"{lang('emergency_channel')}{lang('colon')}{code(hide_text)}\n")
-                    thread(send_message, (client, glovar.debug_channel_id, text))
+        if action != "backup":
+            return True
+
+        if action_type != "hide":
+            return True
+
+        if data is True:
+            glovar.should_hide = data
+        elif data is False and sender == "MANAGE":
+            glovar.should_hide = data
+
+        project_text = general_link(glovar.project_name, glovar.project_link)
+        hide_text = (lambda x: lang("enabled") if x else "disabled")(glovar.should_hide)
+        text = (f"{lang('project')}{lang('colon')}{project_text}\n"
+                f"{lang('action')}{lang('colon')}{code(lang('transfer_channel'))}\n"
+                f"{lang('emergency_channel')}{lang('colon')}{code(hide_text)}\n")
+        thread(send_message, (client, glovar.debug_channel_id, text))
 
         return True
     except Exception as e:

@@ -642,22 +642,22 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text=lang("ml"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('ml'))}",
-                        callback_data=button_data("ml", None, not config.get("ml"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
                         text=lang("bot"),
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
                         text=f"{(lambda x: '✅' if x else '☑️')(config.get('bot'))}",
                         callback_data=button_data("bot", None, not config.get("bot"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("new"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('new'))}",
+                        callback_data=button_data("new", None, not config.get("new"))
                     )
                 ],
                 [
@@ -678,6 +678,16 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         text=f"{(lambda x: '✅' if x else '☑️')(config.get('reporter'))}",
                         callback_data=button_data("reporter", None, not config.get("reporter"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("ml"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('ml'))}",
+                        callback_data=button_data("ml", None, not config.get("ml"))
                     )
                 ],
                 [
@@ -1094,17 +1104,19 @@ def remove_old(client: Client, key: str) -> bool:
         if not glovar.configs.get(key):
             return True
 
-        if not glovar.configs[key]["lock"]:
-            if not glovar.configs[key]["commit"]:
-                # If it is not committed, edit the session message to update the status (invalid)
-                text = get_config_text(key)
-                text += f"{lang('status')}{lang('colon')}{code(lang('expired'))}\n"
-                mid = glovar.configs[key]["message_id"]
-                thread(edit_message_text, (client, glovar.config_channel_id, mid, text))
+        if glovar.configs[key]["lock"]:
+            return True
 
-            # Pop this config data
-            glovar.configs.pop(key, {})
-            save("configs")
+        if not glovar.configs[key]["commit"]:
+            # If it is not committed, edit the session message to update the status (invalid)
+            text = get_config_text(key)
+            text += f"{lang('status')}{lang('colon')}{code(lang('expired'))}\n"
+            mid = glovar.configs[key]["message_id"]
+            thread(edit_message_text, (client, glovar.config_channel_id, mid, text))
+
+        # Pop this config data
+        glovar.configs.pop(key, {})
+        save("configs")
 
         return True
     except Exception as e:
