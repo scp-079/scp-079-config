@@ -175,7 +175,7 @@ lang: Dict[str, str] = {
     "noflood_limit": (zh_cn and "消息条数上限") or "Message Count Limit",
     "noflood_purge": (zh_cn and "清除所有消息") or "Purge All Messages",
     # NOPORN
-    "noporn_channel": (zh_cn and "过滤频道") or "Check Restricted Channel Message",
+    "noporn_channel": (zh_cn and "过滤频道") or "Filter Restricted Channel Message",
     # NOSPAM
     "bot": (zh_cn and "阻止机器人进群") or "Prevent Bot joining",
     "new": (zh_cn and "新入群限制") or "Limit the New Joined User",
