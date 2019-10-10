@@ -48,9 +48,11 @@ def receive_config_ask(client: Client, sender: str, data: dict) -> bool:
         glovar.configs[key]["lock"] = False
         glovar.configs[key]["commit"] = False
         glovar.configs[key]["time"] = get_now()
+
         # Send the config session message
         text, markup = get_config_message(key)
         sent_message = send_message(client, glovar.config_channel_id, text, None, markup)
+
         if sent_message:
             # If message is sent, initiate the check process
             glovar.configs[key]["message_id"] = sent_message.message_id
@@ -118,9 +120,11 @@ def receive_file_data(client: Client, message: Message, decrypt: bool = True) ->
 def receive_rollback(client: Client, message: Message, data: dict) -> bool:
     # Receive rollback data
     try:
+        # Basic data
         aid = data["admin_id"]
         the_type = data["type"]
         the_data = receive_file_data(client, message)
+
         if the_data:
             exec(f"glovar.{the_type} = the_data")
             save(the_type)
