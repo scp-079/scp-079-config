@@ -68,19 +68,21 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                 set_default(key)
                             else:
                                 glovar.configs[key]["config"]["default"] = False
+
                                 # CAPTCHA
                                 if config_type == "captcha":
                                     glovar.configs[key]["config"][action] = data
+
                                 # CLEAN
                                 elif config_type == "clean":
                                     glovar.configs[key]["config"][action] = data
+
                                 # LANG
                                 elif config_type == "lang":
                                     if action in {"name", "text", "sticker"}:
                                         if action_type == "enable":
                                             if not glovar.configs[key]["config"].get(action, {}):
                                                 glovar.configs[key]["config"][action] = {}
-
                                             glovar.configs[key]["config"][action]["default"] = False
                                             glovar.configs[key]["config"][action][action_type] = data
                                         elif action_type == "default":
@@ -88,15 +90,19 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                             glovar.configs[key]["config"][action] = default_config
                                     else:
                                         glovar.configs[key]["config"][action] = data
+
                                 # LONG
                                 elif config_type == "long":
                                     glovar.configs[key]["config"][action] = data
+
                                 # NOFLOOD
                                 elif config_type == "noflood":
                                     glovar.configs[key]["config"][action] = data
+
                                 # NOPORN
                                 elif config_type == "noporn":
                                     glovar.configs[key]["config"][action] = data
+
                                 # NOSPAM
                                 elif config_type == "nospam":
                                     glovar.configs[key]["config"][action] = data
@@ -104,23 +110,26 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                         glovar.configs[key]["config"]["reporter"] = False
                                     elif action == "reporter" and data:
                                         glovar.configs[key]["config"]["deleter"] = False
+
                                 # RECHECK
                                 elif config_type == "recheck":
                                     glovar.configs[key]["config"][action] = data
+
                                 # TIP
                                 elif config_type == "tip":
                                     glovar.configs[key]["config"][action] = data
+
                                 # USER
                                 elif config_type == "user":
                                     glovar.configs[key]["config"][action] = data
+
                                 # WARN
                                 elif config_type == "warn":
-                                    if action in {"delete", "limit", "mention"}:
+                                    if action in {"delete", "restrict", "limit", "mention"}:
                                         glovar.configs[key]["config"][action] = data
                                     elif action == "report":
                                         if not glovar.configs[key]["config"].get("report", {}):
                                             glovar.configs[key]["config"]["report"] = {}
-
                                         glovar.configs[key]["config"]["report"][action_type] = data
 
                             _, markup = get_config_message(key)

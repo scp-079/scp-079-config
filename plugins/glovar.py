@@ -130,6 +130,7 @@ lang: Dict[str, str] = {
     # Common
     "default_config": (zh_cn and "默认设置") or "Default Settings",
     "delete": (zh_cn and "协助删除") or "Help Delete",
+    "restrict": (zh_cn and "禁言模式") or "Restriction Mode",
     "commit": (zh_cn and "提交") or "Commit",
     # CAPTCHA
     "captcha_auto": (zh_cn and "自动免验证") or "Auto Pass",
@@ -189,8 +190,10 @@ lang: Dict[str, str] = {
     "custom": (zh_cn and "自定义关键词") or "Custom keywords",
     # USER
     "user_sb": (zh_cn and "订阅封禁") or "Subscribe Ban",
+    "user_sr": (zh_cn and "订阅禁言") or "Subscribe Restrict",
     "user_sd": (zh_cn and "订阅删除") or "Subscribe Delete",
     "user_gb": (zh_cn and "全局封禁") or "Global Ban",
+    "user_gr": (zh_cn and "全局禁言") or "Global Restrict",
     "user_gd": (zh_cn and "全局删除") or "Global Delete",
     # WARN
     "warn_limit": (zh_cn and "警告上限") or "Warn Limit",
