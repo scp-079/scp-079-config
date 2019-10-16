@@ -702,6 +702,16 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text=lang("bio"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('bio'))}",
+                        callback_data=button_data("bio", None, not config.get("bio"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text=lang("bot"),
                         callback_data=button_data("none")
                     ),
