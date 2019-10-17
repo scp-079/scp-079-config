@@ -206,19 +206,29 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("aff", None, not config.get("aff"))
                     ),
                     InlineKeyboardButton(
-                        text=f"{lang('exe')} {(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
-                        callback_data=button_data("exe", None, not config.get("exe"))
+                        text=f"{lang('emo')} {(lambda x: '✅' if x else '☑️')(config.get('emo'))}",
+                        callback_data=button_data("emo", None, not config.get("emo"))
                     )
                 ],
                 [
+                    InlineKeyboardButton(
+                        text=f"{lang('exe')} {(lambda x: '✅' if x else '☑️')(config.get('exe'))}",
+                        callback_data=button_data("exe", None, not config.get("exe"))
+                    ),
                     InlineKeyboardButton(
                         text=f"{lang('iml')} {(lambda x: '✅' if x else '☑️')(config.get('iml'))}",
                         callback_data=button_data("iml", None, not config.get("iml"))
                     ),
                     InlineKeyboardButton(
+                        text=f"{lang('pho')} {(lambda x: '✅' if x else '☑️')(config.get('pho'))}",
+                        callback_data=button_data("pho", None, not config.get("pho"))
+                    ),
+                    InlineKeyboardButton(
                         text=f"{lang('sho')} {(lambda x: '✅' if x else '☑️')(config.get('sho'))}",
                         callback_data=button_data("sho", None, not config.get("sho"))
-                    ),
+                    )
+                ],
+                [
                     InlineKeyboardButton(
                         text=f"{lang('tgl')} {(lambda x: '✅' if x else '☑️')(config.get('tgl'))}",
                         callback_data=button_data("tgl", None, not config.get("tgl"))
@@ -226,9 +236,7 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         text=f"{lang('tgp')} {(lambda x: '✅' if x else '☑️')(config.get('tgp'))}",
                         callback_data=button_data("tgp", None, not config.get("tgp"))
-                    )
-                ],
-                [
+                    ),
                     InlineKeyboardButton(
                         text=f"{lang('qrc')} {(lambda x: '✅' if x else '☑️')(config.get('qrc'))}",
                         callback_data=button_data("qrc", None, not config.get("qrc"))
@@ -236,7 +244,9 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         text=f"{lang('sde')} {(lambda x: '✅' if x else '☑️')(config.get('sde'))}",
                         callback_data=button_data("sde", None, not config.get("sde"))
-                    ),
+                    )
+                ],
+                [
                     InlineKeyboardButton(
                         text=f"{lang('tcl')} {(lambda x: '✅' if x else '☑️')(config.get('tcl'))}",
                         callback_data=button_data("tcl", None, not config.get("tcl"))
