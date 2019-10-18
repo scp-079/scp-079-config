@@ -180,7 +180,7 @@ lang: Dict[str, str] = {
     # NOPORN
     "noporn_channel": (zh_cn and "过滤频道") or "Filter Restricted Channel Message",
     # NOSPAM
-    "bio": (zh_cn and "简介封禁") or "Ban by Bio",
+    "bio": (zh_cn and "简介检查") or "Bio Examination",
     "bot": (zh_cn and "阻止机器人进群") or "Prevent Bot from Joining",
     "new": (zh_cn and "新入群限制") or "Limit the New Joined User",
     "deleter": (zh_cn and "仅删除") or "Delete Only",
