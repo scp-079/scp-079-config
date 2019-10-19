@@ -85,7 +85,7 @@ def edit_message_reply_markup(client: Client, cid: int, mid: int,
                 flood_wait = True
                 wait_flood(e)
     except Exception as e:
-        logger.warning(f"Edit message reply markup error: {e}", exc_info=True)
+        logger.warning(f"Edit message {mid} reply markup in {cid} error: {e}", exc_info=True)
 
     return result
 
@@ -112,7 +112,7 @@ def edit_message_text(client: Client, cid: int, mid: int, text: str,
                     flood_wait = True
                     wait_flood(e)
     except Exception as e:
-        logger.warning(f"Edit message in {cid} error: {e}", exc_info=True)
+        logger.warning(f"Edit message {mid} in {cid} error: {e}", exc_info=True)
 
     return result
 
@@ -141,7 +141,7 @@ def send_document(client: Client, cid: int, document: str, file_ref: str = None,
             except (PeerIdInvalid, ChannelInvalid, ChannelPrivate):
                 return False
     except Exception as e:
-        logger.warning(f"Send document to {cid} error: {e}", exec_info=True)
+        logger.warning(f"Send document {document} to {cid} error: {e}", exec_info=True)
 
     return result
 
