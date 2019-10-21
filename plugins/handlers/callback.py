@@ -72,6 +72,10 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                 # CAPTCHA
                                 if config_type == "captcha":
                                     glovar.configs[key]["config"][action] = data
+                                    if action == "restrict" and data:
+                                        glovar.configs[key]["config"]["ban"] = False
+                                    elif action == "ban" and data:
+                                        glovar.configs[key]["config"]["restrict"] = False
 
                                 # CLEAN
                                 elif config_type == "clean":

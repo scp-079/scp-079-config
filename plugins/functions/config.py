@@ -64,12 +64,32 @@ def button_captcha(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text=lang("captcha_auto"),
+                        text=lang("restrict"),
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('auto'))}",
-                        callback_data=button_data("auto", None, not config.get("auto"))
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('restrict'))}",
+                        callback_data=button_data("restrict", None, not config.get("restrict"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("ban"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('ban'))}",
+                        callback_data=button_data("ban", None, not config.get("ban"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("forgive"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('forgive'))}",
+                        callback_data=button_data("forgive", None, not config.get("forgive"))
                     )
                 ],
                 [

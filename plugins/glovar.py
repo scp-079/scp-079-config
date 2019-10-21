@@ -133,7 +133,8 @@ lang: Dict[str, str] = {
     "restrict": (zh_cn and "禁言模式") or "Restriction Mode",
     "commit": (zh_cn and "提交") or "Commit",
     # CAPTCHA
-    "captcha_auto": (zh_cn and "自动免验证") or "Auto Pass",
+    "ban": (zh_cn and "封禁模式") or "Ban Mode",
+    "forgive": (zh_cn and "自动解禁") or "Auto Forgive",
     # CLEAN
     "friend": (zh_cn and "放行友链") or "Bypass Friend Links",
     "con": (zh_cn and "联系人") or "Contact",
