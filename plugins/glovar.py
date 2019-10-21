@@ -135,6 +135,7 @@ lang: Dict[str, str] = {
     # CAPTCHA
     "ban": (zh_cn and "封禁模式") or "Ban Mode",
     "forgive": (zh_cn and "自动解禁") or "Auto Forgive",
+    "hint": (zh_cn and "入群提示") or "Hint for New Joined User",
     # CLEAN
     "friend": (zh_cn and "放行友链") or "Bypass Friend Links",
     "con": (zh_cn and "联系人") or "Contact",
