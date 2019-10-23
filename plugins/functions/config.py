@@ -168,16 +168,6 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text=lang("kick"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('kick'))}",
-                        callback_data=button_data("kick", None, not config.get("kick"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
                         text=lang("friend"),
                         callback_data=button_data("none")
                     ),
@@ -368,16 +358,6 @@ def button_lang(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text=lang("kick"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('kick'))}",
-                        callback_data=button_data("kick", None, not config.get("kick"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
                         text=lang("name_default"),
                         callback_data=button_data("none")
                     ),
@@ -512,16 +492,6 @@ def button_long(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text=lang("kick"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('kick'))}",
-                        callback_data=button_data("kick", None, not config.get("kick"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
                         text=lang("long_limit"),
                         callback_data=button_data("none")
                     ),
@@ -598,16 +568,6 @@ def button_noflood(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         text=f"{(lambda x: '✅' if x else '☑️')(config.get('restrict'))}",
                         callback_data=button_data("restrict", None, not config.get("restrict"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text=lang("kick"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('kick'))}",
-                        callback_data=button_data("kick", None, not config.get("kick"))
                     )
                 ],
                 [
@@ -728,16 +688,6 @@ def button_noporn(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text=lang("kick"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('kick'))}",
-                        callback_data=button_data("kick", None, not config.get("kick"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
                         text=lang("noporn_channel"),
                         callback_data=button_data("none")
                     ),
@@ -798,16 +748,6 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         text=f"{(lambda x: '✅' if x else '☑️')(config.get('restrict'))}",
                         callback_data=button_data("restrict", None, not config.get("restrict"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text=lang("kick"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('kick'))}",
-                        callback_data=button_data("kick", None, not config.get("kick"))
                     )
                 ],
                 [
@@ -922,16 +862,6 @@ def button_recheck(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         text=f"{(lambda x: '✅' if x else '☑️')(config.get('restrict'))}",
                         callback_data=button_data("restrict", None, not config.get("restrict"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text=lang("kick"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('kick'))}",
-                        callback_data=button_data("kick", None, not config.get("kick"))
                     )
                 ],
                 [
@@ -1074,16 +1004,6 @@ def button_user(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text=lang("gk"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('gk'))}",
-                        callback_data=button_data("gk", None, not config.get("gk"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
                         text=lang("gd"),
                         callback_data=button_data("none")
                     ),
@@ -1110,16 +1030,6 @@ def button_user(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         text=f"{(lambda x: '✅' if x else '☑️')(config.get('sr'))}",
                         callback_data=button_data("sr", None, not config.get("sr"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text=lang("sk"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('sk'))}",
-                        callback_data=button_data("sk", None, not config.get("sk"))
                     )
                 ],
                 [

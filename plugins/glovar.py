@@ -131,7 +131,6 @@ lang: Dict[str, str] = {
     "default_config": (zh_cn and "默认设置") or "Default Settings",
     "delete": (zh_cn and "协助删除") or "Help Delete",
     "restrict": (zh_cn and "禁言模式") or "Restriction Mode",
-    "kick": (zh_cn and "移除模式") or "Kick Mode",
     "commit": (zh_cn and "提交") or "Commit",
     # CAPTCHA
     "ban": (zh_cn and "封禁模式") or "Ban Mode",

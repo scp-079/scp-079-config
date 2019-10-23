@@ -73,21 +73,9 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                 if config_type == "captcha":
                                     glovar.configs[key]["config"][action] = data
 
-                                    config_list = ["restrict", "ban"]
-                                    if action in config_list and data:
-                                        config_list.remove(action)
-                                        for other in config_list:
-                                            glovar.configs[key]["config"][other] = False
-
                                 # CLEAN
                                 elif config_type == "clean":
                                     glovar.configs[key]["config"][action] = data
-
-                                    config_list = ["restrict", "kick"]
-                                    if action in config_list and data:
-                                        config_list.remove(action)
-                                        for other in config_list:
-                                            glovar.configs[key]["config"][other] = False
 
                                 # LANG
                                 elif config_type == "lang":
@@ -103,51 +91,21 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                     else:
                                         glovar.configs[key]["config"][action] = data
 
-                                        config_list = ["restrict", "kick"]
-                                        if action in config_list and data:
-                                            config_list.remove(action)
-                                            for other in config_list:
-                                                glovar.configs[key]["config"][other] = False
-
                                 # LONG
                                 elif config_type == "long":
                                     glovar.configs[key]["config"][action] = data
-
-                                    config_list = ["restrict", "kick"]
-                                    if action in config_list and data:
-                                        config_list.remove(action)
-                                        for other in config_list:
-                                            glovar.configs[key]["config"][other] = False
 
                                 # NOFLOOD
                                 elif config_type == "noflood":
                                     glovar.configs[key]["config"][action] = data
 
-                                    config_list = ["restrict", "kick"]
-                                    if action in config_list and data:
-                                        config_list.remove(action)
-                                        for other in config_list:
-                                            glovar.configs[key]["config"][other] = False
-
                                 # NOPORN
                                 elif config_type == "noporn":
                                     glovar.configs[key]["config"][action] = data
-                                    config_list = ["restrict", "kick"]
-
-                                    if action in config_list and data:
-                                        config_list.remove(action)
-                                        for other in config_list:
-                                            glovar.configs[key]["config"][other] = False
 
                                 # NOSPAM
                                 elif config_type == "nospam":
                                     glovar.configs[key]["config"][action] = data
-
-                                    config_list = ["restrict", "kick"]
-                                    if action in config_list and data:
-                                        config_list.remove(action)
-                                        for other in config_list:
-                                            glovar.configs[key]["config"][other] = False
 
                                     config_list = ["deleter", "reporter"]
                                     if action in config_list and data:
@@ -159,12 +117,6 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                 elif config_type == "recheck":
                                     glovar.configs[key]["config"][action] = data
 
-                                    config_list = ["restrict", "kick"]
-                                    if action in config_list and data:
-                                        config_list.remove(action)
-                                        for other in config_list:
-                                            glovar.configs[key]["config"][other] = False
-
                                 # TIP
                                 elif config_type == "tip":
                                     glovar.configs[key]["config"][action] = data
@@ -173,13 +125,13 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                 elif config_type == "user":
                                     glovar.configs[key]["config"][action] = data
 
-                                    config_list = ["gb", "gr", "gk", "gd"]
+                                    config_list = ["gb", "gr", "gd"]
                                     if action in config_list and data:
                                         config_list.remove(action)
                                         for other in config_list:
                                             glovar.configs[key]["config"][other] = False
 
-                                    config_list = ["sb", "sr", "sk", "sd"]
+                                    config_list = ["sb", "sr", "sd"]
                                     if action in config_list and data:
                                         config_list.remove(action)
                                         for other in config_list:
