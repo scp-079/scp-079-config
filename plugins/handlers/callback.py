@@ -77,7 +77,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                     if action in config_list and data:
                                         config_list.remove(action)
                                         for other in config_list:
-                                            glovar.config[key]["config"][other] = False
+                                            glovar.configs[key]["config"][other] = False
 
                                 # CLEAN
                                 elif config_type == "clean":
@@ -87,7 +87,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                     if action in config_list and data:
                                         config_list.remove(action)
                                         for other in config_list:
-                                            glovar.config[key]["config"][other] = False
+                                            glovar.configs[key]["config"][other] = False
 
                                 # LANG
                                 elif config_type == "lang":
@@ -107,7 +107,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                         if action in config_list and data:
                                             config_list.remove(action)
                                             for other in config_list:
-                                                glovar.config[key]["config"][other] = False
+                                                glovar.configs[key]["config"][other] = False
 
                                 # LONG
                                 elif config_type == "long":
@@ -117,7 +117,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                     if action in config_list and data:
                                         config_list.remove(action)
                                         for other in config_list:
-                                            glovar.config[key]["config"][other] = False
+                                            glovar.configs[key]["config"][other] = False
 
                                 # NOFLOOD
                                 elif config_type == "noflood":
@@ -127,7 +127,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                     if action in config_list and data:
                                         config_list.remove(action)
                                         for other in config_list:
-                                            glovar.config[key]["config"][other] = False
+                                            glovar.configs[key]["config"][other] = False
 
                                 # NOPORN
                                 elif config_type == "noporn":
@@ -137,7 +137,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                     if action in config_list and data:
                                         config_list.remove(action)
                                         for other in config_list:
-                                            glovar.config[key]["config"][other] = False
+                                            glovar.configs[key]["config"][other] = False
 
                                 # NOSPAM
                                 elif config_type == "nospam":
@@ -147,13 +147,13 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                     if action in config_list and data:
                                         config_list.remove(action)
                                         for other in config_list:
-                                            glovar.config[key]["config"][other] = False
+                                            glovar.configs[key]["config"][other] = False
 
                                     config_list = ["deleter", "reporter"]
                                     if action in config_list and data:
                                         config_list.remove(action)
                                         for other in config_list:
-                                            glovar.config[key]["config"][other] = False
+                                            glovar.configs[key]["config"][other] = False
 
                                 # RECHECK
                                 elif config_type == "recheck":
@@ -163,7 +163,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                     if action in config_list and data:
                                         config_list.remove(action)
                                         for other in config_list:
-                                            glovar.config[key]["config"][other] = False
+                                            glovar.configs[key]["config"][other] = False
 
                                 # TIP
                                 elif config_type == "tip":
@@ -177,13 +177,13 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                                     if action in config_list and data:
                                         config_list.remove(action)
                                         for other in config_list:
-                                            glovar.config[key]["config"][other] = False
+                                            glovar.configs[key]["config"][other] = False
 
                                     config_list = ["sb", "sr", "sk", "sd"]
                                     if action in config_list and data:
                                         config_list.remove(action)
                                         for other in config_list:
-                                            glovar.config[key]["config"][other] = False
+                                            glovar.configs[key]["config"][other] = False
 
                                 # WARN
                                 elif config_type == "warn":
