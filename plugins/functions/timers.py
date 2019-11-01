@@ -65,8 +65,11 @@ def interval_min_01(client: Client) -> bool:
         now = get_now()
         for key in list(glovar.configs):
             time = glovar.configs[key]["time"]
-            if now - time > 300:
-                remove_old(client, key)
+
+            if now - time < 300:
+                continue
+
+            remove_old(client, key)
 
         return True
     except Exception as e:

@@ -26,7 +26,7 @@ from pyrogram import Client, Message
 from .. import glovar
 from .channel import share_data
 from .config import get_config_message
-from .etc import code, general_link, get_now, get_text, lang, message_link, random_str, thread, user_mention
+from .etc import code, general_link, get_now, get_text, lang, mention_id, message_link, random_str, thread
 from .file import crypt_file, delete_file, get_downloaded_path, get_new_path, save
 from .telegram import send_message
 
@@ -39,6 +39,7 @@ def receive_config_ask(client: Client, sender: str, data: dict) -> bool:
     try:
         # Generate a new config key
         key = random_str(8)
+
         while glovar.configs.get(key):
             key = random_str(8)
 
@@ -125,13 +126,15 @@ def receive_rollback(client: Client, message: Message, data: dict) -> bool:
         the_type = data["type"]
         the_data = receive_file_data(client, message)
 
-        if the_data:
-            exec(f"glovar.{the_type} = the_data")
-            save(the_type)
+        if not the_data:
+            return True
+
+        exec(f"glovar.{the_type} = the_data")
+        save(the_type)
 
         # Send debug message
         text = (f"{lang('project')}{lang('colon')}{general_link(glovar.project_name, glovar.project_link)}\n"
-                f"{lang('admin_project')}{lang('colon')}{user_mention(aid)}\n"
+                f"{lang('admin_project')}{lang('colon')}{mention_id(aid)}\n"
                 f"{lang('action')}{lang('colon')}{code(lang('rollback'))}\n"
                 f"{lang('more')}{lang('colon')}{code(the_type)}\n")
         thread(send_message, (client, glovar.debug_channel_id, text))
@@ -146,9 +149,12 @@ def receive_text_data(message: Message) -> dict:
     data = {}
     try:
         text = get_text(message)
-        if text:
-            data = loads(text)
+
+        if not text:
+            return {}
+
+        data = loads(text)
     except Exception as e:
-        logger.warning(f"Receive data error: {e}")
+        logger.warning(f"Receive text data error: {e}")
 
     return data

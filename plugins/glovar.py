@@ -172,6 +172,8 @@ lang: Dict[str, str] = {
     "text_enable": (zh_cn and "检查消息文字") or "Check Message's Text",
     "sticker_default": (zh_cn and "默认贴纸设置") or "Default Sticker Setting",
     "sticker_enable": (zh_cn and "检查贴纸标题") or "Check Sticker's Title",
+    "bio_default": (zh_cn and "默认简介设置") or "Default Bio Setting",
+    "bio_enable": (zh_cn and "检查用户简介") or "Check User's Bio",
     "spc": (zh_cn and "特殊中文") or "Special Chinese Characters",
     "spe": (zh_cn and "特殊英文") or "Special English Characters",
     # LONG
@@ -197,11 +199,9 @@ lang: Dict[str, str] = {
     # USER
     "gb": (zh_cn and "全局封禁") or "Global Ban",
     "gr": (zh_cn and "全局禁言") or "Global Restrict",
-    "gk": (zh_cn and "全局移除") or "Global Kick",
     "gd": (zh_cn and "全局删除") or "Global Delete",
     "sb": (zh_cn and "订阅封禁") or "Subscribe Ban",
     "sr": (zh_cn and "订阅禁言") or "Subscribe Restrict",
-    "sk": (zh_cn and "订阅移除") or "Subscribe Kick",
     "sd": (zh_cn and "订阅删除") or "Subscribe Delete",
     # WARN
     "warn_limit": (zh_cn and "警告上限") or "Warn Limit",
@@ -228,7 +228,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.2.3"
+version: str = "0.2.4"
 
 # Load data from pickle
 

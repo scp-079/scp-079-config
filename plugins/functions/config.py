@@ -320,6 +320,8 @@ def button_lang(config: dict) -> Optional[InlineKeyboardMarkup]:
         text_enable = config.get("text") and config["text"].get("enable")
         sticker_default = config.get("sticker") and config["sticker"].get("default")
         sticker_enable = config.get("sticker") and config["sticker"].get("enable")
+        bio_default = config.get("bio") and config["bio"].get("default")
+        bio_enable = config.get("bio") and config["bio"].get("enable")
         markup = InlineKeyboardMarkup(
             [
                 [
@@ -414,6 +416,26 @@ def button_lang(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         text=f"{(lambda x: '✅' if x else '☑️')(sticker_enable)}",
                         callback_data=button_data("sticker", "enable", not sticker_enable)
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("bio_default"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(bio_default)}",
+                        callback_data=button_data("bio", "default", not bio_default)
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("bio_enable"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(bio_enable)}",
+                        callback_data=button_data("bio", "enable", not bio_enable)
                     )
                 ],
                 [
@@ -1166,16 +1188,20 @@ def commit_change(client: Client, key: str) -> bool:
 
         # Change commit status
         glovar.configs[key]["commit"] = True
+
         # Use config type to get the right receiver
         config_type = glovar.configs[key]["type"]
         group_id = glovar.configs[key]["group_id"]
+
         # The config session message id
         message_id = glovar.configs[key]["message_id"]
         config_data = glovar.configs[key]["config"]
+
         # Edit config session message
         text = get_config_text(key)
         text += f"{lang('status')}{lang('colon')}{code(lang('committed'))}\n"
         thread(edit_message_text, (client, glovar.config_channel_id, message_id, text))
+
         # Commit changes to exchange channel
         receivers = [config_type.upper()]
         share_data(
@@ -1188,6 +1214,7 @@ def commit_change(client: Client, key: str) -> bool:
                 "config": config_data
             }
         )
+
         # Send debug message
         group_name = glovar.configs[key]["group_name"]
         group_link = glovar.configs[key]["group_link"]
@@ -1217,6 +1244,7 @@ def get_config_message(key: str) -> (str, Optional[InlineKeyboardMarkup]):
 
         config_type = glovar.configs[key]["type"]
         config_data = glovar.configs[key]["config"]
+
         # For each config type, use different function to generate reply markup buttons
         markup = eval(f"button_{config_type}")(config_data)
         text = get_config_text(key)
@@ -1233,10 +1261,13 @@ def get_config_text(key: str) -> str:
     try:
         project_name = glovar.configs[key]["project_name"]
         project_link = glovar.configs[key]["project_link"]
+
         group_id = glovar.configs[key]["group_id"]
         group_name = glovar.configs[key]["group_name"]
         group_link = glovar.configs[key]["group_link"]
+
         user_id = glovar.configs[key]["user_id"]
+
         text = (f"{lang('config_code')}{lang('colon')}{code(key)}\n"
                 f"{lang('project')}{lang('colon')}{general_link(project_name, project_link)}\n"
                 f"{lang('group_name')}{lang('colon')}{general_link(group_name, group_link)}\n"

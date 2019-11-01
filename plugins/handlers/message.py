@@ -31,8 +31,8 @@ from ..functions.timers import backup_files
 logger = logging.getLogger(__name__)
 
 
-@Client.on_message(Filters.incoming & Filters.channel & hide_channel
-                   & ~Filters.command(glovar.all_commands, glovar.prefix), group=-1)
+@Client.on_message(Filters.incoming & Filters.channel & ~Filters.command(glovar.all_commands, glovar.prefix)
+                   & hide_channel, group=-1)
 def exchange_emergency(client: Client, message: Message) -> bool:
     # Sent emergency channel transfer request
     try:
@@ -75,13 +75,14 @@ def exchange_emergency(client: Client, message: Message) -> bool:
     return False
 
 
-@Client.on_message(Filters.incoming & Filters.channel & exchange_channel
-                   & ~Filters.command(glovar.all_commands, glovar.prefix))
+@Client.on_message(Filters.incoming & Filters.channel & ~Filters.command(glovar.all_commands, glovar.prefix)
+                   & exchange_channel)
 def process_data(client: Client, message: Message) -> bool:
     # Process the data in exchange channel
     try:
         # Read basic information
         data = receive_text_data(message)
+
         if not data:
             return True
 
@@ -90,6 +91,7 @@ def process_data(client: Client, message: Message) -> bool:
         action = data["action"]
         action_type = data["type"]
         data = data["data"]
+
         if glovar.sender in receivers:
 
             if sender in {"CAPTCHA", "CLEAN", "LANG", "LONG", "NOFLOOD",

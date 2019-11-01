@@ -20,7 +20,7 @@ import logging
 from typing import Optional, Union
 
 from pyrogram import Client, InlineKeyboardMarkup, Message
-from pyrogram.errors import ChannelInvalid, ChannelPrivate, FloodWait, PeerIdInvalid
+from pyrogram.errors import ButtonDataInvalid, ChannelInvalid, ChannelPrivate, FloodWait, PeerIdInvalid
 
 from .etc import wait_flood
 
@@ -84,6 +84,8 @@ def edit_message_reply_markup(client: Client, cid: int, mid: int,
             except FloodWait as e:
                 flood_wait = True
                 wait_flood(e)
+            except ButtonDataInvalid:
+                logger.warning(f"Edit message {mid} reply markup in {cid} - invalid markup: {markup}")
     except Exception as e:
         logger.warning(f"Edit message {mid} reply markup in {cid} error: {e}", exc_info=True)
 
@@ -95,22 +97,26 @@ def edit_message_text(client: Client, cid: int, mid: int, text: str,
     # Edit the message's text
     result = None
     try:
-        if text.strip():
-            flood_wait = True
-            while flood_wait:
-                flood_wait = False
-                try:
-                    result = client.edit_message_text(
-                        chat_id=cid,
-                        message_id=mid,
-                        text=text,
-                        parse_mode="html",
-                        disable_web_page_preview=True,
-                        reply_markup=markup
-                    )
-                except FloodWait as e:
-                    flood_wait = True
-                    wait_flood(e)
+        if not text.strip():
+            return None
+
+        flood_wait = True
+        while flood_wait:
+            flood_wait = False
+            try:
+                result = client.edit_message_text(
+                    chat_id=cid,
+                    message_id=mid,
+                    text=text,
+                    parse_mode="html",
+                    disable_web_page_preview=True,
+                    reply_markup=markup
+                )
+            except FloodWait as e:
+                flood_wait = True
+                wait_flood(e)
+            except ButtonDataInvalid:
+                logger.warning(f"Edit message {mid} text in {cid} - invalid markup: {markup}")
     except Exception as e:
         logger.warning(f"Edit message {mid} in {cid} error: {e}", exc_info=True)
 
@@ -140,6 +146,8 @@ def send_document(client: Client, cid: int, document: str, file_ref: str = None,
                 wait_flood(e)
             except (PeerIdInvalid, ChannelInvalid, ChannelPrivate):
                 return False
+            except ButtonDataInvalid:
+                logger.warning(f"Send document {document} to {cid} - invalid markup: {markup}")
     except Exception as e:
         logger.warning(f"Send document {document} to {cid} error: {e}", exec_info=True)
 
@@ -171,6 +179,8 @@ def send_message(client: Client, cid: int, text: str, mid: int = None,
                 wait_flood(e)
             except (PeerIdInvalid, ChannelInvalid, ChannelPrivate):
                 return False
+            except ButtonDataInvalid:
+                logger.warning(f"Send message to {cid} - invalid markup: {markup}")
     except Exception as e:
         logger.warning(f"Send message to {cid} error: {e}", exc_info=True)
 

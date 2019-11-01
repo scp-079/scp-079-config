@@ -45,118 +45,128 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
         action = callback_data["a"]
         action_type = callback_data["t"]
         data = callback_data["d"]
+
         # Answer the callback
-        if action != "none":
-            key = callback_query.message.text.split("\n")[0].split("：")[1]
-            if glovar.configs.get(key):
-                # Check whether the config is locked
-                if glovar.configs[key]["lock"] or glovar.configs[key]["commit"]:
-                    return True
+        if action == "none":
+            thread(answer_callback, (client, callback_query.id, ""))
+            return True
 
-                try:
-                    # Lock the config status until bot answers callback, avoid multiple responses
-                    glovar.configs[key]["lock"] = True
-                    # Check user's permission with this config session
-                    aid = glovar.configs[key]["user_id"]
-                    if uid == aid:
-                        # Commit the changes if user press commit button, else change some settings
-                        if action == "commit":
-                            commit_change(client, key)
-                        else:
-                            config_type = glovar.configs[key]["type"]
-                            if action == "default":
-                                set_default(key)
-                            else:
-                                glovar.configs[key]["config"]["default"] = False
+        # Get the key
+        key = callback_query.message.text.split("\n")[0].split("：")[1]
 
-                                # CAPTCHA
-                                if config_type == "captcha":
-                                    glovar.configs[key]["config"][action] = data
+        # Check the key
+        if not glovar.configs.get(key):
+            thread(answer_callback, (client, callback_query.id, lang("invalid_key")))
+            return True
 
-                                # CLEAN
-                                elif config_type == "clean":
-                                    glovar.configs[key]["config"][action] = data
+        # Check user's permission with this config session
+        aid = glovar.configs[key]["user_id"]
+        if uid != aid:
+            return True
 
-                                # LANG
-                                elif config_type == "lang":
-                                    if action in {"name", "text", "sticker"}:
-                                        if action_type == "enable":
-                                            if not glovar.configs[key]["config"].get(action, {}):
-                                                glovar.configs[key]["config"][action] = {}
-                                            glovar.configs[key]["config"][action]["default"] = False
-                                            glovar.configs[key]["config"][action][action_type] = data
-                                        elif action_type == "default":
-                                            default_config = deepcopy(glovar.configs[key]["default"][action])
-                                            glovar.configs[key]["config"][action] = default_config
-                                    else:
-                                        glovar.configs[key]["config"][action] = data
+        # Check whether the config is locked
+        if glovar.configs[key]["lock"] or glovar.configs[key]["commit"]:
+            return True
 
-                                # LONG
-                                elif config_type == "long":
-                                    glovar.configs[key]["config"][action] = data
+        try:
+            # Lock the config status until bot answers callback, avoid multiple responses
+            glovar.configs[key]["lock"] = True
 
-                                # NOFLOOD
-                                elif config_type == "noflood":
-                                    glovar.configs[key]["config"][action] = data
+            # Commit the changes if user press commit button, else change some settings
+            if action == "commit":
+                commit_change(client, key)
+                return True
 
-                                # NOPORN
-                                elif config_type == "noporn":
-                                    glovar.configs[key]["config"][action] = data
+            # Not default settings
+            glovar.configs[key]["config"]["default"] = False
+            config_type = glovar.configs[key]["type"]
 
-                                # NOSPAM
-                                elif config_type == "nospam":
-                                    glovar.configs[key]["config"][action] = data
+            # Set to default settings
+            if action == "default":
+                set_default(key)
 
-                                    config_list = ["deleter", "reporter"]
-                                    if action in config_list and data:
-                                        config_list.remove(action)
-                                        for other in config_list:
-                                            glovar.configs[key]["config"][other] = False
+            # CAPTCHA
+            elif config_type == "captcha":
+                glovar.configs[key]["config"][action] = data
 
-                                # RECHECK
-                                elif config_type == "recheck":
-                                    glovar.configs[key]["config"][action] = data
+            # CLEAN
+            elif config_type == "clean":
+                glovar.configs[key]["config"][action] = data
 
-                                # TIP
-                                elif config_type == "tip":
-                                    glovar.configs[key]["config"][action] = data
+            # LANG
+            elif config_type == "lang":
+                if action in {"name", "text", "sticker"}:
+                    if action_type == "enable":
+                        if not glovar.configs[key]["config"].get(action, {}):
+                            glovar.configs[key]["config"][action] = {}
+                        glovar.configs[key]["config"][action]["default"] = False
+                        glovar.configs[key]["config"][action][action_type] = data
+                    elif action_type == "default":
+                        default_config = deepcopy(glovar.configs[key]["default"][action])
+                        glovar.configs[key]["config"][action] = default_config
+                else:
+                    glovar.configs[key]["config"][action] = data
 
-                                # USER
-                                elif config_type == "user":
-                                    glovar.configs[key]["config"][action] = data
+            # LONG
+            elif config_type == "long":
+                glovar.configs[key]["config"][action] = data
 
-                                    config_list = ["gb", "gr", "gd"]
-                                    if action in config_list and data:
-                                        config_list.remove(action)
-                                        for other in config_list:
-                                            glovar.configs[key]["config"][other] = False
+            # NOFLOOD
+            elif config_type == "noflood":
+                glovar.configs[key]["config"][action] = data
 
-                                    config_list = ["sb", "sr", "sd"]
-                                    if action in config_list and data:
-                                        config_list.remove(action)
-                                        for other in config_list:
-                                            glovar.configs[key]["config"][other] = False
+            # NOPORN
+            elif config_type == "noporn":
+                glovar.configs[key]["config"][action] = data
 
-                                # WARN
-                                elif config_type == "warn":
-                                    if action in {"delete", "restrict", "limit", "mention"}:
-                                        glovar.configs[key]["config"][action] = data
-                                    elif action == "report":
-                                        if not glovar.configs[key]["config"].get("report", {}):
-                                            glovar.configs[key]["config"]["report"] = {}
-                                        glovar.configs[key]["config"]["report"][action_type] = data
+            # NOSPAM
+            elif config_type == "nospam":
+                glovar.configs[key]["config"][action] = data
 
-                            _, markup = get_config_message(key)
-                            edit_message_reply_markup(client, cid, mid, markup)
-                            thread(answer_callback, (client, callback_query.id, ""))
-                finally:
-                    glovar.configs[key]["lock"] = False
-                    save("configs")
+                config_list = ["deleter", "reporter"]
+                if action in config_list and data:
+                    config_list.remove(action)
+                    for other in config_list:
+                        glovar.configs[key]["config"][other] = False
 
-                thread(answer_callback, (client, callback_query.id, ""))
-            else:
-                thread(answer_callback, (client, callback_query.id, lang("invalid_key")))
-        else:
+            # RECHECK
+            elif config_type == "recheck":
+                glovar.configs[key]["config"][action] = data
+
+            # TIP
+            elif config_type == "tip":
+                glovar.configs[key]["config"][action] = data
+
+            # USER
+            elif config_type == "user":
+                glovar.configs[key]["config"][action] = data
+
+                config_list = ["gb", "gr", "gd"]
+                if action in config_list and data:
+                    config_list.remove(action)
+                    for other in config_list:
+                        glovar.configs[key]["config"][other] = False
+
+                config_list = ["sb", "sr", "sd"]
+                if action in config_list and data:
+                    config_list.remove(action)
+                    for other in config_list:
+                        glovar.configs[key]["config"][other] = False
+
+            # WARN
+            elif config_type == "warn":
+                if action in {"delete", "restrict", "limit", "mention"}:
+                    glovar.configs[key]["config"][action] = data
+                elif action == "report":
+                    if not glovar.configs[key]["config"].get("report", {}):
+                        glovar.configs[key]["config"]["report"] = {}
+                    glovar.configs[key]["config"]["report"][action_type] = data
+
+            _, markup = get_config_message(key)
+            edit_message_reply_markup(client, cid, mid, markup)
+        finally:
+            glovar.configs[key]["lock"] = False
+            save("configs")
             thread(answer_callback, (client, callback_query.id, ""))
 
         return True
