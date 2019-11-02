@@ -92,6 +92,7 @@ def delay(secs: int, target: Callable, args: list) -> bool:
         t = Timer(secs, target, args)
         t.daemon = True
         t.start()
+
         return True
     except Exception as e:
         logger.warning(f"Delay error: {e}", exc_info=True)
