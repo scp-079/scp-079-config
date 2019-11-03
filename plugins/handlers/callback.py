@@ -95,7 +95,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
 
             # LANG
             elif config_type == "lang":
-                if action in {"name", "text", "sticker"}:
+                if action in {"name", "text", "sticker", "bio"}:
                     if action_type == "enable":
                         if not glovar.configs[key]["config"].get(action, {}):
                             glovar.configs[key]["config"][action] = {}
