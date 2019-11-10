@@ -60,6 +60,7 @@ def backup_files(client: Client) -> bool:
 
 def interval_min_01(client: Client) -> bool:
     # Execute every minute
+    glovar.locks["receive"].acquire()
     try:
         # Clear old config data
         now = get_now()
@@ -74,6 +75,8 @@ def interval_min_01(client: Client) -> bool:
         return True
     except Exception as e:
         logger.warning(f"Interval min 01 error: {e}", exc_info=True)
+    finally:
+        glovar.locks["receive"].release()
 
     return False
 
