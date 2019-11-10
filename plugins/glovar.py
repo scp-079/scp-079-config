@@ -22,6 +22,7 @@ from configparser import RawConfigParser
 from os import mkdir
 from os.path import exists
 from shutil import rmtree
+from threading import Lock
 from typing import Dict, List, Union
 
 # Enable logging
@@ -223,6 +224,10 @@ lang: Dict[str, str] = {
 # Init
 
 all_commands: List[str] = ["version"]
+
+locks: Dict[str, Lock] = {
+    "receive": Lock()
+}
 
 sender: str = "CONFIG"
 
