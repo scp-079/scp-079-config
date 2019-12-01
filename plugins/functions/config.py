@@ -922,22 +922,42 @@ def button_tip(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text=lang("clean"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('clean'))}",
+                        callback_data=button_data("clean", None, not config.get("clean"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("channel"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('channel'))}",
+                        callback_data=button_data("channel", None, not config.get("channel"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("keyword"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('keyword'))}",
+                        callback_data=button_data("keyword", None, not config.get("keyword"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text=lang("ot"),
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
                         text=f"{(lambda x: '✅' if x else '☑️')(config.get('ot'))}",
                         callback_data=button_data("ot", None, not config.get("ot"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text=lang("welcome"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('welcome'))}",
-                        callback_data=button_data("welcome", None, not config.get("welcome"))
                     )
                 ],
                 [
@@ -952,12 +972,12 @@ def button_tip(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text=lang("custom"),
+                        text=lang("welcome"),
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
-                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('custom'))}",
-                        callback_data=button_data("custom", None, not config.get("custom"))
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('welcome'))}",
+                        callback_data=button_data("welcome", None, not config.get("welcome"))
                     )
                 ],
                 [

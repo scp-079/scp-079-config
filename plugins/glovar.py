@@ -193,10 +193,12 @@ lang: Dict[str, str] = {
     "reporter": (zh_cn and "仅举报") or "Report Only",
     "ml": (zh_cn and "机器学习") or "Machine Learning",
     # TIP
-    "ot": (zh_cn and "群员 OT 警告") or "OT Warning by Members",
-    "welcome": (zh_cn and "欢迎信息") or "Welcome Message",
+    "clean": (zh_cn and "无痕模式") or "Clean Mode",
+    "channel": (zh_cn and "入群频道") or "Entry Channel",
+    "keyword": (zh_cn and "关键词提示") or "Custom Keywords",
+    "ot": (zh_cn and "OT 警告") or "OT Warning by Members",
     "rm": (zh_cn and "RM 警告") or "RM Jokes Warning",
-    "custom": (zh_cn and "自定义关键词") or "Custom keywords",
+    "welcome": (zh_cn and "欢迎信息") or "Welcome Message",
     # USER
     "gb": (zh_cn and "全局封禁") or "Global Ban",
     "gr": (zh_cn and "全局禁言") or "Global Restrict",
@@ -233,7 +235,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.2.4"
+version: str = "0.2.5"
 
 # Load data from pickle
 
