@@ -932,6 +932,16 @@ def button_tip(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text=lang("resend"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('resend'))}",
+                        callback_data=button_data("resend", None, not config.get("resend"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text=lang("channel"),
                         callback_data=button_data("none")
                     ),

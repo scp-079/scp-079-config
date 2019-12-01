@@ -194,6 +194,7 @@ lang: Dict[str, str] = {
     "ml": (zh_cn and "机器学习") or "Machine Learning",
     # TIP
     "clean": (zh_cn and "无痕模式") or "Clean Mode",
+    "resend": (zh_cn and "每日重发入群链接") or "Resend Invite Link Everyday",
     "channel": (zh_cn and "入群频道") or "Entry Channel",
     "keyword": (zh_cn and "关键词提示") or "Custom Keywords",
     "ot": (zh_cn and "OT 警告") or "OT Warning by Members",
