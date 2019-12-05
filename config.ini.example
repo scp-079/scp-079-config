@@ -27,6 +27,7 @@ hide_channel_id = [DATA EXPUNGED]
 test_group_id = [DATA EXPUNGED]
 
 [custom]
+aio = [DATA EXPUNGED]
 backup = [DATA EXPUNGED]
 date_reset = [DATA EXPUNGED]
 project_link = https://scp-079.org/config/
