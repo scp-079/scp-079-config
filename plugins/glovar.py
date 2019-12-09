@@ -198,6 +198,7 @@ lang: Dict[str, str] = {
     "reporter": (zh_cn and "仅举报") or "Report Only",
     "ml": (zh_cn and "机器学习") or "Machine Learning",
     # TIP
+    "captcha": (zh_cn and "过审欢迎") or "Welcome After CAPTCHA",
     "clean": (zh_cn and "无痕模式") or "Clean Mode",
     "resend": (zh_cn and "每日重发入群链接") or "Resend Invite Link Everyday",
     "channel": (zh_cn and "入群频道") or "Entry Channel",
@@ -241,7 +242,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.2.5"
+version: str = "0.2.6"
 
 # Load data from pickle
 

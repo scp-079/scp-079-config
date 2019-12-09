@@ -932,6 +932,16 @@ def button_tip(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text=lang("captcha"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('captcha'))}",
+                        callback_data=button_data("captcha", None, not config.get("captcha"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text=lang("clean"),
                         callback_data=button_data("none")
                     ),
