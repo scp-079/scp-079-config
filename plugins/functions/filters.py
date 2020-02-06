@@ -36,6 +36,7 @@ def is_config_channel(_, update: Union[CallbackQuery, Message]) -> bool:
             message = update
 
         cid = message.chat.id
+
         if cid == glovar.config_channel_id:
             return True
     except Exception as e:
@@ -51,6 +52,7 @@ def is_exchange_channel(_, message: Message) -> bool:
             return False
 
         cid = message.chat.id
+
         if glovar.should_hide:
             return cid == glovar.hide_channel_id
         else:
@@ -79,6 +81,7 @@ def is_hide_channel(_, message: Message) -> bool:
             return False
 
         cid = message.chat.id
+
         if cid == glovar.hide_channel_id:
             return True
     except Exception as e:
@@ -99,6 +102,7 @@ def is_test_group(_, update: Union[CallbackQuery, Message]) -> bool:
             return False
 
         cid = message.chat.id
+
         if cid == glovar.test_group_id:
             return True
     except Exception as e:

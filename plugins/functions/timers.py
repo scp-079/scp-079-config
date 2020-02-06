@@ -64,6 +64,7 @@ def interval_min_01(client: Client) -> bool:
     try:
         # Clear old config data
         now = get_now()
+
         for key in list(glovar.configs):
             time = glovar.configs[key]["time"]
 

@@ -61,6 +61,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
 
         # Check user's permission with this config session
         aid = glovar.configs[key]["user_id"]
+
         if uid != aid:
             return True
 
