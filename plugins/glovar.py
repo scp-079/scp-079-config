@@ -200,6 +200,7 @@ lang: Dict[str, str] = {
     "new": (zh_cn and "新入群限制") or "Limit the New Joined User",
     "deleter": (zh_cn and "仅删除") or "Delete Only",
     "reporter": (zh_cn and "仅举报") or "Report Only",
+    "scorer": (zh_cn and "敏感评分") or "Score",
     "ml": (zh_cn and "机器学习") or "Machine Learning",
     # TIP
     "captcha": (zh_cn and "过审欢迎") or "Welcome After CAPTCHA",
@@ -246,7 +247,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.2.7"
+version: str = "0.2.8"
 
 # Load data from pickle
 

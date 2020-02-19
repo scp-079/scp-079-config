@@ -100,6 +100,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                     if action_type == "enable":
                         if not glovar.configs[key]["config"].get(action, {}):
                             glovar.configs[key]["config"][action] = {}
+
                         glovar.configs[key]["config"][action]["default"] = False
                         glovar.configs[key]["config"][action][action_type] = data
                     elif action_type == "default":
@@ -125,8 +126,10 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                 glovar.configs[key]["config"][action] = data
 
                 config_list = ["deleter", "reporter"]
+
                 if action in config_list and data:
                     config_list.remove(action)
+
                     for other in config_list:
                         glovar.configs[key]["config"][other] = False
 
@@ -143,14 +146,18 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                 glovar.configs[key]["config"][action] = data
 
                 config_list = ["gb", "gr", "gd"]
+
                 if action in config_list and data:
                     config_list.remove(action)
+
                     for other in config_list:
                         glovar.configs[key]["config"][other] = False
 
                 config_list = ["sb", "sr", "sd"]
+
                 if action in config_list and data:
                     config_list.remove(action)
+
                     for other in config_list:
                         glovar.configs[key]["config"][other] = False
 
@@ -161,6 +168,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
                 elif action == "report":
                     if not glovar.configs[key]["config"].get("report", {}):
                         glovar.configs[key]["config"]["report"] = {}
+
                     glovar.configs[key]["config"]["report"][action_type] = data
 
             _, markup = get_config_message(key)
