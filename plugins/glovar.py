@@ -146,6 +146,7 @@ lang: Dict[str, str] = {
     "forgive": (zh_cn and "自动解禁") or "Auto Forgive",
     "hint": (zh_cn and "入群提示") or "Hint for New Joined User",
     "pass": (zh_cn and "自动免验证") or "Auto Pass",
+    "pin": (zh_cn and "自动置顶") or "Auto Pin",
     "manual": (zh_cn and "仅手动") or "Manual Only",
     # CLEAN
     "friend": (zh_cn and "放行友链") or "Bypass Friend Links",
@@ -247,7 +248,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.2.8"
+version: str = "0.2.9"
 
 # Load data from pickle
 
