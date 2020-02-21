@@ -140,6 +140,7 @@ lang: Dict[str, str] = {
     "default_config": (zh_cn and "默认设置") or "Default Settings",
     "delete": (zh_cn and "协助删除") or "Help Delete",
     "restrict": (zh_cn and "禁言模式") or "Restriction Mode",
+    "clean": (zh_cn and "无痕模式") or "Clean Mode",
     "commit": (zh_cn and "提交") or "Commit",
     # CAPTCHA
     "ban": (zh_cn and "封禁模式") or "Ban Mode",
@@ -205,7 +206,7 @@ lang: Dict[str, str] = {
     "ml": (zh_cn and "机器学习") or "Machine Learning",
     # TIP
     "captcha": (zh_cn and "过审欢迎") or "Welcome After CAPTCHA",
-    "clean": (zh_cn and "无痕模式") or "Clean Mode",
+    "alone": (zh_cn and "非回复欢迎") or "Alone Mode",
     "resend": (zh_cn and "每日重发入群链接") or "Resend Invite Link Everyday",
     "channel": (zh_cn and "入群频道") or "Entry Channel",
     "keyword": (zh_cn and "关键词提示") or "Custom Keywords",
@@ -248,7 +249,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.2.9"
+version: str = "0.3.0"
 
 # Load data from pickle
 

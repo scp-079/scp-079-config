@@ -198,6 +198,16 @@ def button_clean(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text=lang("clean"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('clean'))}",
+                        callback_data=button_data("clean", None, not config.get("clean"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text=f"{lang('con')} {(lambda x: '✅' if x else '☑️')(config.get('con'))}",
                         callback_data=button_data("con", None, not config.get("con"))
                     ),
@@ -958,6 +968,16 @@ def button_tip(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         text=f"{(lambda x: '✅' if x else '☑️')(config.get('captcha'))}",
                         callback_data=button_data("captcha", None, not config.get("captcha"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("alone"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '✅' if x else '☑️')(config.get('alone'))}",
+                        callback_data=button_data("alone", None, not config.get("alone"))
                     )
                 ],
                 [
