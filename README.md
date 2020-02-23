@@ -8,20 +8,6 @@ This bot is used to manage settings for each bot.
 - [README](https://github.com/scp-079/scp-079-readme) of the SCP-079 Project
 - Discuss [group](https://t.me/SCP_079_CHAT)
 
-## To Do List
-
-- [x] Support SCP-079-CAPTCHA
-- [x] Support SCP-079-CLEAN
-- [x] Support SCP-079-LANG
-- [x] Support SCP-079-LONG
-- [x] Support SCP-079-NOFLOOD
-- [x] Support SCP-079-NOPORN
-- [x] Support SCP-079-NOSPAM
-- [x] Support SCP-079-TIP
-- [x] Support SCP-079-USER
-- [x] Support SCP-079-WARN
-- [x] Support SCP-079-RECHECK
-
 ## Requirements
 
 - Python 3.6 or higher

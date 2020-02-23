@@ -249,7 +249,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.3.0"
+version: str = "0.3.1"
 
 # Load data from pickle
 
