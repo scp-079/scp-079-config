@@ -1338,7 +1338,9 @@ def get_config_message(key: str) -> (str, Optional[InlineKeyboardMarkup]):
         # For each config type, use different function to generate reply markup buttons
         markup = eval(f"button_{config_type}")(config_data)
         text = get_config_text(key)
-        text += f"{lang('description')}{lang('colon')}{code(lang('config_description'))}\n"
+        text += (f"{lang('button_enabled')}{lang('colon')}{code('■')}\n"
+                 f"{lang('button_disabled')}{lang('colon')}{code('□')}\n"
+                 f"{lang('description')}{lang('colon')}{code(lang('config_description'))}\n")
     except Exception as e:
         logger.warning(f"Get config message error: {e}", exc_info=True)
 

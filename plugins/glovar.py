@@ -226,6 +226,8 @@ lang: Dict[str, str] = {
     "report_auto": (zh_cn and "自动举报") or "Auto Report",
     "report_manual": (zh_cn and "手动举报") or "Manual Report",
     # Special
+    "button_disabled": (zh_cn and "禁用符号") or "Disabled Symbol",
+    "button enabled": (zh_cn and "启用符号") or "Enabled Symbol",
     "config_code": (zh_cn and "设置编号") or "Config",
     "config_description": ((zh_cn and "请在此进行设置，如设置完毕请点击提交，本会话将在 5 分钟后失效")
                            or ("Please change settings here. If the it is completed, please click Submit. "
