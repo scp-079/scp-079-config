@@ -1012,6 +1012,16 @@ def button_tip(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text=lang("hold"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('hold'))}",
+                        callback_data=button_data("hold", None, not config.get("hold"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text=lang("keyword"),
                         callback_data=button_data("none")
                     ),
