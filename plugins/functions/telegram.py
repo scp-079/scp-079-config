@@ -87,7 +87,7 @@ def edit_message_reply_markup(client: Client, cid: int, mid: int,
                 wait_flood(e)
             except ButtonDataInvalid:
                 logger.warning(f"Edit message {mid} reply markup in {cid} - invalid markup: {markup}")
-            except (ChatAdminRequired, PeerIdInvalid, ChannelInvalid, ChannelPrivate):
+            except (ChannelInvalid, ChannelPrivate, ChatAdminRequired, PeerIdInvalid):
                 return False
     except Exception as e:
         logger.warning(f"Edit message {mid} reply markup in {cid} error: {e}", exc_info=True)
@@ -120,7 +120,7 @@ def edit_message_text(client: Client, cid: int, mid: int, text: str,
                 wait_flood(e)
             except ButtonDataInvalid:
                 logger.warning(f"Edit message {mid} text in {cid} - invalid markup: {markup}")
-            except (ChatAdminRequired, PeerIdInvalid, ChannelInvalid, ChannelPrivate):
+            except (ChannelInvalid, ChannelPrivate, ChatAdminRequired, PeerIdInvalid):
                 return False
     except Exception as e:
         logger.warning(f"Edit message {mid} in {cid} error: {e}", exc_info=True)
@@ -151,10 +151,10 @@ def send_document(client: Client, cid: int, document: str, file_ref: str = None,
                 wait_flood(e)
             except ButtonDataInvalid:
                 logger.warning(f"Send document {document} to {cid} - invalid markup: {markup}")
-            except (ChatAdminRequired, PeerIdInvalid, ChannelInvalid, ChannelPrivate):
+            except (ChannelInvalid, ChannelPrivate, ChatAdminRequired, PeerIdInvalid):
                 return False
     except Exception as e:
-        logger.warning(f"Send document {document} to {cid} error: {e}", exec_info=True)
+        logger.warning(f"Send document {document} to {cid} error: {e}", exc_info=True)
 
     return result
 
@@ -184,7 +184,7 @@ def send_message(client: Client, cid: int, text: str, mid: int = None,
                 wait_flood(e)
             except ButtonDataInvalid:
                 logger.warning(f"Send message to {cid} - invalid markup: {markup}")
-            except (ChatAdminRequired, PeerIdInvalid, ChannelInvalid, ChannelPrivate):
+            except (ChannelInvalid, ChannelPrivate, ChatAdminRequired, PeerIdInvalid):
                 return False
     except Exception as e:
         logger.warning(f"Send message to {cid} error: {e}", exc_info=True)
