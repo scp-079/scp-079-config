@@ -854,6 +854,16 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text=lang("sticker"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('sticker'))}",
+                        callback_data=button_data("sticker", None, not config.get("sticker"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text=lang("bot"),
                         callback_data=button_data("none")
                     ),
