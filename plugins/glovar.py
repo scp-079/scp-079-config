@@ -202,7 +202,7 @@ lang: Dict[str, str] = {
     "avatar": (zh_cn and "头像检查") or "Avatar Inspection",
     "message": (zh_cn and "消息检查") or "Message Inspection",
     "ocr": (zh_cn and "OCR 检查") or "OCR Inspection",
-    "sticker": (zh_cn and "过滤推广贴纸") or "Ban Promotion Sticker",
+    "sticker": (zh_cn and "过滤推广贴纸包") or "Ban Promotion Sticker Set",
     "bot": (zh_cn and "阻止机器人进群") or "Prevent Bot from Joining",
     "new": (zh_cn and "新入群限制") or "Limit the New Joined User",
     "deleter": (zh_cn and "仅删除") or "Delete Only",
