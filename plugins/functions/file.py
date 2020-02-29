@@ -81,16 +81,16 @@ def get_downloaded_path(client: Client, file_id: str, file_ref: str) -> str:
     return final_path
 
 
-def get_new_path(extension: str = "") -> str:
+def get_new_path(extension: str = "", prefix: str = "") -> str:
     # Get a new path in tmp directory
     result = ""
     try:
         file_path = random_str(8)
 
-        while exists(f"tmp/{file_path}{extension}"):
+        while exists(f"tmp/{prefix}{file_path}{extension}"):
             file_path = random_str(8)
 
-        result = f"tmp/{file_path}{extension}"
+        result = f"tmp/{prefix}{file_path}{extension}"
     except Exception as e:
         logger.warning(f"Get new path error: {e}", exc_info=True)
 
@@ -100,7 +100,7 @@ def get_new_path(extension: str = "") -> str:
 def save(file: str) -> bool:
     # Save a global variable to a file
     try:
-        thread(save_thread, (file,))
+        thread(save_thread, (file,), False)
 
         return True
     except Exception as e:
