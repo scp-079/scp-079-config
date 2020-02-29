@@ -4,7 +4,7 @@ This bot is used to manage settings for each bot.
 
 ## How to use
 
-- See [this article](https://scp-079.org/config/) to build a bot by yourself
+- Read [the document](https://scp-079.org/config/) to learn more
 - [README](https://github.com/scp-079/scp-079-readme) of the SCP-079 Project
 - Discuss [group](https://t.me/SCP_079_CHAT)
 

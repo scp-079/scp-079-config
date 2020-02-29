@@ -804,12 +804,52 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text=lang("nick"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('nick'))}",
+                        callback_data=button_data("nick", None, not config.get("nick"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text=lang("bio"),
                         callback_data=button_data("none")
                     ),
                     InlineKeyboardButton(
                         text=f"{(lambda x: '■' if x else '□️')(config.get('bio'))}",
                         callback_data=button_data("bio", None, not config.get("bio"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("avatar"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('avatar'))}",
+                        callback_data=button_data("avatar", None, not config.get("avatar"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("message"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('message'))}",
+                        callback_data=button_data("message", None, not config.get("message"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("ocr"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('ocr'))}",
+                        callback_data=button_data("ocr", None, not config.get("ocr"))
                     )
                 ],
                 [

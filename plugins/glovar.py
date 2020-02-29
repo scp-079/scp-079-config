@@ -197,7 +197,11 @@ lang: Dict[str, str] = {
     # NOPORN
     "noporn_channel": (zh_cn and "过滤频道") or "Filter Restricted Channel Message",
     # NOSPAM
-    "bio": (zh_cn and "简介检查") or "Bio Examination",
+    "nick": (zh_cn and "昵称检查") or "Nick Name Inspection",
+    "bio": (zh_cn and "简介检查") or "Bio Inspection",
+    "avatar": (zh_cn and "头像检查") or "Avatar Inspection",
+    "message": (zh_cn and "消息检查") or "Message Inspection",
+    "ocr": (zh_cn and "OCR 检查") or "OCR Inspection",
     "bot": (zh_cn and "阻止机器人进群") or "Prevent Bot from Joining",
     "new": (zh_cn and "新入群限制") or "Limit the New Joined User",
     "deleter": (zh_cn and "仅删除") or "Delete Only",
@@ -252,7 +256,7 @@ sender: str = "CONFIG"
 
 should_hide: bool = False
 
-version: str = "0.3.2"
+version: str = "0.3.3"
 
 # Load data from pickle
 
