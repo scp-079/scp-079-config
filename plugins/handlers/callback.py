@@ -52,7 +52,7 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
             return True
 
         # Get the key
-        key = callback_query.message.text.split("\n")[0].split("：")[1]
+        key = callback_query.message.text.split("\n")[0].split(lang('colon'))[1]
 
         # Check the key
         if not glovar.configs.get(key):
