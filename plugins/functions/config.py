@@ -24,7 +24,7 @@ from pyrogram import Client, InlineKeyboardButton, InlineKeyboardMarkup
 
 from .. import glovar
 from .channel import share_data
-from .etc import button_data, code, general_link, lang, thread
+from .etc import button_data, code, general_link, get_now, lang, thread
 from .file import save
 from .telegram import edit_message_text, send_message
 
@@ -1462,6 +1462,7 @@ def set_default(key: str) -> bool:
     # Set the config to the default one
     try:
         glovar.configs[key]["config"] = deepcopy(glovar.configs[key]["default"])
+        glovar.configs[key]["config"]["lock"] = get_now()
         save("configs")
 
         return True
