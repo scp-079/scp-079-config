@@ -69,12 +69,12 @@ try:
     prefix = list(config["basic"].get("prefix", prefix_str))
 
     # [channels]
-    config_channel_id = int(config["channels"].get("config_channel_id", config_channel_id))
-    critical_channel_id = int(config["channels"].get("critical_channel_id", critical_channel_id))
-    debug_channel_id = int(config["channels"].get("debug_channel_id", debug_channel_id))
-    exchange_channel_id = int(config["channels"].get("exchange_channel_id", exchange_channel_id))
-    hide_channel_id = int(config["channels"].get("hide_channel_id", hide_channel_id))
-    test_group_id = int(config["channels"].get("test_group_id", test_group_id))
+    config_channel_id = int(config["channels"].get("config_channel_id", str(config_channel_id)))
+    critical_channel_id = int(config["channels"].get("critical_channel_id", str(critical_channel_id)))
+    debug_channel_id = int(config["channels"].get("debug_channel_id", str(debug_channel_id)))
+    exchange_channel_id = int(config["channels"].get("exchange_channel_id", str(exchange_channel_id)))
+    hide_channel_id = int(config["channels"].get("hide_channel_id", str(hide_channel_id)))
+    test_group_id = int(config["channels"].get("test_group_id", str(test_group_id)))
 
     # [custom]
     aio = config["custom"].get("aio", aio)
@@ -148,6 +148,7 @@ lang: Dict[str, str] = {
     "hint": (zh_cn and "入群提示") or "Hint for New Joined User",
     "pass": (zh_cn and "自动免验证") or "Auto Pass",
     "pin": (zh_cn and "自动置顶") or "Auto Pin",
+    "qns": (zh_cn and "自定义问题") or "Custom Question",
     "manual": (zh_cn and "仅手动") or "Manual Only",
     # CLEAN
     "friend": (zh_cn and "放行友链") or "Bypass Friend Links",
