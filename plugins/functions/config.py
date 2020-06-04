@@ -124,6 +124,16 @@ def button_captcha(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
+                        text=lang("qns"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('qns'))}",
+                        callback_data=button_data("qns", None, not config.get("qns"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         text=lang("manual"),
                         callback_data=button_data("none")
                     ),
