@@ -86,8 +86,6 @@ def process_data(client: Client, message: Message) -> bool:
     glovar.locks["receive"].acquire()
 
     try:
-        logger.warning("I can access the exchange channel")
-
         data = receive_text_data(message)
 
         if not data:
@@ -106,7 +104,6 @@ def process_data(client: Client, message: Message) -> bool:
 
                 if action == "config":
                     if action_type == "ask":
-                        logger.warning(f"Received {sender}'s config request")
                         receive_config_ask(client, sender, data)
 
             elif sender == "MANAGE":
