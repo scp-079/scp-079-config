@@ -81,7 +81,10 @@ def exchange_emergency(client: Client, message: Message) -> bool:
                    & exchange_channel)
 def process_data(client: Client, message: Message) -> bool:
     # Process the data in exchange channel
+    result = False
+
     glovar.locks["receive"].acquire()
+
     try:
         # Read basic information
         data = receive_text_data(message)
@@ -97,8 +100,8 @@ def process_data(client: Client, message: Message) -> bool:
 
         if glovar.sender in receivers:
 
-            if sender in {"CAPTCHA", "CLEAN", "LANG", "LONG", "NOFLOOD",
-                          "NOPORN", "NOSPAM", "RECHECK", "TIP", "USER", "WARN"}:
+            if sender in {"CAPTCHA", "CLEAN", "LANG", "LONG", "NOFLOOD", "NOPORN",
+                          "NOSPAM", "TIP", "USER", "WARN"}:
 
                 if action == "config":
                     if action_type == "ask":
@@ -112,10 +115,10 @@ def process_data(client: Client, message: Message) -> bool:
                     elif action_type == "rollback":
                         receive_rollback(client, message, data)
 
-        return True
+        result = True
     except Exception as e:
         logger.warning(f"Process data error: {e}", exc_info=True)
     finally:
         glovar.locks["receive"].release()
 
-    return False
+    return result

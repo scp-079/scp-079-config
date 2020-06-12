@@ -36,6 +36,8 @@ logger = logging.getLogger(__name__)
 
 def receive_config_ask(client: Client, sender: str, data: dict) -> bool:
     # Receive config ask
+    result = False
+
     try:
         # Generate a new config key
         key = random_str(8)
@@ -75,12 +77,13 @@ def receive_config_ask(client: Client, sender: str, data: dict) -> bool:
         else:
             # If something goes wrong, pop the config
             glovar.configs.pop(key, {})
+            logger.warning(f"I can't send the message to the CONFIG channel")
 
-        return True
+        result = True
     except Exception as e:
         logger.warning(f"Receive config ask error: {e}", exc_info=True)
 
-    return False
+    return result
 
 
 def receive_file_data(client: Client, message: Message, decrypt: bool = True) -> Any:
