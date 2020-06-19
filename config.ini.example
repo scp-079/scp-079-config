@@ -27,12 +27,12 @@ hide_channel_id = [DATA EXPUNGED]
 test_group_id = [DATA EXPUNGED]
 
 [custom]
-aio = [DATA EXPUNGED]
-backup = [DATA EXPUNGED]
-date_reset = [DATA EXPUNGED]
+aio = False
+backup = False
+date_reset = 1st mon
 project_link = https://scp-079.org/config/
 project_name = SCP-079-CONFIG
-zh_cn = [DATA EXPUNGED]
+zh_cn = True
 
 [encrypt]
 password = [DATA EXPUNGED]
