@@ -902,36 +902,36 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("deleter", None, not config.get("deleter"))
                     )
                 ],
-                [
-                    InlineKeyboardButton(
-                        text=lang("reporter"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '■' if x else '□️')(config.get('reporter'))}",
-                        callback_data=button_data("reporter", None, not config.get("reporter"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text=lang("scorer"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '■' if x else '□️')(config.get('scorer'))}",
-                        callback_data=button_data("scorer", None, not config.get("scorer"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text=lang("ml"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '■' if x else '□️')(config.get('ml'))}",
-                        callback_data=button_data("ml", None, not config.get("ml"))
-                    )
-                ],
+                # [
+                #     InlineKeyboardButton(
+                #         text=lang("reporter"),
+                #         callback_data=button_data("none")
+                #     ),
+                #     InlineKeyboardButton(
+                #         text=f"{(lambda x: '■' if x else '□️')(config.get('reporter'))}",
+                #         callback_data=button_data("reporter", None, not config.get("reporter"))
+                #     )
+                # ],
+                # [
+                #     InlineKeyboardButton(
+                #         text=lang("scorer"),
+                #         callback_data=button_data("none")
+                #     ),
+                #     InlineKeyboardButton(
+                #         text=f"{(lambda x: '■' if x else '□️')(config.get('scorer'))}",
+                #         callback_data=button_data("scorer", None, not config.get("scorer"))
+                #     )
+                # ],
+                # [
+                #     InlineKeyboardButton(
+                #         text=lang("ml"),
+                #         callback_data=button_data("none")
+                #     ),
+                #     InlineKeyboardButton(
+                #         text=f"{(lambda x: '■' if x else '□️')(config.get('ml'))}",
+                #         callback_data=button_data("ml", None, not config.get("ml"))
+                #     )
+                # ],
                 [
                     InlineKeyboardButton(
                         text=lang("commit"),
