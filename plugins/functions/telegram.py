@@ -17,13 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import logging
-from typing import Optional, Union
+from typing import Iterable, Optional, Union
 
 from pyrogram import Client, InlineKeyboardMarkup, Message
-from pyrogram.errors import ChatAdminRequired, ButtonDataInvalid, ChannelInvalid, ChannelPrivate, FloodWait
-from pyrogram.errors import PeerIdInvalid
+from pyrogram.errors import ChatAdminRequired, ButtonDataInvalid, ButtonUrlInvalid, ChannelInvalid, ChannelPrivate
+from pyrogram.errors import FloodWait, MessageDeleteForbidden, PeerIdInvalid
 
-from .etc import wait_flood
+from .etc import delay, wait_flood
+from .decorators import retry
 
 # Enable logging
 logger = logging.getLogger(__name__)
@@ -46,6 +47,42 @@ def answer_callback(client: Client, query_id: str, text: str) -> Optional[bool]:
                 wait_flood(e)
     except Exception as e:
         logger.warning(f"Answer query to {query_id} error: {e}", exc_info=True)
+
+    return result
+
+
+def delete_messages(client: Client, cid: int, mids: Iterable[int]) -> Optional[bool]:
+    # Delete some messages
+    result = None
+
+    try:
+        mids = list(mids)
+
+        if len(mids) <= 100:
+            return delete_messages_100(client, cid, mids)
+
+        mids_list = [mids[i:i + 100] for i in range(0, len(mids), 100)]
+        result = bool([delete_messages_100(client, cid, mids) for mids in mids_list])
+    except Exception as e:
+        logger.warning(f"Delete messages in {cid} error: {e}", exc_info=True)
+
+    return result
+
+
+@retry
+def delete_messages_100(client: Client, cid: int, mids: Iterable[int]) -> Optional[bool]:
+    # Delete some messages
+    result = None
+
+    try:
+        mids = list(mids)
+        result = client.delete_messages(chat_id=cid, message_ids=mids)
+    except FloodWait as e:
+        raise e
+    except MessageDeleteForbidden:
+        return False
+    except Exception as e:
+        logger.warning(f"Delete messages in {cid} error: {e}", exc_info=True)
 
     return result
 
@@ -188,5 +225,42 @@ def send_message(client: Client, cid: int, text: str, mid: int = None,
                 return False
     except Exception as e:
         logger.warning(f"Send message to {cid} error: {e}", exc_info=True)
+
+    return result
+
+
+@retry
+def send_report_message(secs: int, client: Client, cid: int, text: str, mid: int = None,
+                        markup: InlineKeyboardMarkup = None) -> Optional[bool]:
+    # Send a message that will be auto deleted to a chat
+    result = None
+
+    try:
+        if not text.strip():
+            return None
+
+        result = client.send_message(
+            chat_id=cid,
+            text=text,
+            parse_mode="html",
+            disable_web_page_preview=True,
+            reply_to_message_id=mid,
+            reply_markup=markup
+        )
+
+        if not result:
+            return None
+
+        mid = result.message_id
+        mids = [mid]
+        result = delay(secs, delete_messages, [client, cid, mids])
+    except FloodWait as e:
+        raise e
+    except (ButtonDataInvalid, ButtonUrlInvalid):
+        logger.warning(f"Send report message to {cid} - invalid markup: {markup}")
+    except (ChannelInvalid, ChannelPrivate, ChatAdminRequired, PeerIdInvalid):
+        return None
+    except Exception as e:
+        logger.warning(f"Send report message to {cid} error: {e}", exc_info=True)
 
     return result
