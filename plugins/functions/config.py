@@ -892,16 +892,16 @@ def button_nospam(config: dict) -> Optional[InlineKeyboardMarkup]:
                         callback_data=button_data("new", None, not config.get("new"))
                     )
                 ],
-                [
-                    InlineKeyboardButton(
-                        text=lang("deleter"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '■' if x else '□️')(config.get('deleter'))}",
-                        callback_data=button_data("deleter", None, not config.get("deleter"))
-                    )
-                ],
+                # [
+                #     InlineKeyboardButton(
+                #         text=lang("deleter"),
+                #         callback_data=button_data("none")
+                #     ),
+                #     InlineKeyboardButton(
+                #         text=f"{(lambda x: '■' if x else '□️')(config.get('deleter'))}",
+                #         callback_data=button_data("deleter", None, not config.get("deleter"))
+                #     )
+                # ],
                 # [
                 #     InlineKeyboardButton(
                 #         text=lang("reporter"),
