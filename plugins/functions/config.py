@@ -1052,46 +1052,6 @@ def button_tip(config: dict) -> Optional[InlineKeyboardMarkup]:
                 ],
                 [
                     InlineKeyboardButton(
-                        text=lang("resend"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '■' if x else '□️')(config.get('resend'))}",
-                        callback_data=button_data("resend", None, not config.get("resend"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text=lang("channel"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '■' if x else '□️')(config.get('channel'))}",
-                        callback_data=button_data("channel", None, not config.get("channel"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text=lang("hold"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '■' if x else '□️')(config.get('hold'))}",
-                        callback_data=button_data("hold", None, not config.get("hold"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text=lang("keyword"),
-                        callback_data=button_data("none")
-                    ),
-                    InlineKeyboardButton(
-                        text=f"{(lambda x: '■' if x else '□️')(config.get('keyword'))}",
-                        callback_data=button_data("keyword", None, not config.get("keyword"))
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
                         text=lang("ot"),
                         callback_data=button_data("none")
                     ),
@@ -1118,6 +1078,66 @@ def button_tip(config: dict) -> Optional[InlineKeyboardMarkup]:
                     InlineKeyboardButton(
                         text=f"{(lambda x: '■' if x else '□️')(config.get('welcome'))}",
                         callback_data=button_data("welcome", None, not config.get("welcome"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("keyword"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('keyword'))}",
+                        callback_data=button_data("keyword", None, not config.get("keyword"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("white"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('white'))}",
+                        callback_data=button_data("white", None, not config.get("white"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("cancel"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('cancel'))}",
+                        callback_data=button_data("cancel", None, not config.get("cancel"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("hold"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('hold'))}",
+                        callback_data=button_data("hold", None, not config.get("hold"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("channel"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('channel'))}",
+                        callback_data=button_data("channel", None, not config.get("channel"))
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        text=lang("resend"),
+                        callback_data=button_data("none")
+                    ),
+                    InlineKeyboardButton(
+                        text=f"{(lambda x: '■' if x else '□️')(config.get('resend'))}",
+                        callback_data=button_data("resend", None, not config.get("resend"))
                     )
                 ],
                 [

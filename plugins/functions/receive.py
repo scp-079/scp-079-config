@@ -54,30 +54,30 @@ def receive_config_ask(client: Client, sender: str, data: dict) -> bool:
 
         # Send the config session message
         text, markup = get_config_message(key)
-        sent_message = send_message(client, glovar.config_channel_id, text, None, markup)
+        result = send_message(client, glovar.config_channel_id, text, None, markup)
 
-        if sent_message:
-            # If message is sent, initiate the check process
-            glovar.configs[key]["message_id"] = sent_message.message_id
-            # Reply the bot in the exchange channel, let it send a report in the group
-            group_id = glovar.configs[key]["group_id"]
-            user_id = glovar.configs[key]["user_id"]
-            share_data(
-                client=client,
-                receivers=[sender],
-                action="config",
-                action_type="reply",
-                data={
-                    "group_id": group_id,
-                    "user_id": user_id,
-                    "config_link": message_link(sent_message)
-                }
-            )
-            save("configs")
-        else:
-            # If something goes wrong, pop the config
+        # If something goes wrong, pop the config
+        if not result:
             glovar.configs.pop(key, {})
             logger.warning(f"I can't send the message to the CONFIG channel")
+            return False
+
+        # Initiate the check process
+        glovar.configs[key]["message_id"] = result.message_id
+        group_id = glovar.configs[key]["group_id"]
+        user_id = glovar.configs[key]["user_id"]
+        share_data(
+            client=client,
+            receivers=[sender],
+            action="config",
+            action_type="reply",
+            data={
+                "group_id": group_id,
+                "user_id": user_id,
+                "config_link": message_link(result)
+            }
+        )
+        save("configs")
 
         result = True
     except Exception as e:
@@ -88,7 +88,8 @@ def receive_config_ask(client: Client, sender: str, data: dict) -> bool:
 
 def receive_file_data(client: Client, message: Message, decrypt: bool = True) -> Any:
     # Receive file's data from exchange channel
-    data = None
+    result = None
+
     try:
         if not message.document:
             return None
@@ -111,26 +112,28 @@ def receive_file_data(client: Client, message: Message, decrypt: bool = True) ->
             path_final = path
 
         with open(path_final, "rb") as f:
-            data = pickle.load(f)
+            result = pickle.load(f)
 
         for f in {path, path_decrypted}:
             thread(delete_file, (f,))
     except Exception as e:
         logger.warning(f"Receive file error: {e}", exc_info=True)
 
-    return data
+    return result
 
 
 def receive_rollback(client: Client, message: Message, data: dict) -> bool:
     # Receive rollback data
+    result = False
+
     try:
         # Basic data
         aid = data["admin_id"]
         the_type = data["type"]
         the_data = receive_file_data(client, message)
 
-        if not the_data:
-            return True
+        if the_data is None:
+            return False
 
         exec(f"glovar.{the_type} = the_data")
         save(the_type)
@@ -141,23 +144,26 @@ def receive_rollback(client: Client, message: Message, data: dict) -> bool:
                 f"{lang('action')}{lang('colon')}{code(lang('rollback'))}\n"
                 f"{lang('more')}{lang('colon')}{code(the_type)}\n")
         thread(send_message, (client, glovar.debug_channel_id, text))
+
+        result = True
     except Exception as e:
         logger.warning(f"Receive rollback error: {e}", exc_info=True)
 
-    return False
+    return result
 
 
 def receive_text_data(message: Message) -> dict:
     # Receive text's data from exchange channel
-    data = {}
+    result = {}
+
     try:
         text = get_text(message)
 
         if not text:
             return {}
 
-        data = loads(text)
+        result = loads(text)
     except Exception as e:
         logger.warning(f"Receive text data error: {e}")
 
-    return data
+    return result
