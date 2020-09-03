@@ -23,7 +23,7 @@ from json import loads
 from pyrogram import Client, CallbackQuery
 
 from .. import glovar
-from ..functions.config import commit_change, get_config_message, set_default
+from ..functions.config import commit_change, conflict_config, get_config_message, set_default
 from ..functions.etc import lang, thread
 from ..functions.file import save
 from ..functions.filters import config_channel
@@ -140,6 +140,11 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
             # TIP
             elif config_type == "tip":
                 glovar.configs[key]["config"][action] = data
+                glovar.configs[key]["config"][action] = conflict_config(
+                    config=glovar.configs[key]["config"][action],
+                    config_list=["cancel", "hold"],
+                    master=action
+                )
 
             # USER
             elif config_type == "user":

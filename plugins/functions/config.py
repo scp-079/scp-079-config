@@ -18,7 +18,7 @@
 
 import logging
 from copy import deepcopy
-from typing import Optional
+from typing import List, Optional
 
 from pyrogram import Client, InlineKeyboardButton, InlineKeyboardMarkup
 
@@ -1412,6 +1412,27 @@ def commit_change(client: Client, key: str) -> bool:
         logger.warning(f"Commit change error: {e}", exc_info=True)
 
     return False
+
+
+def conflict_config(config: dict, config_list: List[str], master: str) -> dict:
+    # Conflict config
+    result = config
+
+    try:
+        if master not in config_list:
+            return config
+
+        if not config.get(master, False):
+            return config
+
+        config_list.remove(master)
+
+        for other in config_list:
+            result[other] = False
+    except Exception as e:
+        logger.warning(f"Conflict config error: {e}", exc_info=True)
+
+    return result
 
 
 def get_config_message(key: str) -> (str, Optional[InlineKeyboardMarkup]):
