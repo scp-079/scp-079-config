@@ -140,8 +140,8 @@ def answer(client: Client, callback_query: CallbackQuery) -> bool:
             # TIP
             elif config_type == "tip":
                 glovar.configs[key]["config"][action] = data
-                glovar.configs[key]["config"][action] = conflict_config(
-                    config=glovar.configs[key]["config"][action],
+                glovar.configs[key]["config"] = conflict_config(
+                    config=glovar.configs[key]["config"],
                     config_list=["cancel", "hold"],
                     master=action
                 )
