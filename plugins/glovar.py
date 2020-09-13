@@ -218,6 +218,7 @@ lang: Dict[str, str] = {
     "welcome": (zh_cn and "欢迎信息") or "Welcome Message",
     "keyword": (zh_cn and "关键词提示") or "Custom Keywords",
     "white": "放行白名单",
+    "equal": "平等模式",
     "cancel": "取消置顶",
     "hold": (zh_cn and "保持置顶") or "Hold the Pinned Message",
     "channel": (zh_cn and "入群频道") or "Entry Channel",
